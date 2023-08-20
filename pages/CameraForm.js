@@ -11,13 +11,13 @@ function CameraForm({ navigation, route }) {
 
   //들어오는 paymentData 에 따라 API 설정,
   if (paymentData == "ocr") {
-    API_URL = 'https://31a2-221-154-209-176.ngrok-free.app/ocr';
+    API_URL = 'https://5768-221-154-209-176.ngrok-free.app/ocr/';
   }
   if (paymentData == "foodcnn") {
-    API_URL = 'https://ae31-125-182-48-12.ngrok-free.app/foodcnn/';
+    API_URL = 'https://5768-221-154-209-176.ngrok-free.app/foodcnn/';
   }
   if (paymentData == "stockcnn") {
-    API_URL = 'https://9303-125-182-48-12.ngrok-free.app/stockcnn/';
+    API_URL = 'https://5768-221-154-209-176.ngrok-free.app/stockcnn/';
   }
   console.log("start::" + API_URL);
   const nextStep = () => {
@@ -44,12 +44,6 @@ function CameraForm({ navigation, route }) {
     <CameraPreviewImage photo={capturedImage} />
     if (capturedImage) {
 
-      // const resizedImage = await ImageManipulator.manipulateAsync(
-      //   capturedImage.uri,
-      //   [{ resize: { width: 256, height: 256 } }],
-      //   { format: 'jpeg', compress: 0.8 }
-      // );
-
       const formData = new FormData();
       formData.append('image', {
         uri: capturedImage.uri,
@@ -69,8 +63,15 @@ function CameraForm({ navigation, route }) {
         //다음 페이지로 이동
 
         const responseData = await response.text();
-        console.log(responseData);
-        navigation.navigate('Result', { responseData });
+        console.log("responseData :: " + responseData);
+        if (responseData.idx == -1) {
+          console.log("인식오류");
+        }
+        else {
+          // navigation.navigate('Result', { responseData });
+        }
+        // 실패시 idx:-1 로
+        // 
 
 
         //확인 필요

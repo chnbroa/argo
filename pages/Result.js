@@ -30,13 +30,9 @@ const productJson = {
   "material": ["aspartame", "raw material", "테스트", "ㅁㄴㅇ", "raw material", "테스트", "ㅁㄴㅇ", "raw material", "테스트", "ㅁㄴㅇ", "raw material", "테스트", "ㅁㄴㅇ", "raw material", "테스트", "ㅁㄴㅇ", "raw material", "테스트", "ㅁㄴㅇ", "raw material", "테스트", "ㅁㄴㅇ"]
 };
 
-/**
- * 원재료 페이지 따로 만들기,
- * 디자인 하기
- */
 const Result = ({ navigation, json }) => {
-  // const product = json;
-  const product = productJson;
+  const product = json;
+  // const product = productJson;
 
   const goToMaterialForm = () => {
     navigation.navigate('MaterialForm', {

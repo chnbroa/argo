@@ -44,11 +44,10 @@ function Register4({ navigation }) {
     //여기에 넘어가기전 처리
     const combinedValues = inputFields
       .map((field) => field.value)
-      .filter((field) => field !== "")
-      .join(",");
+      .filter((field) => field !== "");
     info.hate = combinedValues;
     //여기서 fetch
-    const url = "http://localhost:5678/register";
+    const url = "https://5768-221-154-209-176.ngrok-free.app/register/";
 
     try {
       const response = await fetch(url, {

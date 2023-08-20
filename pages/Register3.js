@@ -85,7 +85,7 @@ function Register3({ navigation }) {
 
 
   const nextRegister = () => {
-    info.allergy = allergy.join();
+    info.allergy = allergy;
     //여기에 넘어가기전 처리
     console.log(info);
     navigation.navigate("register4", info);

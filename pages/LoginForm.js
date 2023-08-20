@@ -8,7 +8,7 @@ function LoginForm({ navigation }) {
   };
   const login = async () => {
     //여기에 넘어가기전 처리
-    const url = "http://localhost:5678/login";
+    const url = "https://5768-221-154-209-176.ngrok-free.app/login/";
     let responseData = null;
     try {
       const response = await fetch(url);

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { StyleSheet, Text, View, Button, Alert, TouchableOpacity, ScrollView, Dimensions } from "react-native";
 import { Camera } from 'expo-camera';
-import { ProgressChart } from 'react-native-chart-kit';
+
 
 function MainForm({ navigation }) {
 
@@ -222,49 +222,7 @@ function MainForm({ navigation }) {
         {/* 누적 (칼로리 탄수화물 단백질 지방 )영양성분 차트 */}
         {/* 더보기 버튼 */}
       </View>
-      <ProgressChart
-        data={{
-          labels: ['Calories', 'Carbs', 'Protein', 'Fat'],
-          data: [
-            cumulativeNutrition.kcal / 100,
-            (cumulativeNutrition.glucides + cumulativeNutrition.sugar) / 100,
-            cumulativeNutrition.protein / 100,
-            cumulativeNutrition.fat / 100,
-          ],
-        }}
-        width={Dimensions.get('window').width}
-        height={220}
-        chartConfig={{
-          backgroundColor: '#ffffff',
-          backgroundGradientFrom: '#ffffff',
-          backgroundGradientTo: '#ffffff',
-          color: (opacity = 1) => `rgba(0, 0, 0, ${opacity})`, // Color of chart elements
-          labelColor: (opacity = 1) => `rgba(0, 0, 0, ${opacity})`, // Color of labels
-          style: {
-            borderRadius: 16,
-          },
-          propsForDots: {
-            r: '6',
-            strokeWidth: '2',
-            stroke: '#ffa726',
-          },
-        }}
-        style={{
-          marginVertical: 8,
-          borderRadius: 16,
-        }}
-      />
-      <TouchableOpacity
-        style={styles.moreButton}
-        onPress={() => {
-          // navigation.navigate('CumulativeNutritionPage', {
-          //   cumulativeNutrition: cumulativeNutrition,} );
 
-          console.log(cumulativeNutrition)
-        }}
-      >
-        <Text style={styles.moreButtonText}>더보기</Text>
-      </TouchableOpacity>
     </ScrollView>
   );
 }
