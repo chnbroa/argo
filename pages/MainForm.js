@@ -21,13 +21,15 @@ function MainForm({ navigation }) {
     hate: ["cucumber", "carrot"],
     weight: 70,
     height: 180,
+    kacl: 2200
   });
 
   const [foods, setFoods] = useState([]);
 
   const [cumulativeNutrition, setCumulativeNutrition] = useState({
-    // Add more nutrients here
+
   });
+
 
   // Simulating the received JSON response
   const mockApiResponse = {
@@ -114,7 +116,7 @@ function MainForm({ navigation }) {
       dietaryfiber: 0,
       calcium: 0,
       Iron: 0,
-      magnesium: 0.0,
+      magnesium: 0,
       caffeine: 0,
       Potassium: 0,
       Natrium: 0,
@@ -122,7 +124,6 @@ function MainForm({ navigation }) {
       cholesterol: 0,
       fatty: 0,
       transfat: 0,
-      // Add more nutrients here
     };
 
     return foods.reduce((cumulative, food) => {
@@ -144,11 +145,11 @@ function MainForm({ navigation }) {
     console.log("inner" + Items);
     return await JSON.parse(Items);
   }
-  console.log(getData("userProfile"));
+  // console.log(getData("userProfile"));
 
   useEffect(() => {
     //로그인 --> 회원정보
-    fetch(process.env.EXPO_PUBLIC_URI + "/login/", {
+    fetch(process.env.EXPO_PUBLIC_URI + "/login", {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -158,19 +159,21 @@ function MainForm({ navigation }) {
         return response.json();
       })
       .then((data) => {
-        console.log(data);
+        //저장
+        // saveData("userProfile", data);
         setUserProfile(data);
       })
       .catch((error) => {
+
         console.error("Error fetching user data:", error);
       });
-    console.log(userProfile);
     saveData("userProfile", userProfile);
+    // getData("userProfile").then(data => setUserProfile(data));
 
     //todayfood
 
     // Fetch data from API endpoint here
-    // fetch(process.env.EXPO_PUBLIC_URI + "/todayfood/", {
+    // fetch(process.env.EXPO_PUBLIC_URI + "/todayfood", {
     //   method: "GET",
     //   headers: {
     //     "Content-Type": "application/json",
@@ -179,17 +182,25 @@ function MainForm({ navigation }) {
     // })
     //   .then((response) => response.json())
     //   .then((data) => {
-    //     console.log(data);
-    //     setFoods(data.foods);
+    //     // console.log(data);
+    //     // setFoods(data.foods);
     //   })
     //   .catch((error) => {
     //     console.error("Error fetching food data:", error);
     //   });
 
+
     setFoods(mockApiResponse.foods);
 
-    const calculatedCumulativeNutrition = calculateCumulativeNutrition(foods);
-    setCumulativeNutrition(calculatedCumulativeNutrition);
+
+
+    //비동기 문제 
+    console.log(calculateCumulativeNutrition(mockApiResponse.foods));
+    saveData("Nutrition", calculateCumulativeNutrition(mockApiResponse.foods));
+    //영양성분 불러와서 setCumulativeNutrition 넣어주기
+    getData("Nutrition").then(data => setCumulativeNutrition(data));
+
+    // % 
   }, []);
 
   cameraRoute = async (route) => {
@@ -205,19 +216,12 @@ function MainForm({ navigation }) {
     }
   };
 
-  /**
-   * 오늘 해야할일!!!!
-   *  1. 버튼 수정
-   *  2. JSON으로 이름 설정
-   *  3. JSON으로 오늘 먹은 음식 슬라이드 만들기
-   *  4. 그래프  그리기???!?
-   */
   return (
     <ScrollView style={styles.container}>
       <View style={styles.header}>
         <Text style={styles.headerText}>Hello, {userProfile.name}!</Text>
       </View>
-
+      {console.log(foods.kcal)}
       <View style={styles.section}>
         <Text style={styles.sectionTitle}>검색하기</Text>
         <Text>사진을 통한간편한 인식</Text>

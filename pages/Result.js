@@ -6,7 +6,7 @@ import { useRoute } from '@react-navigation/native';
 
 const productJson = {
   "idx": 21,
-  "name": "바나나킥",
+  "name": "바나나킥12",
   "nutrition": {
     "kcal": 40.4,
     "protein": 10.1,
@@ -23,23 +23,49 @@ const productJson = {
     "vitamins": 10.1,
     "cholesterol": 10.1,
     "fatty": 10.1,
-    "transfat": 10.1
+    "transfat": 10.1,
   },
   "date": "YYYY-MM-DD",
   "hate": ["hazard", "substance"],
   "allergy": [],
-  "material": ["aspartame", "raw material", "테스트", "ㅁㄴㅇ", "raw material", "테스트", "ㅁㄴㅇ", "raw material", "테스트", "ㅁㄴㅇ", "raw material", "테스트", "ㅁㄴㅇ", "raw material", "테스트", "ㅁㄴㅇ", "raw material", "테스트", "ㅁㄴㅇ", "raw material", "테스트", "ㅁㄴㅇ"]
+  "material": ["aspartame", "raw material", "테스트", "ㅁㄴㅇ", "raw material", "테스트", "ㅁㄴㅇ", "raw material", "테스트", "ㅁㄴㅇ", "raw material", "테스트", "ㅁㄴㅇ", "raw material", "테스트", "ㅁㄴㅇ", "raw material", "테스트", "ㅁㄴㅇ", "raw material", "테스트", "ㅁㄴㅇ"],
+  "prompt": "GPT 솔루션 ."
 };
 
 const Result = ({ navigation }) => {
-  // const product = useRoute().params.responseData;
-  const nextStep = () => {
-    //여기에 넘어가기전 처리
+  const product = useRoute().params.responseData;
+  const saveBtn = () => {
+
     navigation.navigate("MainForm");
   };
 
-  const product = productJson;
-  // console.log(product.responseData);
+  const deleteBtn = (idx) => {
+    fetch(`${process.env.EXPO_PUBLIC_URI}/delete?idx=${idx}`)
+      .then(response => {
+        return response.json();
+      })
+      .then(data => {
+        if (data.code == 200) {
+          console.log("result_deleteBtn");
+          navigation.navigate("MainForm");
+        }
+        else {
+          console.log("delete code error ");
+        }
+      })
+      .catch(error => {
+        console.error("delete error:", error);
+      });
+
+    // Navigate to the "MainForm" page
+    //테스트
+    // navigation.navigate("MainForm");
+  };
+
+
+  // const product = productJson;
+
+  console.log(product.responseData);
   const goToMaterialForm = () => {
     navigation.navigate('MaterialForm', {
       name: product.name,
@@ -55,11 +81,7 @@ const Result = ({ navigation }) => {
         <Text style={styles.headerText}>{product.name}</Text>
       </View>
       <View style={styles.section}>
-        <Text style={styles.sectionTitle}>해당음식은 당류가 매우 높게 측정되었습니다.  섭취시
-          주의가 필요합니다. 해당 음식을 3개 이상 섭취시 일일
-          권장량을 초과할 수 있습니다.
-
-        </Text>
+        <Text style={styles.sectionTitle}>{product.prompt}</Text>
       </View>
       <View style={styles.section}>
         <Text style={styles.sectionTitle}>Allergens and Hates:</Text>
@@ -80,7 +102,7 @@ const Result = ({ navigation }) => {
           <View style={styles.box}>
             <View style={styles.iconContainer}>
               <MaterialCommunityIcons name="alert" size={20} style={styles.icon} />
-              <Text style={styles.iconText}>유해물질</Text>
+              <Text style={styles.iconText}>주의물질</Text>
             </View>
             <View style={styles.tableItems}>
               {product.hate.map((item, index) => (
@@ -108,10 +130,10 @@ const Result = ({ navigation }) => {
         {/* 취소 버튼만 따로 스타일 */}
         {/* 취소시 --> 요청 --> 메인 */}
         {/* 저장시 --> 메인 */}
-        <TouchableOpacity style={[styles.bottomButton, { backgroundColor: '#f79c9b' }]} onPress="">
+        <TouchableOpacity style={[styles.bottomButton, { backgroundColor: '#f79c9b' }]} onPress={() => deleteBtn(product.idx)}>
           <Text style={styles.bottomButtonText}>취소</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.bottomButton} onPress={nextStep}>
+        <TouchableOpacity style={styles.bottomButton} onPress={saveBtn}>
           <Text style={styles.bottomButtonText}>저장</Text>
         </TouchableOpacity>
       </View>

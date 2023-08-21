@@ -46,7 +46,7 @@ function Register4({ navigation }) {
       .filter((field) => field !== "");
     info.hate = combinedValues;
     //여기서 fetch
-    const url = process.env.EXPO_PUBLIC_URI + "/register/";
+    const url = process.env.EXPO_PUBLIC_URI + "/register";
 
     try {
       const response = await fetch(url, {

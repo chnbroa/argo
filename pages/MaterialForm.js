@@ -10,28 +10,21 @@ const MaterialForm = () => {
 
   const [summaries, setSummaries] = useState({}); // Store summaries for each item
 
-  //요청 예시
-  const fetchSummary = async (item) => {
-    try {
-
-      const response = await fetch(`/material?name=${item}`);
-      const data = await response.json();
-
-      // 요청 보내기
-      setSummaries(prevSummaries => ({
-        ...prevSummaries,
-        [item]: data.summary,
-      }));
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
   //테스트 예시 
   const showSummaryAlert = (item) => {
     console.log(`/material?name=${item}`);
-    const summary = summaries[item] || 'TEST';
-    Alert.alert(`${item}`, summary);
+
+    fetch(`${process.env.EXPO_PUBLIC_URI}/material?name=${item}`)
+      .then(response => {
+        return response.json();
+      })
+      .then(data => {
+        Alert.alert(`${item}`, data.summary);
+      })
+      .catch(error => {
+        console.error("material error:", error);
+      });
+
   };
 
 

@@ -1,7 +1,12 @@
+
 import { StyleSheet, Text, TextInput, View, Image } from "react-native";
 import ButtonComponent from "../components/ButtonComponent";
 
+
+
+
 function Register1({ navigation }) {
+
   const info = {
     name: "",
     age: 0,

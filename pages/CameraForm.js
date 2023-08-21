@@ -15,19 +15,21 @@ function CameraForm({ navigation, route }) {
 
   //들어오는 paymentData 에 따라 API 설정,
   if (paymentData == "ocr") {
-    API_URL = process.env.EXPO_PUBLIC_URI + "/ocr/";
+    API_URL = process.env.EXPO_PUBLIC_URI + "/ocr";
   }
   if (paymentData == "foodcnn") {
-    API_URL = process.env.EXPO_PUBLIC_URI + "/foodcnn/";
+    API_URL = process.env.EXPO_PUBLIC_URI + "/foodcnn";
   }
   if (paymentData == "stockcnn") {
-    API_URL = process.env.EXPO_PUBLIC_URI + "/stockcnn/";
+    API_URL = process.env.EXPO_PUBLIC_URI + "/stockcnn";
   }
   console.log("start::" + API_URL);
+
   const nextStep = () => {
     //여기에 넘어가기전 처리
     navigation.navigate("LoginForm");
   };
+
   const cameraRef = useRef(null);
   const [isPreviewVisible, setPreviewVisible] = useState(false);
   const [capturedImage, setCapturedImage] = useState(null);
@@ -64,15 +66,13 @@ function CameraForm({ navigation, route }) {
         // 서버로부터 받은 응답 처리
         //다음 페이지로 이동
 
-        const responseData = await response.text();
-        console.log("responseData :: " + responseData);
+        const responseData = await response.json();
+        // console.log("responseData :: " + responseData);
         if (responseData.idx == -1) {
           console.log("인식오류");
         } else {
-          // navigation.navigate('Result', { responseData });
+          navigation.navigate('Result', { responseData });
         }
-        // 실패시 idx:-1 로
-        //
 
         //확인 필요
         setPreviewVisible(false);
