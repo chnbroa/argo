@@ -11,6 +11,7 @@ import {
 } from "react-native";
 import { Camera } from "expo-camera";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import ButtonComponent from "../components/ButtonComponent";
 function MainForm({ navigation }) {
   const [userProfile, setUserProfile] = useState({
     name: "홍길동",
@@ -264,6 +265,16 @@ function MainForm({ navigation }) {
         <Text>누적 영양성분 확인</Text>
         {/* 누적 (칼로리 탄수화물 단백질 지방 )영양성분 차트 */}
         {/* 더보기 버튼 */}
+      </View>
+      <View style={styles.section}>
+        <Text style={styles.sectionTitle}>오늘의 레시피</Text>
+        <Text>인공지능 챗봇으로 레시피제작</Text>
+        <ButtonComponent
+          title="챗봇"
+          onPress={() => {
+            navigation.navigate("Chat");
+          }}
+        ></ButtonComponent>
       </View>
     </ScrollView>
   );

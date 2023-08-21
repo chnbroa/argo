@@ -8,12 +8,11 @@ import Register3 from "./pages/Register3";
 import Register4 from "./pages/Register4";
 import MainForm from "./pages/MainForm";
 
-
-import CameraForm from "./pages/CameraForm"
+import CameraForm from "./pages/CameraForm";
 import Result from "./pages/Result";
-import MaterialForm from "./pages/MaterialForm"
+import MaterialForm from "./pages/MaterialForm";
+import Chat from "./pages/Chat";
 const Stack = createNativeStackNavigator();
-
 
 export default function App() {
   return (
@@ -50,7 +49,6 @@ export default function App() {
           component={Register4}
         />
 
-
         {/* 추가 */}
         <Stack.Screen
           name="MainForm"
@@ -74,11 +72,15 @@ export default function App() {
           options={{ headerShown: false }}
           component={MaterialForm}
         />
+
+        <Stack.Screen
+          name="Chat"
+          options={{ headerShown: false }}
+          component={Chat}
+        />
       </Stack.Navigator>
     </NavigationContainer>
   );
 }
-
-
 
 const styles = StyleSheet.create();
