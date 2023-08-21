@@ -1,5 +1,6 @@
 import { StyleSheet, Text, View, TextInput } from "react-native";
 import ButtonComponent from "../components/ButtonComponent";
+import { URI } from "@env";
 
 function LoginForm({ navigation }) {
   const register = () => {
@@ -8,7 +9,8 @@ function LoginForm({ navigation }) {
   };
   const login = async () => {
     //여기에 넘어가기전 처리
-    const url = "https://5768-221-154-209-176.ngrok-free.app/login/";
+    const url = URI + "/login/";
+    console.log(url);
     let responseData = null;
     try {
       const response = await fetch(url);
@@ -25,13 +27,10 @@ function LoginForm({ navigation }) {
     navigation.navigate("MainForm", responseData);
   };
 
-
-
   const result = () => {
     //여기에 넘어가기전 처리
     navigation.navigate("Result");
   };
-
 
   return (
     <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>

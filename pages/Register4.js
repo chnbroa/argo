@@ -10,6 +10,7 @@ import {
 import ButtonComponent from "../components/ButtonComponent";
 import { useRoute } from "@react-navigation/native";
 import { useState } from "react";
+import { URI } from "@env";
 
 function Register4({ navigation }) {
   //파라미터 input 처리
@@ -17,7 +18,6 @@ function Register4({ navigation }) {
 
   //TextInput추가에 따른 처리
   const [inputFields, setInputFields] = useState([{ value: "" }]);
-
 
   const handleInputChange = (text, index) => {
     const newInputFields = [...inputFields];
@@ -47,7 +47,7 @@ function Register4({ navigation }) {
       .filter((field) => field !== "");
     info.hate = combinedValues;
     //여기서 fetch
-    const url = "https://5768-221-154-209-176.ngrok-free.app/register/";
+    const url = URI + "/register/";
 
     try {
       const response = await fetch(url, {
