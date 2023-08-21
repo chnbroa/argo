@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { View, Text, ScrollView, StyleSheet, Image, TouchableOpacity } from 'react-native';
 import { MaterialCommunityIcons } from '@expo/vector-icons'
+import { useRoute } from '@react-navigation/native';
 
 
 const productJson = {
@@ -30,10 +31,15 @@ const productJson = {
   "material": ["aspartame", "raw material", "테스트", "ㅁㄴㅇ", "raw material", "테스트", "ㅁㄴㅇ", "raw material", "테스트", "ㅁㄴㅇ", "raw material", "테스트", "ㅁㄴㅇ", "raw material", "테스트", "ㅁㄴㅇ", "raw material", "테스트", "ㅁㄴㅇ", "raw material", "테스트", "ㅁㄴㅇ"]
 };
 
-const Result = ({ navigation, json }) => {
-  const product = json;
-  // const product = productJson;
+const Result = ({ navigation }) => {
+  // const product = useRoute().params.responseData;
+  const nextStep = () => {
+    //여기에 넘어가기전 처리
+    navigation.navigate("MainForm");
+  };
 
+  const product = productJson;
+  // console.log(product.responseData);
   const goToMaterialForm = () => {
     navigation.navigate('MaterialForm', {
       name: product.name,
@@ -51,7 +57,9 @@ const Result = ({ navigation, json }) => {
       <View style={styles.section}>
         <Text style={styles.sectionTitle}>해당음식은 당류가 매우 높게 측정되었습니다.  섭취시
           주의가 필요합니다. 해당 음식을 3개 이상 섭취시 일일
-          권장량을 초과할 수 있습니다. </Text>
+          권장량을 초과할 수 있습니다.
+
+        </Text>
       </View>
       <View style={styles.section}>
         <Text style={styles.sectionTitle}>Allergens and Hates:</Text>
@@ -103,7 +111,7 @@ const Result = ({ navigation, json }) => {
         <TouchableOpacity style={[styles.bottomButton, { backgroundColor: '#f79c9b' }]} onPress="">
           <Text style={styles.bottomButtonText}>취소</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.bottomButton} onPress="">
+        <TouchableOpacity style={styles.bottomButton} onPress={nextStep}>
           <Text style={styles.bottomButtonText}>저장</Text>
         </TouchableOpacity>
       </View>

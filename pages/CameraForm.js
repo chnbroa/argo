@@ -62,13 +62,20 @@ function CameraForm({ navigation, route }) {
         // 서버로부터 받은 응답 처리
         //다음 페이지로 이동
 
-        const responseData = await response.text();
-        console.log("responseData :: " + responseData);
+        const responseData = await response.json();
+        console.log("responseData :: " + responseData.name);
         if (responseData.idx == -1) {
           console.log("인식오류");
+
+
         }
         else {
-          // navigation.navigate('Result', { responseData });
+
+          //받고 
+          //투데이 값요청 (계산하고)
+          //gpt
+
+          navigation.navigate('Result', { responseData });
         }
         // 실패시 idx:-1 로
         // 

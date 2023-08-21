@@ -124,6 +124,7 @@ function MainForm({ navigation }) {
         cumulative[nutrient] = (cumulative[nutrient] || 0) + food.nutrition[nutrient];
         cumulative[nutrient] = parseFloat(cumulative[nutrient].toFixed(2));
       });
+
       return cumulative;
     }, initialCumulativeNutrition);
   };
@@ -132,13 +133,14 @@ function MainForm({ navigation }) {
 
   useEffect(() => {
 
-    const calculatedCumulativeNutrition = calculateCumulativeNutrition(mockApiResponse.foods);
-    setCumulativeNutrition(calculatedCumulativeNutrition);
 
+    //로그인 --> 회원정보
+
+    //todayfood
 
     // Fetch data from API endpoint here
-    // fetch("/todayfood", {
-    //   method: "POST",
+    // fetch("https://5768-221-154-209-176.ngrok-free.app/todayfood/", {
+    //   method: "GET",
     //   headers: {
     //     "Content-Type": "application/json",
     //   },
@@ -146,7 +148,7 @@ function MainForm({ navigation }) {
     // })
     //   .then((response) => response.json())
     //   .then((data) => {
-    //     // Update the foods state with the received data
+    //     console.log(data);
     //     setFoods(data.foods);
     //   })
     //   .catch((error) => {
@@ -154,6 +156,11 @@ function MainForm({ navigation }) {
     //   });
 
     setFoods(mockApiResponse.foods);
+
+
+
+    const calculatedCumulativeNutrition = calculateCumulativeNutrition(foods);
+    setCumulativeNutrition(calculatedCumulativeNutrition);
   }, []);
 
   cameraRoute = async (route) => {
@@ -268,7 +275,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
   foodList: {
-    flexGrow: 0.42,
+    flexGrow: 0.38,
   },
   scrollViewContent: {
     alignItems: 'center',
