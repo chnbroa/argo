@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { View, Text, TouchableOpacity, Alert, ScrollView } from 'react-native';
 import { useRoute } from '@react-navigation/native';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
@@ -8,9 +8,6 @@ const MaterialForm = () => {
   const route = useRoute();
   const { name, material } = route.params;
 
-  const [summaries, setSummaries] = useState({}); // Store summaries for each item
-
-  //테스트 예시 
   const showSummaryAlert = (item) => {
     console.log(`/material?name=${item}`);
 
