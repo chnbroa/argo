@@ -1,6 +1,5 @@
 import { StyleSheet, Text, View, TextInput } from "react-native";
 import ButtonComponent from "../components/ButtonComponent";
-import { URI } from "@env";
 
 function LoginForm({ navigation }) {
   const register = () => {
@@ -9,22 +8,8 @@ function LoginForm({ navigation }) {
   };
   const login = async () => {
     //여기에 넘어가기전 처리
-    const url = URI + "/login/";
-    console.log(url);
-    let responseData = null;
-    try {
-      const response = await fetch(url);
-      if (!response.ok) {
-        //실패시 코드
-        throw new Error(`HTTP error! Status: ${response.status}`);
-      }
-      responseData = await response.json();
-    } catch (error) {
-      console.error("Error sending API request:", error);
-    }
-    console.log(responseData);
 
-    navigation.navigate("MainForm", responseData);
+    navigation.navigate("MainForm");
   };
 
   const result = () => {

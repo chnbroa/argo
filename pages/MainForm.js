@@ -10,8 +10,6 @@ import {
   Dimensions,
 } from "react-native";
 import { Camera } from "expo-camera";
-import { URI } from "@env";
-
 function MainForm({ navigation }) {
   const [userProfile, setUserProfile] = useState({
     name: "홍길동",
@@ -138,11 +136,27 @@ function MainForm({ navigation }) {
 
   useEffect(() => {
     //로그인 --> 회원정보
+    fetch(process.env.EXPO_PUBLIC_URI + "/login/", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((response) => {
+        return response.json();
+      })
+      .then((data) => {
+        console.log(data);
+        setUserProfile(data);
+      })
+      .catch((error) => {
+        console.error("Error fetching user data:", error);
+      });
 
     //todayfood
 
     // Fetch data from API endpoint here
-    // fetch(URI + "/todayfood/", {
+    // fetch(process.env.EXPO_PUBLIC_URI + "/todayfood/", {
     //   method: "GET",
     //   headers: {
     //     "Content-Type": "application/json",

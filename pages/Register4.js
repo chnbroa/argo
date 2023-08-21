@@ -10,7 +10,6 @@ import {
 import ButtonComponent from "../components/ButtonComponent";
 import { useRoute } from "@react-navigation/native";
 import { useState } from "react";
-import { URI } from "@env";
 
 function Register4({ navigation }) {
   //파라미터 input 처리
@@ -47,7 +46,7 @@ function Register4({ navigation }) {
       .filter((field) => field !== "");
     info.hate = combinedValues;
     //여기서 fetch
-    const url = URI + "/register/";
+    const url = process.env.EXPO_PUBLIC_URI + "/register/";
 
     try {
       const response = await fetch(url, {

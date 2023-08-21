@@ -9,20 +9,19 @@ import {
 } from "react-native";
 import { Camera } from "expo-camera";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
-import { URI } from "@env";
 
 function CameraForm({ navigation, route }) {
   const paymentData = route.params.key;
 
   //들어오는 paymentData 에 따라 API 설정,
   if (paymentData == "ocr") {
-    API_URL = URI + "/ocr/";
+    API_URL = process.env.EXPO_PUBLIC_URI + "/ocr/";
   }
   if (paymentData == "foodcnn") {
-    API_URL = URI + "/foodcnn/";
+    API_URL = process.env.EXPO_PUBLIC_URI + "/foodcnn/";
   }
   if (paymentData == "stockcnn") {
-    API_URL = URI + "/stockcnn/";
+    API_URL = process.env.EXPO_PUBLIC_URI + "/stockcnn/";
   }
   console.log("start::" + API_URL);
   const nextStep = () => {
