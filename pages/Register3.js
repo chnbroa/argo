@@ -69,7 +69,7 @@ function Register3({ navigation }) {
     const row = (
       <View key={i} style={styles.checkboxRow}>
         {rowItems.map((item) => (
-          <View style={styles.check}>
+          <View key={item.id} style={styles.check}>
             <Checkbox.Item
               key={item.id}
               label={item.label}
@@ -82,7 +82,6 @@ function Register3({ navigation }) {
     );
     rows.push(row);
   }
-
 
   const nextRegister = () => {
     info.allergy = allergy;
