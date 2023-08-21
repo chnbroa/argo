@@ -10,6 +10,7 @@ import {
   Dimensions,
 } from "react-native";
 import { Camera } from "expo-camera";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 function MainForm({ navigation }) {
   const [userProfile, setUserProfile] = useState({
     name: "홍길동",
@@ -134,6 +135,16 @@ function MainForm({ navigation }) {
     }, initialCumulativeNutrition);
   };
 
+  async function saveData(name, data) {
+    await AsyncStorage.setItem(name, JSON.stringify(data));
+  }
+  async function getData(name) {
+    const Items = await AsyncStorage.getItem(name);
+    console.log("inner" + Items);
+    return await JSON.parse(Items);
+  }
+  console.log(getData("userProfile"));
+
   useEffect(() => {
     //로그인 --> 회원정보
     fetch(process.env.EXPO_PUBLIC_URI + "/login/", {
@@ -152,6 +163,8 @@ function MainForm({ navigation }) {
       .catch((error) => {
         console.error("Error fetching user data:", error);
       });
+    console.log(userProfile);
+    saveData("userProfile", userProfile);
 
     //todayfood
 
