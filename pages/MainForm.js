@@ -26,10 +26,8 @@ function MainForm({ navigation }) {
 
   const [foods, setFoods] = useState([]);
 
-  const [cumulativeNutrition, setCumulativeNutrition] = useState({
-
-  });
-
+  const [cumulativeNutrition, setCumulativeNutrition] = useState({});
+  const [dbPercentNutrition, setDbPercentNutrition] = useState({});
 
   // Simulating the received JSON response
   const mockApiResponse = {
@@ -44,14 +42,14 @@ function MainForm({ navigation }) {
           sugar: 10.1,
           dietaryfiber: 10.1,
           calcium: 10.1,
-          Iron: 10.1,
+          Iron: 0,
           magnesium: 10.1,
           caffeine: 10.1,
           Potassium: 10.1,
           Natrium: 10.1,
           vitamin: 10.1,
           cholesterol: 10.1,
-          fatty: 10.1,
+          fatty: 0,
           transfat: 10.1,
         },
         date: "YYYY-MM-DD",
@@ -67,7 +65,7 @@ function MainForm({ navigation }) {
           sugar: 10.1,
           dietaryfiber: 10.1,
           calcium: 10.1,
-          Iron: 10.1,
+          Iron: 0,
           magnesium: 10.1,
           caffeine: 10.1,
           Potassium: 10.1,
@@ -90,7 +88,7 @@ function MainForm({ navigation }) {
           sugar: 10.1,
           dietaryfiber: 10.1,
           calcium: 10.1,
-          Iron: 10.1,
+          Iron: 0,
           magnesium: 10.1,
           caffeine: 10.1,
           Potassium: 10.1,
@@ -108,22 +106,22 @@ function MainForm({ navigation }) {
 
   const calculateCumulativeNutrition = (foods) => {
     const initialCumulativeNutrition = {
-      kcal: 0,
-      protein: 0,
-      fat: 0,
-      glucides: 0,
-      sugar: 0,
-      dietaryfiber: 0,
-      calcium: 0,
-      Iron: 0,
-      magnesium: 0,
-      caffeine: 0,
-      Potassium: 0,
-      Natrium: 0,
-      vitamin: 0,
-      cholesterol: 0,
-      fatty: 0,
-      transfat: 0,
+      kcal: 0, //에너지
+      protein: 0, //단백질
+      fat: 0, // 지방
+      glucides: 0, //탄수화물
+      sugar: 0, //총 당류
+      dietaryfiber: 0, // 총 식이섬유
+      calcium: 0, // 칼슘
+      Iron: 0, //철
+      magnesium: 0, // 마그네슘
+      caffeine: 0, // 카페인
+      Potassium: 0, // 칼륨
+      Natrium: 0, // 나트륨
+      vitamin: 0, // 비타민
+      cholesterol: 0, //콜레스테롤
+      fatty: 0,// 총 지방산
+      transfat: 0, //트랜스 지방
     };
 
     return foods.reduce((cumulative, food) => {
@@ -136,6 +134,35 @@ function MainForm({ navigation }) {
       return cumulative;
     }, initialCumulativeNutrition);
   };
+  const percentNutrition = (savedNutrition) => {
+
+    const dailyRecommendedNutrition = {
+      // kacl 로그인에서 가져오기
+      kcal: userProfile.kacl, //에너지
+      protein: 55, //단백질
+      fat: 54, // 지방
+      glucides: 324, //탄수화물
+      sugar: 100, // 당류
+      dietaryfiber: 25, // 총 식이섬유
+      calcium: 700, // 칼슘
+      Iron: 12, //철
+      magnesium: 315, // 마그네슘
+      Potassium: 3500, // 칼륨
+      Natrium: 2000, // 나트륨
+      cholesterol: 300, //콜레스테롤
+      fatty: 15,// 총 지방산 (포화지방산??)
+
+    };
+
+    const nutritionPercentages = {};
+    Object.keys(savedNutrition).forEach((nutrient) => {
+      if (dailyRecommendedNutrition[nutrient]) {
+        const percentage = (savedNutrition[nutrient] / dailyRecommendedNutrition[nutrient]) * 100;
+        nutritionPercentages[nutrient] = Math.round(percentage * 10) / 10;
+      }
+    });
+    return nutritionPercentages;
+  }
 
   async function saveData(name, data) {
     await AsyncStorage.setItem(name, JSON.stringify(data));
@@ -198,9 +225,25 @@ function MainForm({ navigation }) {
     console.log(calculateCumulativeNutrition(mockApiResponse.foods));
     saveData("Nutrition", calculateCumulativeNutrition(mockApiResponse.foods));
     //영양성분 불러와서 setCumulativeNutrition 넣어주기
-    getData("Nutrition").then(data => setCumulativeNutrition(data));
+    getData("Nutrition").then(data => {
+      setCumulativeNutrition(data)
 
-    // % 
+      //percent 계산
+      const nutritionPercentages = percentNutrition(data);
+      console.log("Nutrition Percentages:", nutritionPercentages);
+
+      //percent 저장
+      saveData("percentNutrition", nutritionPercentages);
+
+      //percent 가져오기
+      getData("percentNutrition").then(data => {
+        setDbPercentNutrition(data);
+      });
+    });
+
+
+
+
   }, []);
 
   cameraRoute = async (route) => {
@@ -214,6 +257,7 @@ function MainForm({ navigation }) {
     } else {
       Alert.alert("카메라 접근 허용은 필수입니다.");
     }
+
   };
 
   return (
