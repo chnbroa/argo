@@ -12,6 +12,7 @@ import {
 import { Camera } from "expo-camera";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import ButtonComponent from "../components/ButtonComponent";
+import { getData, saveData } from "../modules/storagy-service";
 function MainForm({ navigation }) {
   const [userProfile, setUserProfile] = useState({
     name: "홍길동",
@@ -21,7 +22,7 @@ function MainForm({ navigation }) {
     hate: ["cucumber", "carrot"],
     weight: 70,
     height: 180,
-    kacl: 2200
+    kacl: 2200,
   });
 
   const [foods, setFoods] = useState([]);
@@ -120,7 +121,7 @@ function MainForm({ navigation }) {
       Natrium: 0, // 나트륨
       vitamin: 0, // 비타민
       cholesterol: 0, //콜레스테롤
-      fatty: 0,// 총 지방산
+      fatty: 0, // 총 지방산
       transfat: 0, //트랜스 지방
     };
 
@@ -135,7 +136,6 @@ function MainForm({ navigation }) {
     }, initialCumulativeNutrition);
   };
   const percentNutrition = (savedNutrition) => {
-
     const dailyRecommendedNutrition = {
       // kacl 로그인에서 가져오기
       kcal: userProfile.kacl, //에너지
@@ -150,28 +150,21 @@ function MainForm({ navigation }) {
       Potassium: 3500, // 칼륨
       Natrium: 2000, // 나트륨
       cholesterol: 300, //콜레스테롤
-      fatty: 15,// 총 지방산 (포화지방산??)
-
+      fatty: 15, // 총 지방산 (포화지방산??)
     };
 
     const nutritionPercentages = {};
     Object.keys(savedNutrition).forEach((nutrient) => {
       if (dailyRecommendedNutrition[nutrient]) {
-        const percentage = (savedNutrition[nutrient] / dailyRecommendedNutrition[nutrient]) * 100;
+        const percentage =
+          (savedNutrition[nutrient] / dailyRecommendedNutrition[nutrient]) *
+          100;
         nutritionPercentages[nutrient] = Math.round(percentage * 10) / 10;
       }
     });
     return nutritionPercentages;
-  }
+  };
 
-  async function saveData(name, data) {
-    await AsyncStorage.setItem(name, JSON.stringify(data));
-  }
-  async function getData(name) {
-    const Items = await AsyncStorage.getItem(name);
-    console.log("inner" + Items);
-    return await JSON.parse(Items);
-  }
   // console.log(getData("userProfile"));
 
   useEffect(() => {
@@ -191,7 +184,6 @@ function MainForm({ navigation }) {
         setUserProfile(data);
       })
       .catch((error) => {
-
         console.error("Error fetching user data:", error);
       });
     saveData("userProfile", userProfile);
@@ -216,17 +208,14 @@ function MainForm({ navigation }) {
     //     console.error("Error fetching food data:", error);
     //   });
 
-
     setFoods(mockApiResponse.foods);
 
-
-
-    //비동기 문제 
+    //비동기 문제
     console.log(calculateCumulativeNutrition(mockApiResponse.foods));
     saveData("Nutrition", calculateCumulativeNutrition(mockApiResponse.foods));
     //영양성분 불러와서 setCumulativeNutrition 넣어주기
-    getData("Nutrition").then(data => {
-      setCumulativeNutrition(data)
+    getData("Nutrition").then((data) => {
+      setCumulativeNutrition(data);
 
       //percent 계산
       const nutritionPercentages = percentNutrition(data);
@@ -236,14 +225,10 @@ function MainForm({ navigation }) {
       saveData("percentNutrition", nutritionPercentages);
 
       //percent 가져오기
-      getData("percentNutrition").then(data => {
+      getData("percentNutrition").then((data) => {
         setDbPercentNutrition(data);
       });
     });
-
-
-
-
   }, []);
 
   cameraRoute = async (route) => {
@@ -257,7 +242,6 @@ function MainForm({ navigation }) {
     } else {
       Alert.alert("카메라 접근 허용은 필수입니다.");
     }
-
   };
 
   return (
