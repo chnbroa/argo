@@ -6,6 +6,7 @@ import {
   StyleSheet,
   Image,
   TouchableOpacity,
+  Vibration,
 } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { useRoute } from "@react-navigation/native";
@@ -35,7 +36,7 @@ const productJson = {
   date: "YYYY-MM-DD",
   hate: ["hazard", "substance"],
   allergy: ["오렌지", "땅콩"],
-  userallergy: ["땅콩"],
+  userallergy: ["오"],
   material: [
     "aspartame",
     "raw material",
@@ -103,6 +104,7 @@ const Result = ({ navigation }) => {
     });
   };
 
+  Vibration.vibrate();
   return (
     <ScrollView
       contentContainerStyle={styles.container}
@@ -129,7 +131,10 @@ const Result = ({ navigation }) => {
             <View style={styles.tableItems}>
               {product.allergy.map((item, index) => (
                 <View key={index} style={styles.tableItem}>
-                  <Text>{item}</Text>
+                  {product.userallergy.includes(item) && (
+                    <Text style={{ color: "red" }}>{item}</Text>
+                  )}
+                  {!product.userallergy.includes(item) && <Text>{item}</Text>}
                 </View>
               ))}
             </View>
