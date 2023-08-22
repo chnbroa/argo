@@ -1,59 +1,87 @@
-import React, { useState } from 'react';
-import { View, Text, ScrollView, StyleSheet, Image, TouchableOpacity } from 'react-native';
-import { MaterialCommunityIcons } from '@expo/vector-icons'
-import { useRoute } from '@react-navigation/native';
-
+import React, { useState } from "react";
+import {
+  View,
+  Text,
+  ScrollView,
+  StyleSheet,
+  Image,
+  TouchableOpacity,
+} from "react-native";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
+import { useRoute } from "@react-navigation/native";
 
 const productJson = {
-  "idx": 21,
-  "name": "바나나킥12",
-  "nutrition": {
-    "kcal": 40.4,
-    "protein": 10.1,
-    "fat": 10.1,
-    "glucides": 10.1,
-    "sugar": 10.1,
+  idx: 21,
+  name: "바나나킥12",
+  nutrition: {
+    kcal: 40.4,
+    protein: 10.1,
+    fat: 10.1,
+    glucides: 10.1,
+    sugar: 10.1,
     "dietary fiber": 10.1,
-    "calcium": 10.1,
-    "Iron": 10.1,
-    "magnesium": 10.1,
-    "caffeine": 10.1,
-    "Potassium": 10.1,
-    "Natrium": 10.1,
-    "vitamins": 10.1,
-    "cholesterol": 10.1,
-    "fatty": 10.1,
-    "transfat": 10.1,
+    calcium: 10.1,
+    Iron: 10.1,
+    magnesium: 10.1,
+    caffeine: 10.1,
+    Potassium: 10.1,
+    Natrium: 10.1,
+    vitamins: 10.1,
+    cholesterol: 10.1,
+    fatty: 10.1,
+    transfat: 10.1,
   },
-  "date": "YYYY-MM-DD",
-  "hate": ["hazard", "substance"],
-  "allergy": [],
-  "material": ["aspartame", "raw material", "테스트", "ㅁㄴㅇ", "raw material", "테스트", "ㅁㄴㅇ", "raw material", "테스트", "ㅁㄴㅇ", "raw material", "테스트", "ㅁㄴㅇ", "raw material", "테스트", "ㅁㄴㅇ", "raw material", "테스트", "ㅁㄴㅇ", "raw material", "테스트", "ㅁㄴㅇ"],
-  "prompt": "GPT 솔루션 ."
+  date: "YYYY-MM-DD",
+  hate: ["hazard", "substance"],
+  allergy: ["오렌지", "땅콩"],
+  userallergy: ["땅콩"],
+  material: [
+    "aspartame",
+    "raw material",
+    "테스트",
+    "ㅁㄴㅇ",
+    "raw material",
+    "테스트",
+    "ㅁㄴㅇ",
+    "raw material",
+    "테스트",
+    "ㅁㄴㅇ",
+    "raw material",
+    "테스트",
+    "ㅁㄴㅇ",
+    "raw material",
+    "테스트",
+    "ㅁㄴㅇ",
+    "raw material",
+    "테스트",
+    "ㅁㄴㅇ",
+    "raw material",
+    "테스트",
+    "ㅁㄴㅇ",
+  ],
+  prompt: "GPT 솔루션 .",
 };
 
 const Result = ({ navigation }) => {
-  const product = useRoute().params.responseData;
+  // const product = useRoute().params.responseData;
   const saveBtn = () => {
-
     navigation.navigate("MainForm");
   };
 
   const deleteBtn = (idx) => {
     fetch(`${process.env.EXPO_PUBLIC_URI}/delete?idx=${idx}`)
-      .then(response => {
+      .then((response) => {
         return response.json();
       })
-      .then(data => {
+      .then((data) => {
         if (data.code == 200) {
           console.log("result_deleteBtn");
           navigation.navigate("MainForm");
-        }
-        else {
+        } else {
           console.log("delete code error ");
         }
       })
-      .catch(error => {
+      .catch((error) => {
         console.error("delete error:", error);
       });
 
@@ -62,22 +90,22 @@ const Result = ({ navigation }) => {
     // navigation.navigate("MainForm");
   };
 
-
-  // const product = productJson;
+  const product = productJson;
 
   console.log(product.responseData);
   const goToMaterialForm = () => {
-    navigation.navigate('MaterialForm', {
+    navigation.navigate("MaterialForm", {
       name: product.name,
       material: product.material,
     });
   };
 
-
   return (
-    <ScrollView contentContainerStyle={styles.container} showsVerticalScrollIndicator={false}>
+    <ScrollView
+      contentContainerStyle={styles.container}
+      showsVerticalScrollIndicator={false}
+    >
       <View style={styles.header}>
-
         <Text style={styles.headerText}>{product.name}</Text>
       </View>
       <View style={styles.section}>
@@ -88,7 +116,11 @@ const Result = ({ navigation }) => {
         <View style={styles.tableContainer}>
           <View style={styles.box}>
             <View style={styles.iconContainer}>
-              <MaterialCommunityIcons name="alert" size={20} style={styles.icon} />
+              <MaterialCommunityIcons
+                name="alert"
+                size={20}
+                style={styles.icon}
+              />
               <Text style={styles.iconText}>알레르기</Text>
             </View>
             <View style={styles.tableItems}>
@@ -101,7 +133,11 @@ const Result = ({ navigation }) => {
           </View>
           <View style={styles.box}>
             <View style={styles.iconContainer}>
-              <MaterialCommunityIcons name="alert" size={20} style={styles.icon} />
+              <MaterialCommunityIcons
+                name="alert"
+                size={20}
+                style={styles.icon}
+              />
               <Text style={styles.iconText}>주의물질</Text>
             </View>
             <View style={styles.tableItems}>
@@ -130,16 +166,17 @@ const Result = ({ navigation }) => {
         {/* 취소 버튼만 따로 스타일 */}
         {/* 취소시 --> 요청 --> 메인 */}
         {/* 저장시 --> 메인 */}
-        <TouchableOpacity style={[styles.bottomButton, { backgroundColor: '#f79c9b' }]} onPress={() => deleteBtn(product.idx)}>
+        <TouchableOpacity
+          style={[styles.bottomButton, { backgroundColor: "#f79c9b" }]}
+          onPress={() => deleteBtn(product.idx)}
+        >
           <Text style={styles.bottomButtonText}>취소</Text>
         </TouchableOpacity>
         <TouchableOpacity style={styles.bottomButton} onPress={saveBtn}>
           <Text style={styles.bottomButtonText}>저장</Text>
         </TouchableOpacity>
       </View>
-
-
-    </ScrollView >
+    </ScrollView>
   );
 };
 
@@ -156,7 +193,7 @@ const styles = StyleSheet.create({
   headerText: {
     fontSize: 35,
     marginBottom: 10,
-    fontWeight: 'bold',
+    fontWeight: "bold",
   },
   section: {
     marginTop: 10,
@@ -164,31 +201,30 @@ const styles = StyleSheet.create({
   },
   sectionTitle: {
     fontSize: 18,
-    fontWeight: 'bold',
+    fontWeight: "bold",
     marginBottom: 5,
   },
   tableContainer: {
-    flexDirection: 'row',
+    flexDirection: "row",
     marginBottom: 10,
   },
   box: {
     flex: 1,
-    backgroundColor: '#CECECE',
+    backgroundColor: "#CECECE",
     borderRadius: 5,
     padding: 10,
     marginRight: 10,
   },
   iconContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-
+    flexDirection: "row",
+    alignItems: "center",
   },
   icon: {
     marginRight: 5,
   },
   iconText: {
     fontSize: 16,
-    fontWeight: 'bold',
+    fontWeight: "bold",
   },
   tableItems: {
     marginTop: 10,
@@ -197,48 +233,47 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   nutritionButton: {
-    backgroundColor: '#3498db',
+    backgroundColor: "#3498db",
     paddingVertical: 10,
     paddingHorizontal: 20,
     borderRadius: 5,
     marginBottom: 20,
   },
   nutritionButtonText: {
-    color: '#fff',
+    color: "#fff",
     fontSize: 18,
-    textAlign: 'center',
+    textAlign: "center",
   },
   nutritionSection: {
     marginTop: 10,
   },
   bottomButtonsContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center', // Center buttons vertically
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center", // Center buttons vertically
     marginTop: 20,
   },
   bottomButton: {
     paddingVertical: 15,
     paddingHorizontal: 60,
     borderRadius: 5,
-    backgroundColor: '#CECECE',
+    backgroundColor: "#CECECE",
   },
   bottomButtonText: {
     fontSize: 18,
-    textAlign: 'center',
+    textAlign: "center",
   },
   nutritionButton: {
-    backgroundColor: '#CECECE',
+    backgroundColor: "#CECECE",
     paddingVertical: 15,
     paddingHorizontal: 20,
     borderRadius: 5,
     // marginBottom: 20,
   },
   nutritionButtonText: {
-
     fontSize: 20,
-    textAlign: 'center',
-    fontWeight: 'bold',
+    textAlign: "center",
+    fontWeight: "bold",
   },
 });
 
