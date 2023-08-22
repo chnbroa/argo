@@ -9,6 +9,7 @@ import {
 } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { useRoute } from "@react-navigation/native";
+import { getData } from "../modules/storagy-service";
 
 const productJson = {
   idx: 21,
@@ -59,10 +60,12 @@ const productJson = {
     "테스트",
     "ㅁㄴㅇ",
   ],
-  prompt: "GPT 솔루션 .",
+  prompt:
+    "해당 텍스트는 더미 데이터입니다. 해당 칸 레이아웃을 위해서 150자 정도 작성하여 고민중에 있습니다. 당연히 실제로는 분석 텍스트가 들어가겠죠?",
 };
 
 const Result = ({ navigation }) => {
+  getData("percentNutrition").then((json) => console.log(json));
   // const product = useRoute().params.responseData;
   const saveBtn = () => {
     navigation.navigate("MainForm");
