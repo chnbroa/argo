@@ -31,6 +31,7 @@ function MainForm({ navigation }) {
   const [cumulativeNutrition, setCumulativeNutrition] = useState({});
   const [dbPercentNutrition, setDbPercentNutrition] = useState({});
   const [chartData, setChartData] = useState([]);
+  const [welcome, setWelcome] = useState("안녕하세요.");
   // Simulating the received JSON response
   const mockApiResponse = {
     foods: [
@@ -136,6 +137,26 @@ function MainForm({ navigation }) {
       return cumulative;
     }, initialCumulativeNutrition);
   };
+  const nutritionTranslator = {
+    //변환기
+    kcal: "칼로리",
+    protein: "단백질",
+    fat: "지방",
+    glucide: "탄수화물",
+    sugar: "총 당류",
+    dietaryfiber: "총 식이섬유",
+    calcium: "칼슘",
+    Iron: "철",
+    magnesium: "마그네슘",
+    caffeine: "카페인",
+    Potassium: "칼륨",
+    Natrium: "나트륨",
+    vitamin: "비타민",
+    cholesterol: "콜레스테롤",
+    fatty: "총 지방산",
+    transfat: "트랜스 지방",
+  };
+
   const percentNutrition = (savedNutrition) => {
     const dailyRecommendedNutrition = {
       // kacl 로그인에서 가져오기
@@ -204,14 +225,14 @@ function MainForm({ navigation }) {
     //   .then((data) => {
     //     // console.log(data);
     //     // setFoods(data.foods);
-    //     // saveDate("foods", data.foods);
+    //     // saveData("foods", data.foods);
     //   })
     //   .catch((error) => {
     //     console.error("Error fetching food data:", error);
     //   });
 
     setFoods(mockApiResponse.foods);
-    saveDate("foods", mockApiResponse.foods);
+    saveData("foods", mockApiResponse.foods);
 
     //비동기 문제
     console.log(calculateCumulativeNutrition(mockApiResponse.foods));
@@ -268,6 +289,18 @@ function MainForm({ navigation }) {
         setChartData(newChartData);
       });
     });
+    getData("percentNutrition").then((data) => {
+      console.log(data);
+      if (data.kacl == 0) {
+        setWelcome("오늘 음식정보를 입력해 주세요");
+      } else {
+        const maxValue = Math.max(...Object.values(data));
+        const maxKey = Object.keys(data).find((key) => data[key] === maxValue);
+        setWelcome(
+          nutritionTranslator[maxKey] + " 섭취가 많아요, 주의해주세요"
+        );
+      }
+    });
   }, []);
 
   cameraRoute = async (route) => {
@@ -287,6 +320,7 @@ function MainForm({ navigation }) {
     <ScrollView style={styles.container}>
       <View style={styles.header}>
         <Text style={styles.headerText}>Hello, {userProfile.name}!</Text>
+        <Text style={styles.headerText}>{welcome}</Text>
       </View>
       {console.log(foods.kcal)}
       <View style={styles.section}>
