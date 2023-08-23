@@ -159,14 +159,14 @@ function MainForm({ navigation }) {
       if (dailyRecommendedNutrition[nutrient]) {
         console.log(nutrient + "<<<< item");
         const percentage =
-          (savedNutrition[nutrient] / dailyRecommendedNutrition[nutrient]) * 100;
+          (savedNutrition[nutrient] / dailyRecommendedNutrition[nutrient]) *
+          100;
         nutritionPercentages[nutrient] = Math.round(percentage * 10) / 10;
         // console.log(nutritionPercentages[nutrient] + "<<< 결과");
       }
     });
     return nutritionPercentages;
   };
-
 
   useEffect(() => {
     //로그인 --> 회원정보
@@ -204,12 +204,14 @@ function MainForm({ navigation }) {
     //   .then((data) => {
     //     // console.log(data);
     //     // setFoods(data.foods);
+    //     // saveDate("foods", data.foods);
     //   })
     //   .catch((error) => {
     //     console.error("Error fetching food data:", error);
     //   });
 
     setFoods(mockApiResponse.foods);
+    saveDate("foods", mockApiResponse.foods);
 
     //비동기 문제
     console.log(calculateCumulativeNutrition(mockApiResponse.foods));
@@ -230,29 +232,38 @@ function MainForm({ navigation }) {
         setDbPercentNutrition(data);
         const newChartData = [
           {
-            value: data.kcal, label: '에너지', frontColor: '#4ABFF4',
+            value: data.kcal,
+            label: "에너지",
+            frontColor: "#4ABFF4",
             topLabelComponent: () => (
               <Text style={{ fontSize: 12 }}>{data.kcal}%</Text>
-            )
+            ),
           },
           {
-            value: data.glucide, label: '탄수화물', frontColor: '#79C3DB',
+            value: data.glucide,
+            label: "탄수화물",
+            frontColor: "#79C3DB",
             topLabelComponent: () => (
               <Text style={{ fontSize: 12 }}>{data.glucide}%</Text>
-            )
+            ),
           },
           {
-            value: data.protein, label: '단백질', frontColor: '#28B2B3',
+            value: data.protein,
+            label: "단백질",
+            frontColor: "#28B2B3",
             topLabelComponent: () => (
               <Text style={{ fontSize: 12 }}>{data.protein}%</Text>
-            )
+            ),
           },
           {
-            value: data.fat, label: '지방', frontColor: '#4ADDBA',
+            value: data.fat,
+            label: "지방",
+            frontColor: "#4ADDBA",
             topLabelComponent: () => (
               <Text style={{ fontSize: 12 }}>{data.fat}%</Text>
-            )
-          }];
+            ),
+          },
+        ];
 
         setChartData(newChartData);
       });
@@ -271,8 +282,6 @@ function MainForm({ navigation }) {
       Alert.alert("카메라 접근 허용은 필수입니다.");
     }
   };
-
-
 
   return (
     <ScrollView style={styles.container}>
@@ -336,43 +345,32 @@ function MainForm({ navigation }) {
             frontColor="lightgray"
             xAxisThickness={0}
             yAxisThickness={0}
-            yAxisTextStyle={{ color: 'gray' }}
+            yAxisTextStyle={{ color: "gray" }}
             // height={200}
-            onPress={(item, index) => console.log('item', item)}
+            onPress={(item, index) => console.log("item", item)}
             data={chartData}
-            yAxisLabelTexts={[' ', '50', '100']}
+            yAxisLabelTexts={[" ", "50", "100"]}
 
+            // 상단 표기
+            // renderTooltip={(item, index) => {
+            //   return (
+            //     <View
+            //       style={{
+            //         marginBottom: 20,
+            //         marginLeft: -6,
+            //         backgroundColor: '#ffcefe',
+            //         paddingHorizontal: 6,
+            //         paddingVertical: 4,
+            //         borderRadius: 4,
+            //       }}>
+            //       <Text>{item.value}</Text>
+            //     </View>
+            //   );
 
-
-          // 상단 표기 
-          // renderTooltip={(item, index) => {
-          //   return (
-          //     <View
-          //       style={{
-          //         marginBottom: 20,
-          //         marginLeft: -6,
-          //         backgroundColor: '#ffcefe',
-          //         paddingHorizontal: 6,
-          //         paddingVertical: 4,
-          //         borderRadius: 4,
-          //       }}>
-          //       <Text>{item.value}</Text>
-          //     </View>
-          //   );
-
-          // }}
-
-
+            // }}
           />
-
         </View>
-
       </View>
-
-
-
-
-
 
       <View style={styles.section}>
         <Text style={styles.sectionTitle}>오늘의 레시피</Text>
@@ -452,7 +450,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
   },
   chart: {
-    marginBottom: 50
+    marginBottom: 50,
   },
 });
 

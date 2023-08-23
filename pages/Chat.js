@@ -17,17 +17,18 @@ function Chat({ navigation }) {
   const [scrollViewFlex, setScrollViewFlex] = useState(1); // 초기 flex 값
   const scrollViewRef = useRef();
   const [messages, setMessages] = useState([
-    { content: "안녕", role: "user" },
-    { content: "안녕하세요! 도와드릴게 있나요?", role: "assistant" },
-    { content: "그냥 아무거나 긴글써줘", role: "user" },
     {
-      content:
-        "당신이 원하는대로 긴 글을 써드리겠습니다.인생은 참으로 놀라운 여행이다. 우리는 태어나서부터 끊임없이 성장하고 변화하며, 경험을 쌓아가며 삶을 살아간다. 어린 시절부터 우리는 꿈과 희망으로 가득찬 어린이였다. 하지만 성장과 함께 문제에 부딪히고 실패도 경험하게 된다. 그러나 우리는 항상 다시 일어나고 새로운 도전을 해나갈 수 있는 힘과 용기를 내내 갖고 있으며, 성취와 성공을 향해 나아갈 수 있는 자원이 무궁무진하게 내재되어 있다.인간은 사회적 동물이다. 우리는 한 사람으로서 혼자 살아갈 수도 있지만, 상호작용과 협력을 통해 더 큰 성공을 이뤄낼 수 있다. 가족, 친구, 동료들과의 연결은 우리 삶의 가장 귀중한 재산이다. 서로를 이해하고 서로를 도울 수 있는 관계를 구축하며 세상을 함께 더 아름답게 만들어 나갈 수 있다.또한, 우리는 지속적인 자기 계발의 필요성을 깨달아야 한다. 세상은 끊임없이 변화하고 발전하며, 우리도 그에 맞춰 새로운 지식과 기술을 습득해야 한다. 꾸준한 학습과 성장은 우리를 더 높은 곳으로 이끌어주며, 자신에게 무한한 가능성을 실현해 줄 것이다.또한, 우리는 주변 자연과 환경에 대한 책임도 가져야 한다. 우리는 자연과 조화롭게 공존해야 하며, 지속 가능한 방식으로 자원을 관리하고 보호해야 한다. 우리들의 작은 선택과 행동은 큰 변화의 시작이 될 수 있다. 우리는 지구를 더욱 아름답게, 건강하게 만들기 위해 노력해야 한다.마지막으로, 삶은 짧고 소중하다는 것을 기억해야 한다. 우리는 매 순간을 소중히 여기고, 감사하며 살아가야 한다. 행복은 외부에서 찾을 수 있는 것이 아니라 우리 마음의 태도에서 비롯되는 것이다. 어떠한 상황에서도 긍정적인 태도와 감사의 마음을 지니며, 자신과 주변 사람들을 사랑하고 가치있게 여길 수 있다면, 풍요로운 삶을 살아갈 수 있을 것이다.이렇게 여행하는 동안 우리는 서로에게서 배우며 성장하고, 사랑과 희망을 품어가며 보다 나은 세상을 만들어 나갈 것이다. 인생의 여정을 함께 하며, 마음 가득한 행복과 만족을 느끼기를 바랍니다.",
-      role: "assistant",
+      content: `If the user tells me the food I ate today, calories, nutrients, and the standard of daily video intake, I need to recommend the next food I will eat accordingly. Also, please recommend a diet according to the current time
+      The five conditions must be determined comprehensively. [Except for allergies and foods you don't like,If the nutritional intake standard is exceeded, low-nutritive food is recommended if the nutrient content is insufficient, high-nutritive food is recommended, and all nutrients are comprehensively determined]
+      First, I'll tell you the standard of video intake per day [{"kcal": 1500.0, "protein": 55.0, "fat": 54.0, "glucide": 324.0, "sugar": 100.0, "dietaryfiber": 25.0, "calcium": 700.0, "Iron": 12.0, "magnesium": 315, "caffeine": 0, "Potassium": 3500.0, "Natrium": 2000.0, "vitamin": 0.0, "cholesterol": 300.0, "fatty": 0.0, "transfat": 0}]
+      Then I'll tell you what the user ate today. [햄버거,마라탕,바나나킥] And the total calories and nutrients that I ate today are
+      {"kcal": 500.0, "protein": 60.0, "fat": 5.0, "glucide": 10.0, "sugar": 15.0, "dietaryfiber": 0.0, "calcium": 0.0, "Iron": 0.0, "magnesium": 0, "caffeine": 0, "Potassium": 0.0, "Natrium": 45.0, "vitamin": 0.0, "cholesterol": 0.0, "fatty": 0.0, "transfat": 0} It's 18 o'clock now Allergy is[우유,연어], food I hate is[피망,연어,상추]
+      From now on, only when the user asks about the diet, "Only list with the diet and reason and recommend 3 or 4 of them" and "Unconditionally print it within 200 characters." Print out in Korean`,
+      role: "system",
     },
   ]);
   const [inputMessage, setInputMessage] = useState("");
-
+  console.log(messages);
   const handleSendMessage = async () => {
     if (inputMessage.trim() === "") return;
 
@@ -48,6 +49,11 @@ function Chat({ navigation }) {
           body: JSON.stringify({
             model: "gpt-3.5-turbo",
             messages: newMessages, // 수정된 메시지 배열 전송
+            temperature: 1,
+            max_tokens: 512,
+            top_p: 1,
+            frequency_penalty: 0,
+            presence_penalty: 0,
           }),
         }
       );
@@ -88,19 +94,21 @@ function Chat({ navigation }) {
       >
         <View style={styles.chatBox}>
           <ScrollView ref={scrollViewRef} style={styles.chatScrollBox}>
-            {messages.map((message, index) => (
-              <View
-                key={index}
-                style={[
-                  styles.message,
-                  message.role === "user"
-                    ? styles.userMessage
-                    : styles.botMessage,
-                ]}
-              >
-                <Text style={styles.messageText}>{message.content}</Text>
-              </View>
-            ))}
+            {messages
+              .filter((message) => message.role !== "system")
+              .map((message, index) => (
+                <View
+                  key={index}
+                  style={[
+                    styles.message,
+                    message.role === "user"
+                      ? styles.userMessage
+                      : styles.botMessage,
+                  ]}
+                >
+                  <Text style={styles.messageText}>{message.content}</Text>
+                </View>
+              ))}
           </ScrollView>
         </View>
       </View>
@@ -192,7 +200,7 @@ const styles = StyleSheet.create({
     alignSelf: "flex-start",
   },
   message: {
-    paddingVertical: 2,
+    paddingVertical: 5,
     paddingHorizontal: 10,
     borderRadius: 8,
     marginVertical: 5,
