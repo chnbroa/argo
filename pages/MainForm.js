@@ -13,6 +13,7 @@ import { Camera } from "expo-camera";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import ButtonComponent from "../components/ButtonComponent";
 import { getData, saveData } from "../modules/storagy-service";
+import { BarChart } from "react-native-gifted-charts";
 function MainForm({ navigation }) {
   const [userProfile, setUserProfile] = useState({
     name: "홍길동",
@@ -29,14 +30,14 @@ function MainForm({ navigation }) {
 
   const [cumulativeNutrition, setCumulativeNutrition] = useState({});
   const [dbPercentNutrition, setDbPercentNutrition] = useState({});
-
+  const [chartData, setChartData] = useState([]);
   // Simulating the received JSON response
   const mockApiResponse = {
     foods: [
       {
         name: "이름",
         nutrition: {
-          kcal: 40.4,
+          kcal: 1000.4,
           protein: 10.1,
           fat: 10.1,
           glucide: 10.1,
@@ -85,7 +86,7 @@ function MainForm({ navigation }) {
           kcal: 52.4,
           protein: 10.1,
           fat: 10.1,
-          glucide: 10.1,
+          glucide: 100.1,
           sugar: 10.1,
           dietaryfiber: 10.1,
           calcium: 10.1,
@@ -110,7 +111,7 @@ function MainForm({ navigation }) {
       kcal: 0, //에너지
       protein: 0, //단백질
       fat: 0, // 지방
-      glucides: 0, //탄수화물
+      glucide: 0, //탄수화물
       sugar: 0, //총 당류
       dietaryfiber: 0, // 총 식이섬유
       calcium: 0, // 칼슘
@@ -141,7 +142,7 @@ function MainForm({ navigation }) {
       kcal: userProfile.kacl, //에너지
       protein: 55, //단백질
       fat: 54, // 지방
-      glucides: 324, //탄수화물
+      glucide: 324, //탄수화물
       sugar: 100, // 당류
       dietaryfiber: 25, // 총 식이섬유
       calcium: 700, // 칼슘
@@ -156,16 +157,16 @@ function MainForm({ navigation }) {
     const nutritionPercentages = {};
     Object.keys(savedNutrition).forEach((nutrient) => {
       if (dailyRecommendedNutrition[nutrient]) {
+        console.log(nutrient + "<<<< item");
         const percentage =
-          (savedNutrition[nutrient] / dailyRecommendedNutrition[nutrient]) *
-          100;
+          (savedNutrition[nutrient] / dailyRecommendedNutrition[nutrient]) * 100;
         nutritionPercentages[nutrient] = Math.round(percentage * 10) / 10;
+        // console.log(nutritionPercentages[nutrient] + "<<< 결과");
       }
     });
     return nutritionPercentages;
   };
 
-  // console.log(getData("userProfile"));
 
   useEffect(() => {
     //로그인 --> 회원정보
@@ -227,6 +228,33 @@ function MainForm({ navigation }) {
       //percent 가져오기
       getData("percentNutrition").then((data) => {
         setDbPercentNutrition(data);
+        const newChartData = [
+          {
+            value: data.kcal, label: '에너지', frontColor: '#4ABFF4',
+            topLabelComponent: () => (
+              <Text style={{ fontSize: 12 }}>{data.kcal}%</Text>
+            )
+          },
+          {
+            value: data.glucide, label: '탄수화물', frontColor: '#79C3DB',
+            topLabelComponent: () => (
+              <Text style={{ fontSize: 12 }}>{data.glucide}%</Text>
+            )
+          },
+          {
+            value: data.protein, label: '단백질', frontColor: '#28B2B3',
+            topLabelComponent: () => (
+              <Text style={{ fontSize: 12 }}>{data.protein}%</Text>
+            )
+          },
+          {
+            value: data.fat, label: '지방', frontColor: '#4ADDBA',
+            topLabelComponent: () => (
+              <Text style={{ fontSize: 12 }}>{data.fat}%</Text>
+            )
+          }];
+
+        setChartData(newChartData);
       });
     });
   }, []);
@@ -243,6 +271,8 @@ function MainForm({ navigation }) {
       Alert.alert("카메라 접근 허용은 필수입니다.");
     }
   };
+
+
 
   return (
     <ScrollView style={styles.container}>
@@ -295,9 +325,55 @@ function MainForm({ navigation }) {
       <View style={styles.section}>
         <Text style={styles.sectionTitle}>일일 영양성분</Text>
         <Text>누적 영양성분 확인</Text>
-        {/* 누적 (칼로리 탄수화물 단백질 지방 )영양성분 차트 */}
-        {/* 더보기 버튼 */}
+
+        <View style={styles.chart}>
+          <BarChart
+            isAnimated
+            barWidth={40}
+            noOfSections={2}
+            maxValue={100}
+            barBorderRadius={4}
+            frontColor="lightgray"
+            xAxisThickness={0}
+            yAxisThickness={0}
+            yAxisTextStyle={{ color: 'gray' }}
+            // height={200}
+            onPress={(item, index) => console.log('item', item)}
+            data={chartData}
+            yAxisLabelTexts={[' ', '50', '100']}
+
+
+
+          // 상단 표기 
+          // renderTooltip={(item, index) => {
+          //   return (
+          //     <View
+          //       style={{
+          //         marginBottom: 20,
+          //         marginLeft: -6,
+          //         backgroundColor: '#ffcefe',
+          //         paddingHorizontal: 6,
+          //         paddingVertical: 4,
+          //         borderRadius: 4,
+          //       }}>
+          //       <Text>{item.value}</Text>
+          //     </View>
+          //   );
+
+          // }}
+
+
+          />
+
+        </View>
+
       </View>
+
+
+
+
+
+
       <View style={styles.section}>
         <Text style={styles.sectionTitle}>오늘의 레시피</Text>
         <Text>인공지능 챗봇으로 레시피제작</Text>
@@ -374,6 +450,9 @@ const styles = StyleSheet.create({
   },
   foodKcal: {
     fontSize: 16,
+  },
+  chart: {
+    marginBottom: 50
   },
 });
 
