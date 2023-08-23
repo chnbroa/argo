@@ -12,23 +12,13 @@ import ButtonComponent from "../components/ButtonComponent";
 import { theme } from "../assets/colors";
 import { useEffect, useRef, useState } from "react";
 import { Ionicons } from "@expo/vector-icons";
+import { getData } from "../modules/storagy-service";
 
 function Chat({ navigation }) {
   const [scrollViewFlex, setScrollViewFlex] = useState(1); // 초기 flex 값
   const scrollViewRef = useRef();
-  const [messages, setMessages] = useState([
-    {
-      content: `If the user tells me the food I ate today, calories, nutrients, and the standard of daily video intake, I need to recommend the next food I will eat accordingly. Also, please recommend a diet according to the current time
-      The five conditions must be determined comprehensively. [Except for allergies and foods you don't like,If the nutritional intake standard is exceeded, low-nutritive food is recommended if the nutrient content is insufficient, high-nutritive food is recommended, and all nutrients are comprehensively determined]
-      First, I'll tell you the standard of video intake per day [{"kcal": 1500.0, "protein": 55.0, "fat": 54.0, "glucide": 324.0, "sugar": 100.0, "dietaryfiber": 25.0, "calcium": 700.0, "Iron": 12.0, "magnesium": 315, "caffeine": 0, "Potassium": 3500.0, "Natrium": 2000.0, "vitamin": 0.0, "cholesterol": 300.0, "fatty": 0.0, "transfat": 0}]
-      Then I'll tell you what the user ate today. [햄버거,마라탕,바나나킥] And the total calories and nutrients that I ate today are
-      {"kcal": 500.0, "protein": 60.0, "fat": 5.0, "glucide": 10.0, "sugar": 15.0, "dietaryfiber": 0.0, "calcium": 0.0, "Iron": 0.0, "magnesium": 0, "caffeine": 0, "Potassium": 0.0, "Natrium": 45.0, "vitamin": 0.0, "cholesterol": 0.0, "fatty": 0.0, "transfat": 0} It's 18 o'clock now Allergy is[우유,연어], food I hate is[피망,연어,상추]
-      From now on, only when the user asks about the diet, "Only list with the diet and reason and recommend 3 or 4 of them" and "Unconditionally print it within 200 characters." Print out in Korean`,
-      role: "system",
-    },
-  ]);
+  const [messages, setMessages] = useState([]);
   const [inputMessage, setInputMessage] = useState("");
-  console.log(messages);
   const handleSendMessage = async () => {
     if (inputMessage.trim() === "") return;
 
@@ -68,9 +58,35 @@ function Chat({ navigation }) {
   };
 
   useEffect(() => {
-    console.log("******************");
     scrollViewRef.current.scrollToEnd({ animated: true });
   }, [messages]);
+  useEffect(() => {
+    const fetchData = async () => {
+      const info = {
+        nutrition: await getData("Nutrition").then((data) =>
+          JSON.stringify(data)
+        ),
+        foods: await getData("foods").then((data) =>
+          data.map((food) => food.name)
+        ),
+        allergy: await getData("userProfile").then((data) => data.allergy),
+        hate: await getData("userProfile").then((data) => data.hate),
+        time: new Date().toLocaleTimeString(),
+      };
+      setMessages([
+        {
+          content: `If the user tells me the food I ate today, calories, nutrients, and the standard of daily video intake, I need to recommend the next food I will eat accordingly. Also, please recommend a diet according to the current time
+          The five conditions must be determined comprehensively. [Except for allergies and foods you don't like,If the nutritional intake standard is exceeded, low-nutritive food is recommended if the nutrient content is insufficient, high-nutritive food is recommended, and all nutrients are comprehensively determined]
+          First, I'll tell you the standard of video intake per day [{"kcal": 1500.0, "protein": 55.0, "fat": 54.0, "glucide": 324.0, "sugar": 100.0, "dietaryfiber": 25.0, "calcium": 700.0, "Iron": 12.0, "magnesium": 315, "caffeine": 0, "Potassium": 3500.0, "Natrium": 2000.0, "vitamin": 0.0, "cholesterol": 300.0, "fatty": 0.0, "transfat": 0}]
+          Then I'll tell you what the user ate today. ${info.foods} And the total calories and nutrients that I ate today are
+          ${info.nutrition} It's ${info.time} now Allergy is${info.allergy}, food I hate is${info.hate}
+          From now on, only when the user asks about the diet, "Only list with the diet and reason and recommend 3 or 4 of them" and "Unconditionally print it within 200 characters." Print out in Korean`,
+          role: "system",
+        },
+      ]);
+    };
+    fetchData();
+  }, []);
 
   return (
     <KeyboardAvoidingView
