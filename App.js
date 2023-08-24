@@ -12,6 +12,7 @@ import CameraForm from "./pages/CameraForm";
 import Result from "./pages/Result";
 import MaterialForm from "./pages/MaterialForm";
 import Chat from "./pages/Chat";
+import Chart from "./pages/Chart";
 const Stack = createNativeStackNavigator();
 
 export default function App() {
@@ -78,6 +79,16 @@ export default function App() {
           options={{ headerShown: false }}
           component={Chat}
         />
+
+
+        <Stack.Screen
+          name="Chart"
+          options={{ headerShown: false }}
+          component={Chart}
+        />
+
+
+
       </Stack.Navigator>
     </NavigationContainer>
   );

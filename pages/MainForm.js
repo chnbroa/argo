@@ -23,7 +23,7 @@ function MainForm({ navigation }) {
     hate: ["cucumber", "carrot"],
     weight: 70,
     height: 180,
-    kacl: 2200,
+    kcal: 2200,
   });
 
   const [foods, setFoods] = useState([]);
@@ -36,7 +36,7 @@ function MainForm({ navigation }) {
   const mockApiResponse = {
     foods: [
       {
-        name: "이름",
+        name: "햄버거",
         nutrition: {
           kcal: 1000.4,
           protein: 10.1,
@@ -59,7 +59,7 @@ function MainForm({ navigation }) {
         hate: ["유해", "물질"],
       },
       {
-        name: "이름1",
+        name: "바나나킥",
         nutrition: {
           kcal: 500.4,
           protein: 10.1,
@@ -82,7 +82,7 @@ function MainForm({ navigation }) {
         hate: ["유해", "물질"],
       },
       {
-        name: "이름3",
+        name: "치킨",
         nutrition: {
           kcal: 52.4,
           protein: 10.1,
@@ -159,8 +159,8 @@ function MainForm({ navigation }) {
 
   const percentNutrition = (savedNutrition) => {
     const dailyRecommendedNutrition = {
-      // kacl 로그인에서 가져오기
-      kcal: userProfile.kacl, //에너지
+      // kcal 로그인에서 가져오기
+      kcal: userProfile.kcal, //에너지
       protein: 55, //단백질
       fat: 54, // 지방
       glucide: 324, //탄수화물
@@ -178,7 +178,7 @@ function MainForm({ navigation }) {
     const nutritionPercentages = {};
     Object.keys(savedNutrition).forEach((nutrient) => {
       if (dailyRecommendedNutrition[nutrient]) {
-        console.log(nutrient + "<<<< item");
+        // console.log(nutrient + "<<<< item");
         const percentage =
           (savedNutrition[nutrient] / dailyRecommendedNutrition[nutrient]) *
           100;
@@ -255,7 +255,7 @@ function MainForm({ navigation }) {
           {
             value: data.kcal,
             label: "에너지",
-            frontColor: "#4ABFF4",
+            frontColor: "#FFA07E",
             topLabelComponent: () => (
               <Text style={{ fontSize: 12 }}>{data.kcal}%</Text>
             ),
@@ -263,7 +263,7 @@ function MainForm({ navigation }) {
           {
             value: data.glucide,
             label: "탄수화물",
-            frontColor: "#79C3DB",
+            frontColor: "#FFE367",
             topLabelComponent: () => (
               <Text style={{ fontSize: 12 }}>{data.glucide}%</Text>
             ),
@@ -271,7 +271,7 @@ function MainForm({ navigation }) {
           {
             value: data.protein,
             label: "단백질",
-            frontColor: "#28B2B3",
+            frontColor: "#72B9F8",
             topLabelComponent: () => (
               <Text style={{ fontSize: 12 }}>{data.protein}%</Text>
             ),
@@ -279,7 +279,7 @@ function MainForm({ navigation }) {
           {
             value: data.fat,
             label: "지방",
-            frontColor: "#4ADDBA",
+            frontColor: "#86D260",
             topLabelComponent: () => (
               <Text style={{ fontSize: 12 }}>{data.fat}%</Text>
             ),
@@ -291,7 +291,7 @@ function MainForm({ navigation }) {
     });
     getData("percentNutrition").then((data) => {
       console.log(data);
-      if (data.kacl == 0) {
+      if (data.kcal == 0) {
         setWelcome("오늘 음식정보를 입력해 주세요");
       } else {
         const maxValue = Math.max(...Object.values(data));
@@ -384,26 +384,32 @@ function MainForm({ navigation }) {
             onPress={(item, index) => console.log("item", item)}
             data={chartData}
             yAxisLabelTexts={[" ", "50", "100"]}
+            initialSpacing={30}
+          // 상단 표기
+          // renderTooltip={(item, index) => {
+          //   return (
+          //     <View
+          //       style={{
+          //         marginBottom: 20,
+          //         marginLeft: -6,
+          //         backgroundColor: '#ffcefe',
+          //         paddingHorizontal: 6,
+          //         paddingVertical: 4,
+          //         borderRadius: 4,
+          //       }}>
+          //       <Text>{item.value}</Text>
+          //     </View>
+          //   );
 
-            // 상단 표기
-            // renderTooltip={(item, index) => {
-            //   return (
-            //     <View
-            //       style={{
-            //         marginBottom: 20,
-            //         marginLeft: -6,
-            //         backgroundColor: '#ffcefe',
-            //         paddingHorizontal: 6,
-            //         paddingVertical: 4,
-            //         borderRadius: 4,
-            //       }}>
-            //       <Text>{item.value}</Text>
-            //     </View>
-            //   );
-
-            // }}
+          // }}
           />
         </View>
+
+        <ButtonComponent
+          title="누적 영양 성분 확인"
+          onPress={() => {
+            navigation.navigate("Chart");
+          }}></ButtonComponent>
       </View>
 
       <View style={styles.section}>
