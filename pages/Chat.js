@@ -13,6 +13,7 @@ import { theme } from "../assets/colors";
 import { useEffect, useRef, useState } from "react";
 import { Ionicons } from "@expo/vector-icons";
 import { getData } from "../modules/storagy-service";
+import { FontAwesome5 } from "@expo/vector-icons";
 
 function Chat({ navigation }) {
   const [scrollViewFlex, setScrollViewFlex] = useState(1); // 초기 flex 값
@@ -23,8 +24,10 @@ function Chat({ navigation }) {
     if (inputMessage.trim() === "") return;
 
     const newUserMessage = { role: "user", content: inputMessage };
+    const waitMessage = { role: "assistant", content: "작성중입니다...." };
     const newMessages = [...messages, newUserMessage]; // 기존 메시지 + 새 사용자 메시지
-    setMessages(newMessages);
+    const newWaitMessages = [...newMessages, waitMessage];
+    setMessages(newWaitMessages);
     setInputMessage("");
 
     try {
@@ -87,7 +90,7 @@ function Chat({ navigation }) {
     };
     fetchData();
   }, []);
-
+  console.log(messages);
   return (
     <KeyboardAvoidingView
       behavior={Platform.OS === "ios" ? "padding" : "height"}
@@ -113,16 +116,29 @@ function Chat({ navigation }) {
             {messages
               .filter((message) => message.role !== "system")
               .map((message, index) => (
-                <View
-                  key={index}
-                  style={[
-                    styles.message,
-                    message.role === "user"
-                      ? styles.userMessage
-                      : styles.botMessage,
-                  ]}
-                >
-                  <Text style={styles.messageText}>{message.content}</Text>
+                <View>
+                  <Text
+                    style={[
+                      message.role === "user"
+                        ? { display: "none" }
+                        : styles.botHead,
+                    ]}
+                  >
+                    <FontAwesome5 name="robot" size={18} color="black" />
+                    <View style={{ width: 5 }}></View>
+                    알고먹자
+                  </Text>
+                  <View
+                    key={index}
+                    style={[
+                      styles.message,
+                      message.role === "user"
+                        ? styles.userMessage
+                        : styles.botMessage,
+                    ]}
+                  >
+                    <Text style={styles.messageText}>{message.content}</Text>
+                  </View>
                 </View>
               ))}
           </ScrollView>
@@ -211,18 +227,20 @@ const styles = StyleSheet.create({
     backgroundColor: "lightblue",
     alignSelf: "flex-end",
   },
+  botHead: { marginHorizontal: 5, fontSize: 16 },
   botMessage: {
     backgroundColor: "lightgray",
     alignSelf: "flex-start",
   },
   message: {
-    paddingVertical: 5,
-    paddingHorizontal: 10,
+    maxWidth: "80%",
+    paddingVertical: 10,
+    paddingHorizontal: 15,
     borderRadius: 8,
     marginVertical: 5,
     color: "black",
   },
   messageText: {
-    fontSize: 20,
+    fontSize: 16,
   },
 });
