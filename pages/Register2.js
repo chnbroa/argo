@@ -2,6 +2,7 @@ import { StyleSheet, Text, View, Image, TextInput } from "react-native";
 import ButtonComponent from "../components/ButtonComponent";
 import { useRoute } from "@react-navigation/native";
 import { useState } from "react";
+import { Checkbox } from "react-native-paper";
 
 function Register2({ navigation }) {
   const [name, setName] = useState("");
@@ -19,10 +20,13 @@ function Register2({ navigation }) {
     info.sex = sex;
     info.weight = weight;
     info.height = height;
-    console.log(info);
     navigation.navigate("register3", info);
   };
 
+  const handleCheckboxChange = (gender) => {
+    setSex(gender);
+  };
+  console.log(sex);
 
   return (
     <View style={{ flex: 1, alignItems: "center" }}>
@@ -47,11 +51,25 @@ function Register2({ navigation }) {
         <View style={{ flex: 0.05 }}></View>
         <View style={styles.inputBox}>
           <Text style={styles.inputText}>성별</Text>
-          <TextInput
-            placeholder="남 / 여"
-            style={styles.input}
-            onChangeText={setSex}
-          ></TextInput>
+          <View style={styles.checkboxRow}>
+            <View style={{ flex: 0.1 }}></View>
+            <View style={styles.check}>
+              <Checkbox.Item
+                label="남"
+                status={sex === "남" ? "checked" : "unchecked"}
+                onPress={() => handleCheckboxChange("남")}
+              />
+            </View>
+            <View style={{ flex: 0.2 }}></View>
+            <View style={styles.check}>
+              <Checkbox.Item
+                label="여"
+                status={sex === "여" ? "checked" : "unchecked"}
+                onPress={() => handleCheckboxChange("여")}
+              />
+            </View>
+            <View style={{ flex: 0.1 }}></View>
+          </View>
         </View>
         <View style={{ flex: 0.05 }}></View>
         <View style={styles.inputBox}>
@@ -114,5 +132,16 @@ const styles = StyleSheet.create({
     borderRadius: 15,
     marginTop: 10,
     fontSize: 15,
+  },
+  checkboxRow: {
+    marginTop: 10,
+    width: "100%",
+    flexDirection: "row",
+    justifyContent: "center",
+  },
+  check: {
+    flex: 1,
+    fontSize: 50,
+    width: "100%",
   },
 });
