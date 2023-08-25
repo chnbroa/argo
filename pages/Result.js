@@ -14,62 +14,7 @@ import { FontAwesome5 } from "@expo/vector-icons";
 import { BarChart } from "react-native-gifted-charts";
 import { useRoute } from "@react-navigation/native";
 
-
-
-const productJson = {
-  idx: 21,
-  name: "바나나킥12",
-  nutrition: {
-    kcal: 50.4,
-    protein: 10.1,
-    fat: 10.1,
-    glucide: 10.1,
-    sugar: 10.1,
-    dietaryfiber: 10.1,
-    calcium: 10.1,
-    Iron: 10.1,
-    magnesium: 10.1,
-    caffeine: 10.1,
-    Potassium: 10.1,
-    Natrium: 10.1,
-    vitamins: 10.1,
-    cholesterol: 10.1,
-    fatty: 10.1,
-    transfat: 10.1,
-  },
-  date: "YYYY-MM-DD",
-  hate: ["hazard", "substance"],
-  allergy: ["오렌지", "땅콩"],
-  userallergy: ["땅콩"],
-  material: [
-    "aspartame",
-    "raw material",
-    "테스트",
-    "ㅁㄴㅇ",
-    "raw material",
-    "테스트",
-    "ㅁㄴㅇ",
-    "raw material",
-    "테스트",
-    "ㅁㄴㅇ",
-    "raw material",
-    "테스트",
-    "ㅁㄴㅇ",
-    "raw material",
-    "테스트",
-    "ㅁㄴㅇ",
-    "raw material",
-    "테스트",
-    "ㅁㄴㅇ",
-    "raw material",
-    "테스트",
-    "ㅁㄴㅇ",
-  ],
-  prompt:
-    "해당 텍스트는 더미 데이터입니다. 해당 칸 레이아웃을 위해서 150자 정도 작성하여 고민중에 있습니다. 당연히 실제로는 분석 텍스트가 들어가겠죠? 막상다 쳐보니깐 150자가 안되더라고요 좀더 작성해야 할 거같습니다. 앞으로 30자 정도 남았는데 이정도면 된거같습니다.",
-};
-
-//product 설정 
+//product 설정
 // const product = useRoute().params.responseData;
 // const product = productJson;
 
@@ -91,14 +36,12 @@ const percentNutrition = async (savedNutrition) => {
     fatty: 15, // 총 지방산 (포화지방산??)
   };
 
-
   const nutritionPercentages = {};
   Object.keys(savedNutrition).forEach((nutrient) => {
     if (dailyRecommendedNutrition[nutrient]) {
       // console.log(nutrient + "<<<< item");
       const percentage =
-        (savedNutrition[nutrient] / dailyRecommendedNutrition[nutrient]) *
-        100;
+        (savedNutrition[nutrient] / dailyRecommendedNutrition[nutrient]) * 100;
       nutritionPercentages[nutrient] = Math.round(percentage * 10) / 10;
       // console.log(nutritionPercentages[nutrient] + "<<< 결과");
     }
@@ -106,10 +49,7 @@ const percentNutrition = async (savedNutrition) => {
   return nutritionPercentages;
 };
 
-
-
 const Result = ({ navigation }) => {
-
   const product = useRoute().params.responseData;
   const [ResultNutrition, setResultNutrition] = useState({});
   const [DbPercentNutrition, setDbPercentNutrition] = useState({});
@@ -123,104 +63,114 @@ const Result = ({ navigation }) => {
       Vibration.vibrate();
     }
 
-    percentNutrition(product.nutrition)
-      .then((data) => {
-        setResultNutrition(data);
-        const newChartData = [
-          {
-            value: data.kcal,
-            label: "에너지",
-            frontColor: "#FF7B5D",
-            topLabelComponent: () => (
-              <Text style={{ fontSize: 12 }}>{data.kcal}%</Text>
-            ),
-          },
-          {
-            value: data.glucide,
-            label: "탄수화물",
-            frontColor: "#FFE367",
-            topLabelComponent: () => (
-              <Text style={{ fontSize: 12 }}>{data.glucide}%</Text>
-            ),
-          },
-          {
-            value: data.protein,
-            label: "단백질",
-            frontColor: "#72B9F8",
-            topLabelComponent: () => (
-              <Text style={{ fontSize: 12 }}>{data.protein}%</Text>
-            ),
-          },
-          {
-            value: data.fat,
-            label: "지방",
-            frontColor: "#86D260",
-            topLabelComponent: () => (
-              <Text style={{ fontSize: 12 }}>{data.fat}%</Text>
-            ),
-          },
-          {
-            value: data.sugar, label: '당류', frontColor: '#6690FF',
-            topLabelComponent: () => (
-              <Text style={{ fontSize: 12 }}>{data.sugar}%</Text>
-            )
-          },
-          {
-            value: data.Natrium, label: '나트륨', frontColor: '#FF3E28',
-            topLabelComponent: () => (
-              <Text style={{ fontSize: 12 }}>{data.Natrium}%</Text>
-            )
-          },
-          {
-            value: data.cholesterol, label: '클레스테롤', frontColor: '#FFD635',
-            topLabelComponent: () => (
-              <Text style={{ fontSize: 12 }}>{data.cholesterol}%</Text>
-            )
-          },
-          {
-            value: data.dietaryfiber, label: '식이섬유', frontColor: '#4499F4',
-            topLabelComponent: () => (
-              <Text style={{ fontSize: 12 }}>{data.dietaryfiber}%</Text>
-            )
-          },
-          {
-            value: data.calcium, label: '칼슘', frontColor: '#55B532',
-            topLabelComponent: () => (
-              <Text style={{ fontSize: 12 }}>{data.calcium}%</Text>
-            )
-          },
-          {
-            value: data.magnesium, label: '마그네슘', frontColor: '#3366FF',
-            topLabelComponent: () => (
-              <Text style={{ fontSize: 12 }}>{data.magnesium}%</Text>
-            )
-          },
-          {
-            value: data.Iron, label: '철분', frontColor: '#DB211D',
-            topLabelComponent: () => (
-              <Text style={{ fontSize: 12 }}>{data.Iron}%</Text>
-            )
-          },
-          {
-            value: data.Potassium, label: '칼륨', frontColor: '#DBB226',
-            topLabelComponent: () => (
-              <Text style={{ fontSize: 12 }}>{data.Potassium}%</Text>
-            )
-          },
+    percentNutrition(product.nutrition).then((data) => {
+      setResultNutrition(data);
+      const newChartData = [
+        {
+          value: data.kcal,
+          label: "에너지",
+          frontColor: "#FF7B5D",
+          topLabelComponent: () => (
+            <Text style={{ fontSize: 12 }}>{data.kcal}%</Text>
+          ),
+        },
+        {
+          value: data.glucide,
+          label: "탄수화물",
+          frontColor: "#FFE367",
+          topLabelComponent: () => (
+            <Text style={{ fontSize: 12 }}>{data.glucide}%</Text>
+          ),
+        },
+        {
+          value: data.protein,
+          label: "단백질",
+          frontColor: "#72B9F8",
+          topLabelComponent: () => (
+            <Text style={{ fontSize: 12 }}>{data.protein}%</Text>
+          ),
+        },
+        {
+          value: data.fat,
+          label: "지방",
+          frontColor: "#86D260",
+          topLabelComponent: () => (
+            <Text style={{ fontSize: 12 }}>{data.fat}%</Text>
+          ),
+        },
+        {
+          value: data.sugar,
+          label: "당류",
+          frontColor: "#6690FF",
+          topLabelComponent: () => (
+            <Text style={{ fontSize: 12 }}>{data.sugar}%</Text>
+          ),
+        },
+        {
+          value: data.Natrium,
+          label: "나트륨",
+          frontColor: "#FF3E28",
+          topLabelComponent: () => (
+            <Text style={{ fontSize: 12 }}>{data.Natrium}%</Text>
+          ),
+        },
+        {
+          value: data.cholesterol,
+          label: "클레스테롤",
+          frontColor: "#FFD635",
+          topLabelComponent: () => (
+            <Text style={{ fontSize: 12 }}>{data.cholesterol}%</Text>
+          ),
+        },
+        {
+          value: data.dietaryfiber,
+          label: "식이섬유",
+          frontColor: "#4499F4",
+          topLabelComponent: () => (
+            <Text style={{ fontSize: 12 }}>{data.dietaryfiber}%</Text>
+          ),
+        },
+        {
+          value: data.calcium,
+          label: "칼슘",
+          frontColor: "#55B532",
+          topLabelComponent: () => (
+            <Text style={{ fontSize: 12 }}>{data.calcium}%</Text>
+          ),
+        },
+        {
+          value: data.magnesium,
+          label: "마그네슘",
+          frontColor: "#3366FF",
+          topLabelComponent: () => (
+            <Text style={{ fontSize: 12 }}>{data.magnesium}%</Text>
+          ),
+        },
+        {
+          value: data.Iron,
+          label: "철분",
+          frontColor: "#DB211D",
+          topLabelComponent: () => (
+            <Text style={{ fontSize: 12 }}>{data.Iron}%</Text>
+          ),
+        },
+        {
+          value: data.Potassium,
+          label: "칼륨",
+          frontColor: "#DBB226",
+          topLabelComponent: () => (
+            <Text style={{ fontSize: 12 }}>{data.Potassium}%</Text>
+          ),
+        },
+      ];
 
-        ];
+      setChartData(newChartData);
 
-        setChartData(newChartData);
-
-
-        getData("percentNutrition").then((data) => { setDbPercentNutrition(data) })
-
-
+      getData("percentNutrition").then((data) => {
+        setDbPercentNutrition(data);
       });
-
-
+    });
   }, []);
-
 
   const saveBtn = () => {
     navigation.navigate("MainForm");
@@ -248,19 +198,19 @@ const Result = ({ navigation }) => {
     // navigation.navigate("MainForm");
   };
 
-
   const DbNutritionBtn = () => {
-
     const updatedData = {};
 
     Object.entries(DbPercentNutrition).forEach(([property, value]) => {
-      updatedData[property] = Math.round((ResultNutrition[property] + value) * 10) / 10;
+      updatedData[property] =
+        Math.round((ResultNutrition[property] + value) * 10) / 10;
     });
 
     console.log(updatedData);
-    saveData("percentNutrition", updatedData).then(navigation.navigate("Chart"));
+    saveData("percentNutrition", updatedData).then(
+      navigation.navigate("Chart")
+    );
   };
-
 
   const goToMaterialForm = () => {
     navigation.navigate("MaterialForm", {
@@ -362,23 +312,23 @@ const Result = ({ navigation }) => {
               data={ChartData}
               yAxisLabelTexts={[" ", "50", "100"]}
               initialSpacing={20}
-            // 상단 표기
-            // renderTooltip={(item, index) => {
-            //   return (
-            //     <View
-            //       style={{
-            //         marginBottom: 20,
-            //         marginLeft: -6,
-            //         backgroundColor: '#ffcefe',
-            //         paddingHorizontal: 6,
-            //         paddingVertical: 4,
-            //         borderRadius: 4,
-            //       }}>
-            //       <Text>{item.value}</Text>
-            //     </View>
-            //   );
+              // 상단 표기
+              // renderTooltip={(item, index) => {
+              //   return (
+              //     <View
+              //       style={{
+              //         marginBottom: 20,
+              //         marginLeft: -6,
+              //         backgroundColor: '#ffcefe',
+              //         paddingHorizontal: 6,
+              //         paddingVertical: 4,
+              //         borderRadius: 4,
+              //       }}>
+              //       <Text>{item.value}</Text>
+              //     </View>
+              //   );
 
-            // }}
+              // }}
             />
           </View>
 
@@ -393,14 +343,15 @@ const Result = ({ navigation }) => {
                 justifyContent: "center",
               }}
             >
-              <Text style={styles.nutritionButtonText}>섭취 후 누적 영양소</Text>
+              <Text style={styles.nutritionButtonText}>
+                섭취 후 누적 영양소
+              </Text>
             </View>
           </TouchableOpacity>
         </ScrollView>
       </View>
       {/*하단 버튼 */}
       <View style={styles.bottomButtonsContainer}>
-
         <TouchableOpacity
           style={[styles.bottomButton, { backgroundColor: "#f79c9b" }]}
           onPress={() => deleteBtn(product.idx)}

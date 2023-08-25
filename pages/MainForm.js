@@ -16,7 +16,7 @@ import { getData, saveData } from "../modules/storagy-service";
 import { BarChart } from "react-native-gifted-charts";
 function MainForm({ navigation }) {
   const [userProfile, setUserProfile] = useState({
-    name: "홍길동",
+    name: "",
     age: 26,
     sex: "M",
     allergy: ["oranges", "apples"],
@@ -202,124 +202,127 @@ function MainForm({ navigation }) {
     }
   };
 
-
-
-  useEffect(() => navigation.addListener('focus', () => {
-    //로그인 --> 회원정보
-    fetch(process.env.EXPO_PUBLIC_URI + "/login", {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    })
-      .then((response) => {
-        return response.json();
-      })
-      .then((data) => {
-        //저장
-        // saveData("userProfile", data);
-        setUserProfile(data);
-      })
-      .catch((error) => {
-        console.error("Error fetching user data:", error);
-      });
-    saveData("userProfile", userProfile);
-    // getData("userProfile").then(data => setUserProfile(data));
-
-    //todayfood
-
-    // Fetch data from API endpoint here
-    fetch(process.env.EXPO_PUBLIC_URI + "/todayfood", {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      // Add any required request body here
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        // console.log(data);\
-        console.log(data.foods);
-        setFoods(data.foods);
-        saveData("foods", data.foods);
-        return data.foods;
-      })
-      .then((food) => {
-        const nutrition = calculateCumulativeNutrition(food)
-        console.log(nutrition);
-        saveData("Nutrition", nutrition);
-        // setCumulativeNutrition(nutrition);
-        return nutrition;
-      })
-      .then((nutrition) => {
-        const nutritionPercentages = percentNutrition(nutrition);
-        saveData("percentNutrition", nutritionPercentages);
-        // setDbPercentNutrition(nutritionPercentages);
-        return nutritionPercentages
-      })
-      .then((data) => {
-        setDbPercentNutrition(data);
-        const newChartData = [
-          {
-            value: data.kcal,
-            label: "에너지",
-            frontColor: "#FFA07E",
-            topLabelComponent: () => (
-              <Text style={{ fontSize: 12 }}>{data.kcal}%</Text>
-            ),
+  useEffect(
+    () =>
+      navigation.addListener("focus", () => {
+        //로그인 --> 회원정보
+        fetch(process.env.EXPO_PUBLIC_URI + "/login", {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
           },
-          {
-            value: data.glucide,
-            label: "탄수화물",
-            frontColor: "#FFE367",
-            topLabelComponent: () => (
-              <Text style={{ fontSize: 12 }}>{data.glucide}%</Text>
-            ),
+        })
+          .then((response) => {
+            return response.json();
+          })
+          .then((data) => {
+            //저장
+            // saveData("userProfile", data);
+            setUserProfile(data);
+          })
+          .catch((error) => {
+            console.error("Error fetching user data:", error);
+          });
+        saveData("userProfile", userProfile);
+        // getData("userProfile").then(data => setUserProfile(data));
+
+        //todayfood
+
+        // Fetch data from API endpoint here
+        fetch(process.env.EXPO_PUBLIC_URI + "/todayfood", {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
           },
-          {
-            value: data.protein,
-            label: "단백질",
-            frontColor: "#72B9F8",
-            topLabelComponent: () => (
-              <Text style={{ fontSize: 12 }}>{data.protein}%</Text>
-            ),
-          },
-          {
-            value: data.fat,
-            label: "지방",
-            frontColor: "#86D260",
-            topLabelComponent: () => (
-              <Text style={{ fontSize: 12 }}>{data.fat}%</Text>
-            ),
-          },
-        ];
+          // Add any required request body here
+        })
+          .then((response) => response.json())
+          .then((data) => {
+            // console.log(data);\
+            console.log(data.foods);
+            setFoods(data.foods);
+            saveData("foods", data.foods);
+            return data.foods;
+          })
+          .then((food) => {
+            const nutrition = calculateCumulativeNutrition(food);
+            console.log(nutrition);
+            saveData("Nutrition", nutrition);
+            // setCumulativeNutrition(nutrition);
+            return nutrition;
+          })
+          .then((nutrition) => {
+            const nutritionPercentages = percentNutrition(nutrition);
+            saveData("percentNutrition", nutritionPercentages);
+            // setDbPercentNutrition(nutritionPercentages);
+            return nutritionPercentages;
+          })
+          .then((data) => {
+            setDbPercentNutrition(data);
+            const newChartData = [
+              {
+                value: data.kcal,
+                label: "에너지",
+                frontColor: "#FFA07E",
+                topLabelComponent: () => (
+                  <Text style={{ fontSize: 12 }}>{data.kcal}%</Text>
+                ),
+              },
+              {
+                value: data.glucide,
+                label: "탄수화물",
+                frontColor: "#FFE367",
+                topLabelComponent: () => (
+                  <Text style={{ fontSize: 12 }}>{data.glucide}%</Text>
+                ),
+              },
+              {
+                value: data.protein,
+                label: "단백질",
+                frontColor: "#72B9F8",
+                topLabelComponent: () => (
+                  <Text style={{ fontSize: 12 }}>{data.protein}%</Text>
+                ),
+              },
+              {
+                value: data.fat,
+                label: "지방",
+                frontColor: "#86D260",
+                topLabelComponent: () => (
+                  <Text style={{ fontSize: 12 }}>{data.fat}%</Text>
+                ),
+              },
+            ];
 
-        return newChartData;
-      })
-      .then((newChartData) => {
-        setChartData(newChartData);
-      })
+            return newChartData;
+          })
+          .then((newChartData) => {
+            setChartData(newChartData);
+          })
 
-      .catch((error) => {
-        console.error("Error fetching food data:", error);
-      });
+          .catch((error) => {
+            console.error("Error fetching food data:", error);
+          });
 
-    // setFoods(mockApiResponse.foods);
-    // saveData("foods", data.foods);
-    getData("percentNutrition").then((data) => {
-      console.log(data);
-      if (data.kcal == 0) {
-        setWelcome("오늘 음식정보를 입력해 주세요");
-      } else {
-        const maxValue = Math.max(...Object.values(data));
-        const maxKey = Object.keys(data).find((key) => data[key] === maxValue);
-        setWelcome(
-          nutritionTranslator[maxKey] + " 섭취가 많아요, 주의해주세요"
-        );
-      }
-    });
-  }), []);
-
+        // setFoods(mockApiResponse.foods);
+        // saveData("foods", data.foods);
+        getData("percentNutrition").then((data) => {
+          console.log(data);
+          if (data.kcal == 0) {
+            setWelcome("오늘 음식정보를 입력해 주세요");
+          } else {
+            const maxValue = Math.max(...Object.values(data));
+            const maxKey = Object.keys(data).find(
+              (key) => data[key] === maxValue
+            );
+            setWelcome(
+              nutritionTranslator[maxKey] + " 섭취가 많아요, 주의해주세요"
+            );
+          }
+        });
+      }),
+    []
+  );
 
   return (
     <ScrollView style={styles.container}>
@@ -390,33 +393,33 @@ function MainForm({ navigation }) {
               data={chartData}
               yAxisLabelTexts={[" ", "50", "100"]}
               initialSpacing={30}
-            // 상단 표기
-            // renderTooltip={(item, index) => {
-            //   return (
-            //     <View
-            //       style={{
-            //         marginBottom: 20,
-            //         marginLeft: -6,
-            //         backgroundColor: '#ffcefe',
-            //         paddingHorizontal: 6,
-            //         paddingVertical: 4,
-            //         borderRadius: 4,
-            //       }}>
-            //       <Text>{item.value}</Text>
-            //     </View>
-            //   );
+              // 상단 표기
+              // renderTooltip={(item, index) => {
+              //   return (
+              //     <View
+              //       style={{
+              //         marginBottom: 20,
+              //         marginLeft: -6,
+              //         backgroundColor: '#ffcefe',
+              //         paddingHorizontal: 6,
+              //         paddingVertical: 4,
+              //         borderRadius: 4,
+              //       }}>
+              //       <Text>{item.value}</Text>
+              //     </View>
+              //   );
 
-            // }}
+              // }}
             />
           </View>
         </View>
-
 
         <ButtonComponent
           title="누적 영양 성분 확인"
           onPress={() => {
             navigation.navigate("Chart");
-          }}></ButtonComponent>
+          }}
+        ></ButtonComponent>
       </View>
 
       <View style={styles.section}>
