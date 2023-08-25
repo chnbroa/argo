@@ -189,7 +189,22 @@ function MainForm({ navigation }) {
     return nutritionPercentages;
   };
 
-  useEffect(() => {
+  cameraRoute = async (route) => {
+    //여기에 넘어가기전 처리
+    const { status } = await Camera.requestCameraPermissionsAsync();
+
+    // 권한을 획득하면 status가 granted 상태가 됩니다.
+    if (status === "granted") {
+      // 권한이 있으면 페이지 이동
+      navigation.navigate("CameraForm", { key: route });
+    } else {
+      Alert.alert("카메라 접근 허용은 필수입니다.");
+    }
+  };
+
+
+
+  useEffect(() => navigation.addListener('focus', () => {
     //로그인 --> 회원정보
     fetch(process.env.EXPO_PUBLIC_URI + "/login", {
       method: "GET",
@@ -227,33 +242,22 @@ function MainForm({ navigation }) {
         console.log(data.foods);
         setFoods(data.foods);
         saveData("foods", data.foods);
+        return data.foods;
       })
-      .then(() => {
-        console.log(calculateCumulativeNutrition(foods));
-        saveData("Nutrition", calculateCumulativeNutrition(foods));
+      .then((food) => {
+        const nutrition = calculateCumulativeNutrition(food)
+        console.log(nutrition);
+        saveData("Nutrition", nutrition);
+        // setCumulativeNutrition(nutrition);
+        return nutrition;
       })
-      .catch((error) => {
-        console.error("Error fetching food data:", error);
-      });
-
-    // setFoods(mockApiResponse.foods);
-    // saveData("foods", data.foods);
-
-    //비동기 문제
-
-    //영양성분 불러와서 setCumulativeNutrition 넣어주기
-    getData("Nutrition").then((data) => {
-      setCumulativeNutrition(data);
-
-      //percent 계산
-      const nutritionPercentages = percentNutrition(data);
-      console.log("Nutrition Percentages:", nutritionPercentages);
-
-      //percent 저장
-      saveData("percentNutrition", nutritionPercentages);
-
-      //percent 가져오기
-      getData("percentNutrition").then((data) => {
+      .then((nutrition) => {
+        const nutritionPercentages = percentNutrition(nutrition);
+        saveData("percentNutrition", nutritionPercentages);
+        // setDbPercentNutrition(nutritionPercentages);
+        return nutritionPercentages
+      })
+      .then((data) => {
         setDbPercentNutrition(data);
         const newChartData = [
           {
@@ -290,9 +294,18 @@ function MainForm({ navigation }) {
           },
         ];
 
+        return newChartData;
+      })
+      .then((newChartData) => {
         setChartData(newChartData);
+      })
+
+      .catch((error) => {
+        console.error("Error fetching food data:", error);
       });
-    });
+
+    // setFoods(mockApiResponse.foods);
+    // saveData("foods", data.foods);
     getData("percentNutrition").then((data) => {
       console.log(data);
       if (data.kcal == 0) {
@@ -305,20 +318,8 @@ function MainForm({ navigation }) {
         );
       }
     });
-  }, []);
+  }), []);
 
-  cameraRoute = async (route) => {
-    //여기에 넘어가기전 처리
-    const { status } = await Camera.requestCameraPermissionsAsync();
-
-    // 권한을 획득하면 status가 granted 상태가 됩니다.
-    if (status === "granted") {
-      // 권한이 있으면 페이지 이동
-      navigation.navigate("CameraForm", { key: route });
-    } else {
-      Alert.alert("카메라 접근 허용은 필수입니다.");
-    }
-  };
 
   return (
     <ScrollView style={styles.container}>
