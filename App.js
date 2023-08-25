@@ -1,6 +1,8 @@
 import { StyleSheet, Text, View } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import { StatusBar } from "expo-status-bar";
+
 import LoginForm from "./pages/LoginForm";
 import Register1 from "./pages/Register1";
 import Register2 from "./pages/Register2";
@@ -18,6 +20,7 @@ const Stack = createNativeStackNavigator();
 export default function App() {
   return (
     <NavigationContainer>
+      <StatusBar style="black" />
       <Stack.Navigator initialRouteName="LoginForm">
         <Stack.Screen
           name="LoginForm"
