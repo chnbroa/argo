@@ -14,6 +14,8 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import ButtonComponent from "../components/ButtonComponent";
 import { getData, saveData } from "../modules/storagy-service";
 import { BarChart } from "react-native-gifted-charts";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
+import { Octicons } from "@expo/vector-icons";
 function MainForm({ navigation }) {
   const [userProfile, setUserProfile] = useState({
     name: "",
@@ -341,18 +343,25 @@ function MainForm({ navigation }) {
           style={styles.camerabtn}
           onPress={() => cameraRoute("ocr")}
         >
+          <MaterialCommunityIcons
+            name="file-document-outline"
+            size={32}
+            color="black"
+          />
           <Text style={styles.cameratitle}>성분표</Text>
         </TouchableOpacity>
         <TouchableOpacity
           style={styles.camerabtn}
           onPress={() => cameraRoute("foodcnn")}
         >
+          <MaterialCommunityIcons name="food-turkey" size={34} color="black" />
           <Text style={styles.cameratitle}>음식사진</Text>
         </TouchableOpacity>
         <TouchableOpacity
           style={styles.camerabtn}
           onPress={() => cameraRoute("stockcnn")}
         >
+          <Octicons name="package" size={30} color="black" />
           <Text style={styles.cameratitle}>제품사진</Text>
         </TouchableOpacity>
       </View>
@@ -473,11 +482,12 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   cameratitle: {
-    fontSize: 18,
+    marginTop: 8,
+    fontSize: 16,
     textAlign: "center",
   },
   foodList: {
-    flexGrow: 0.38,
+    height: 155,
   },
   scrollViewContent: {
     alignItems: "center",
