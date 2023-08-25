@@ -20,6 +20,15 @@ function Chat({ navigation }) {
   const scrollViewRef = useRef();
   const [messages, setMessages] = useState([]);
   const [inputMessage, setInputMessage] = useState("");
+  const [init, setInit] = useState(true);
+  const initMessage = [
+    "뭐 먹을지 고민 중이야",
+    "오늘 좀 많이 먹었나?",
+    "안녕?",
+    "안녕?",
+    "안녕?",
+    "안녕?",
+  ];
   const handleSendMessage = async () => {
     if (inputMessage.trim() === "") return;
 
@@ -62,7 +71,8 @@ function Chat({ navigation }) {
 
   useEffect(() => {
     setTimeout(() => {
-      scrollViewRef.current.scrollToEnd({ animated: true });
+      if (messages.length > 1)
+        scrollViewRef.current.scrollToEnd({ animated: true });
     }, 0);
   }, [messages]);
 
@@ -93,7 +103,11 @@ function Chat({ navigation }) {
     };
     fetchData();
   }, []);
-  console.log(messages);
+
+  useEffect(() => {
+    handleSendMessage();
+  }, [init]);
+
   return (
     <KeyboardAvoidingView
       behavior={Platform.OS === "ios" ? "padding" : "height"}
@@ -107,38 +121,56 @@ function Chat({ navigation }) {
           alignItems: "center",
         }}
       >
-        <View style={styles.chatBox}>
-          <ScrollView ref={scrollViewRef} style={styles.chatScrollBox}>
-            {messages
-              .filter((message) => message.role !== "system")
-              .map((message, index) => (
-                <View key={index}>
-                  <Text
-                    style={[
-                      message.role === "user"
-                        ? { display: "none" }
-                        : styles.botHead,
-                    ]}
-                  >
-                    <FontAwesome5 name="robot" size={18} color="black" />
-                    <View style={{ width: 5 }}></View>
-                    알고먹자
-                  </Text>
-                  <View
-                    key={index}
-                    style={[
-                      styles.message,
-                      message.role === "user"
-                        ? styles.userMessage
-                        : styles.botMessage,
-                    ]}
-                  >
-                    <Text style={styles.messageText}>{message.content}</Text>
+        {messages.length == 1 ? (
+          <View style={styles.initBox}>
+            {initMessage.map((message, index) => (
+              <TouchableOpacity
+                key={index}
+                title="Send"
+                onPress={() => {
+                  setInputMessage(message);
+                  setInit(false);
+                }}
+                style={styles.initSend}
+              >
+                <Text style={styles.initMessage}>{message}</Text>
+              </TouchableOpacity>
+            ))}
+          </View>
+        ) : (
+          <View style={styles.chatBox}>
+            <ScrollView ref={scrollViewRef} style={styles.chatScrollBox}>
+              {messages
+                .filter((message) => message.role !== "system")
+                .map((message, index) => (
+                  <View key={index}>
+                    <Text
+                      style={[
+                        message.role === "user"
+                          ? { display: "none" }
+                          : styles.botHead,
+                      ]}
+                    >
+                      <FontAwesome5 name="robot" size={18} color="black" />
+                      <View style={{ width: 5 }}></View>
+                      알고먹자
+                    </Text>
+                    <View
+                      key={index}
+                      style={[
+                        styles.message,
+                        message.role === "user"
+                          ? styles.userMessage
+                          : styles.botMessage,
+                      ]}
+                    >
+                      <Text style={styles.messageText}>{message.content}</Text>
+                    </View>
                   </View>
-                </View>
-              ))}
-          </ScrollView>
-        </View>
+                ))}
+            </ScrollView>
+          </View>
+        )}
       </View>
       <View style={{ height: 70, width: "90%" }}>
         <View style={styles.inputBox}>
@@ -198,6 +230,26 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: "center",
     justifyContent: "center",
+  },
+  initBox: {
+    backgroundColor: "white",
+    width: "100%",
+    alignItems: "center",
+    justifyContent: "center",
+    flex: 1,
+  },
+  initSend: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
+    backgroundColor: theme.buttonColor,
+    paddingVertical: 10,
+    paddingHorizontal: 15,
+    borderRadius: 15,
+    marginVertical: 5,
+  },
+  initMessage: {
+    fontSize: 15,
   },
   chatBox: {
     backgroundColor: "white",
