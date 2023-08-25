@@ -16,7 +16,7 @@ import { getData } from "../modules/storagy-service";
 import { FontAwesome5 } from "@expo/vector-icons";
 
 function Chat({ navigation }) {
-  const [scrollViewFlex, setScrollViewFlex] = useState(1); // 초기 flex 값
+  const [scrollViewFlex, setScrollViewFlex] = useState(0.2); // 초기 flex 값
   const scrollViewRef = useRef();
   const [messages, setMessages] = useState([]);
   const [inputMessage, setInputMessage] = useState("");
@@ -98,15 +98,8 @@ function Chat({ navigation }) {
     <KeyboardAvoidingView
       behavior={Platform.OS === "ios" ? "padding" : "height"}
       style={{ flex: 1, alignItems: "center" }}
+      keyboardVerticalOffset={100}
     >
-      <View style={{ flex: 1 }}></View>
-      <View style={styles.mainTitle}>
-        <Text style={styles.mainText}>인공지능 챗봇</Text>
-        <Image
-          source={require("../assets/logo.png")}
-          style={{ width: 80, height: 80 }}
-        ></Image>
-      </View>
       <View
         style={{
           flex: 8,
@@ -119,7 +112,7 @@ function Chat({ navigation }) {
             {messages
               .filter((message) => message.role !== "system")
               .map((message, index) => (
-                <View>
+                <View key={index}>
                   <Text
                     style={[
                       message.role === "user"
@@ -147,7 +140,7 @@ function Chat({ navigation }) {
           </ScrollView>
         </View>
       </View>
-      <View style={{ flex: 1, width: "90%" }}>
+      <View style={{ height: 70, width: "90%" }}>
         <View style={styles.inputBox}>
           <TextInput
             placeholder="챗봇에게 물어보세요."
@@ -155,9 +148,8 @@ function Chat({ navigation }) {
             style={styles.input}
             onChangeText={setInputMessage}
             onFocus={() => setScrollViewFlex(0)} // 키보드가 나타날 때 flex 값 변경
-            onBlur={() => setScrollViewFlex(1)} // 키보드가 사라질
+            onBlur={() => setScrollViewFlex(0)} // 키보드가 사라질
           />
-          <View style={{ flex: 0.1 }}></View>
           <TouchableOpacity
             title="Send"
             onPress={handleSendMessage}
@@ -167,7 +159,6 @@ function Chat({ navigation }) {
           </TouchableOpacity>
         </View>
       </View>
-      <View style={{ flex: scrollViewFlex }}></View>
     </KeyboardAvoidingView>
   );
 }
@@ -190,35 +181,27 @@ const styles = StyleSheet.create({
     flex: 0.8,
     flexDirection: "row",
     marginTop: 10,
+    borderWidth: 0.2,
+    borderColor: theme.grey,
+    borderRadius: 15,
+    backgroundColor: "white",
   },
   inputText: { fontSize: 15, marginLeft: 15 },
   input: {
     flex: 6,
     flexDirection: "row",
-    backgroundColor: "white",
     paddingVertical: 2,
     paddingHorizontal: 20,
-    borderWidth: 0.2,
-    borderColor: theme.grey,
-    borderRadius: 15,
     fontSize: 15,
   },
   send: {
-    backgroundColor: theme.buttonColor,
     flex: 1,
-    borderWidth: 0.2,
-    borderColor: theme.grey,
-    borderRadius: 15,
     alignItems: "center",
     justifyContent: "center",
   },
   chatBox: {
     backgroundColor: "white",
-    borderWidth: 0.2,
-    borderRadius: 15,
-    borderColor: theme.grey,
-
-    width: "90%",
+    width: "100%",
     flex: 1,
   },
   chatScrollBox: {

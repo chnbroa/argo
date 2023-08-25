@@ -76,19 +76,15 @@ export default function App() {
 
         <Stack.Screen
           name="Chat"
-          options={{ headerShown: false }}
+          options={{ headerShown: true, title: "인공지능" }}
           component={Chat}
         />
-
 
         <Stack.Screen
           name="Chart"
           options={{ headerShown: false }}
           component={Chart}
         />
-
-
-
       </Stack.Navigator>
     </NavigationContainer>
   );
