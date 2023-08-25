@@ -33,79 +33,79 @@ function MainForm({ navigation }) {
   const [chartData, setChartData] = useState([]);
   const [welcome, setWelcome] = useState("안녕하세요.");
   // Simulating the received JSON response
-  const mockApiResponse = {
-    foods: [
-      {
-        name: "햄버거",
-        nutrition: {
-          kcal: 1000.4,
-          protein: 10.1,
-          fat: 10.1,
-          glucide: 10.1,
-          sugar: 10.1,
-          dietaryfiber: 10.1,
-          calcium: 10.1,
-          Iron: 0,
-          magnesium: 10.1,
-          caffeine: 10.1,
-          Potassium: 10.1,
-          Natrium: 10.1,
-          vitamin: 10.1,
-          cholesterol: 10.1,
-          fatty: 0,
-          transfat: 10.1,
-        },
-        date: "YYYY-MM-DD",
-        hate: ["유해", "물질"],
-      },
-      {
-        name: "바나나킥",
-        nutrition: {
-          kcal: 500.4,
-          protein: 10.1,
-          fat: 10.1,
-          glucide: 10.1,
-          sugar: 10.1,
-          dietaryfiber: 10.1,
-          calcium: 10.1,
-          Iron: 0,
-          magnesium: 10.1,
-          caffeine: 10.1,
-          Potassium: 10.1,
-          Natrium: 10.1,
-          vitamin: 10.1,
-          cholesterol: 10.1,
-          fatty: 10.1,
-          transfat: 10.1,
-        },
-        date: "YYYY-MM-DD",
-        hate: ["유해", "물질"],
-      },
-      {
-        name: "치킨",
-        nutrition: {
-          kcal: 52.4,
-          protein: 10.1,
-          fat: 10.1,
-          glucide: 100.1,
-          sugar: 10.1,
-          dietaryfiber: 10.1,
-          calcium: 10.1,
-          Iron: 0,
-          magnesium: 10.1,
-          caffeine: 10.1,
-          Potassium: 10.1,
-          Natrium: 10.1,
-          vitamin: 10.1,
-          cholesterol: 10.1,
-          fatty: 10.1,
-          transfat: 10.1,
-        },
-        date: "YYYY-MM-DD",
-        hate: ["유해", "물질"],
-      },
-    ],
-  };
+  // const mockApiResponse = {
+  //   foods: [
+  //     {
+  //       name: "햄버거",
+  //       nutrition: {
+  //         kcal: 1000.4,
+  //         protein: 10.1,
+  //         fat: 10.1,
+  //         glucide: 10.1,
+  //         sugar: 10.1,
+  //         dietaryfiber: 10.1,
+  //         calcium: 10.1,
+  //         Iron: 0,
+  //         magnesium: 10.1,
+  //         caffeine: 10.1,
+  //         Potassium: 10.1,
+  //         Natrium: 10.1,
+  //         vitamin: 10.1,
+  //         cholesterol: 10.1,
+  //         fatty: 0,
+  //         transfat: 10.1,
+  //       },
+  //       date: "YYYY-MM-DD",
+  //       hate: ["유해", "물질"],
+  //     },
+  //     {
+  //       name: "바나나킥",
+  //       nutrition: {
+  //         kcal: 500.4,
+  //         protein: 10.1,
+  //         fat: 10.1,
+  //         glucide: 10.1,
+  //         sugar: 10.1,
+  //         dietaryfiber: 10.1,
+  //         calcium: 10.1,
+  //         Iron: 0,
+  //         magnesium: 10.1,
+  //         caffeine: 10.1,
+  //         Potassium: 10.1,
+  //         Natrium: 10.1,
+  //         vitamin: 10.1,
+  //         cholesterol: 10.1,
+  //         fatty: 10.1,
+  //         transfat: 10.1,
+  //       },
+  //       date: "YYYY-MM-DD",
+  //       hate: ["유해", "물질"],
+  //     },
+  //     {
+  //       name: "치킨",
+  //       nutrition: {
+  //         kcal: 52.4,
+  //         protein: 10.1,
+  //         fat: 10.1,
+  //         glucide: 100.1,
+  //         sugar: 10.1,
+  //         dietaryfiber: 10.1,
+  //         calcium: 10.1,
+  //         Iron: 0,
+  //         magnesium: 10.1,
+  //         caffeine: 10.1,
+  //         Potassium: 10.1,
+  //         Natrium: 10.1,
+  //         vitamin: 10.1,
+  //         cholesterol: 10.1,
+  //         fatty: 10.1,
+  //         transfat: 10.1,
+  //       },
+  //       date: "YYYY-MM-DD",
+  //       hate: ["유해", "물질"],
+  //     },
+  //   ],
+  // };
 
   const calculateCumulativeNutrition = (foods) => {
     const initialCumulativeNutrition = {
@@ -214,29 +214,33 @@ function MainForm({ navigation }) {
     //todayfood
 
     // Fetch data from API endpoint here
-    // fetch(process.env.EXPO_PUBLIC_URI + "/todayfood", {
-    //   method: "GET",
-    //   headers: {
-    //     "Content-Type": "application/json",
-    //   },
-    //   // Add any required request body here
-    // })
-    //   .then((response) => response.json())
-    //   .then((data) => {
-    //     // console.log(data);
-    //     // setFoods(data.foods);
-    //     // saveData("foods", data.foods);
-    //   })
-    //   .catch((error) => {
-    //     console.error("Error fetching food data:", error);
-    //   });
+    fetch(process.env.EXPO_PUBLIC_URI + "/todayfood", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      // Add any required request body here
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        // console.log(data);\
+        console.log(data.foods);
+        setFoods(data.foods);
+        saveData("foods", data.foods);
+      })
+      .then(() => {
+        console.log(calculateCumulativeNutrition(foods));
+        saveData("Nutrition", calculateCumulativeNutrition(foods));
+      })
+      .catch((error) => {
+        console.error("Error fetching food data:", error);
+      });
 
-    setFoods(mockApiResponse.foods);
-    saveData("foods", mockApiResponse.foods);
+    // setFoods(mockApiResponse.foods);
+    // saveData("foods", data.foods);
 
     //비동기 문제
-    console.log(calculateCumulativeNutrition(mockApiResponse.foods));
-    saveData("Nutrition", calculateCumulativeNutrition(mockApiResponse.foods));
+
     //영양성분 불러와서 setCumulativeNutrition 넣어주기
     getData("Nutrition").then((data) => {
       setCumulativeNutrition(data);
@@ -368,42 +372,44 @@ function MainForm({ navigation }) {
       <View style={styles.section}>
         <Text style={styles.sectionTitle}>일일 영양성분</Text>
         <Text>누적 영양성분 확인</Text>
+        <View style={{ alignItems: "center" }}>
+          <View style={styles.chart}>
+            <BarChart
+              isAnimated
+              barWidth={40}
+              noOfSections={2}
+              maxValue={100}
+              barBorderRadius={4}
+              frontColor="lightgray"
+              xAxisThickness={0}
+              yAxisThickness={0}
+              yAxisTextStyle={{ color: "gray" }}
+              // height={200}
+              onPress={(item, index) => console.log("item", item)}
+              data={chartData}
+              yAxisLabelTexts={[" ", "50", "100"]}
+              initialSpacing={30}
+            // 상단 표기
+            // renderTooltip={(item, index) => {
+            //   return (
+            //     <View
+            //       style={{
+            //         marginBottom: 20,
+            //         marginLeft: -6,
+            //         backgroundColor: '#ffcefe',
+            //         paddingHorizontal: 6,
+            //         paddingVertical: 4,
+            //         borderRadius: 4,
+            //       }}>
+            //       <Text>{item.value}</Text>
+            //     </View>
+            //   );
 
-        <View style={styles.chart}>
-          <BarChart
-            isAnimated
-            barWidth={40}
-            noOfSections={2}
-            maxValue={100}
-            barBorderRadius={4}
-            frontColor="lightgray"
-            xAxisThickness={0}
-            yAxisThickness={0}
-            yAxisTextStyle={{ color: "gray" }}
-            // height={200}
-            onPress={(item, index) => console.log("item", item)}
-            data={chartData}
-            yAxisLabelTexts={[" ", "50", "100"]}
-            initialSpacing={30}
-          // 상단 표기
-          // renderTooltip={(item, index) => {
-          //   return (
-          //     <View
-          //       style={{
-          //         marginBottom: 20,
-          //         marginLeft: -6,
-          //         backgroundColor: '#ffcefe',
-          //         paddingHorizontal: 6,
-          //         paddingVertical: 4,
-          //         borderRadius: 4,
-          //       }}>
-          //       <Text>{item.value}</Text>
-          //     </View>
-          //   );
-
-          // }}
-          />
+            // }}
+            />
+          </View>
         </View>
+
 
         <ButtonComponent
           title="누적 영양 성분 확인"

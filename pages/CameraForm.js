@@ -70,6 +70,7 @@ function CameraForm({ navigation, route }) {
         // console.log("responseData :: " + responseData);
         if (responseData.idx == -1) {
           console.log("인식오류");
+          // 인식 오류 얼랏창?
         } else {
           navigation.navigate('Result', { responseData });
         }

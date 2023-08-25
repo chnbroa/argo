@@ -9,7 +9,7 @@ const MaterialForm = () => {
   const { name, material } = route.params;
 
   const showSummaryAlert = (item) => {
-    console.log(`/material?name=${item}`);
+    console.log(`${process.env.EXPO_PUBLIC_URI}/material?name=${item}`);
 
     fetch(`${process.env.EXPO_PUBLIC_URI}/material?name=${item}`)
       .then(response => {
