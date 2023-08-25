@@ -67,10 +67,10 @@ function CameraForm({ navigation, route }) {
         //다음 페이지로 이동
 
         const responseData = await response.json();
-        // console.log("responseData :: " + responseData);
+        console.log(responseData);
         if (responseData.idx == -1) {
           console.log("인식오류");
-          // 인식 오류 얼랏창?
+          Alert.alert("인식 오류");
         } else {
           navigation.navigate('Result', { responseData });
         }

@@ -12,6 +12,7 @@ import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { getData, saveData } from "../modules/storagy-service";
 import { FontAwesome5 } from "@expo/vector-icons";
 import { BarChart } from "react-native-gifted-charts";
+import { useRoute } from "@react-navigation/native";
 
 
 
@@ -70,7 +71,7 @@ const productJson = {
 
 //product 설정 
 // const product = useRoute().params.responseData;
-const product = productJson;
+// const product = productJson;
 
 const percentNutrition = async (savedNutrition) => {
   const userProfile = await getData("userProfile");
@@ -108,6 +109,8 @@ const percentNutrition = async (savedNutrition) => {
 
 
 const Result = ({ navigation }) => {
+
+  const product = useRoute().params.responseData;
   const [ResultNutrition, setResultNutrition] = useState({});
   const [DbPercentNutrition, setDbPercentNutrition] = useState({});
   const [ChartData, setChartData] = useState([]);
