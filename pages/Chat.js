@@ -61,8 +61,11 @@ function Chat({ navigation }) {
   };
 
   useEffect(() => {
-    scrollViewRef.current.scrollToEnd({ animated: true });
+    setTimeout(() => {
+      scrollViewRef.current.scrollToEnd({ animated: true });
+    }, 0);
   }, [messages]);
+
   useEffect(() => {
     const fetchData = async () => {
       const info = {
