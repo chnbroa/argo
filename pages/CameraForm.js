@@ -9,10 +9,10 @@ import {
 } from "react-native";
 import { Camera } from "expo-camera";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
+import Splash from "./Splash";
 
 function CameraForm({ navigation, route }) {
   const paymentData = route.params.key;
-
   //들어오는 paymentData 에 따라 API 설정,
   if (paymentData == "ocr") {
     API_URL = process.env.EXPO_PUBLIC_URI + "/ocr";
@@ -24,6 +24,8 @@ function CameraForm({ navigation, route }) {
     API_URL = process.env.EXPO_PUBLIC_URI + "/stockcnn";
   }
   console.log("start::" + API_URL);
+
+  const [splash, setSplash] = useState(null);
 
   const nextStep = () => {
     //여기에 넘어가기전 처리
@@ -47,6 +49,7 @@ function CameraForm({ navigation, route }) {
     setCapturedImage(null);
   };
   const sendPicture = async () => {
+
     <CameraPreviewImage photo={capturedImage} />;
     if (capturedImage) {
       const formData = new FormData();
@@ -58,6 +61,7 @@ function CameraForm({ navigation, route }) {
 
       try {
         console.log("try::" + API_URL);
+        setSplash(true);
         const response = await fetch(API_URL, {
           method: "POST",
           body: formData,
@@ -67,6 +71,7 @@ function CameraForm({ navigation, route }) {
         //다음 페이지로 이동
 
         const responseData = await response.json();
+        setSplash(false);
         console.log(responseData);
         if (responseData.idx == -1) {
           console.log("인식오류");
@@ -101,6 +106,7 @@ function CameraForm({ navigation, route }) {
             </TouchableOpacity>
             <TouchableOpacity onPress={sendPicture} style={styles.iconButton}>
               <MaterialCommunityIcons name="send" size={50} color="black" />
+
             </TouchableOpacity>
           </View>
         </View>
@@ -110,10 +116,13 @@ function CameraForm({ navigation, route }) {
             <TouchableOpacity onPress={takePicture}>
               <MaterialCommunityIcons name="camera" size={60} color="black" />
             </TouchableOpacity>
+
           </View>
         </Camera>
       )}
+      {splash && <Splash />}
     </View>
+
   );
 }
 
