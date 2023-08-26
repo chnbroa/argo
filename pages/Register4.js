@@ -63,7 +63,7 @@ function Register4({ navigation }) {
       }
 
       const responseData = await response.json();
-      alert(responseData.code);
+      // alert(responseData.code);
     } catch (error) {
       console.error("Error sending API request:", error);
     }

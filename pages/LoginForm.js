@@ -84,12 +84,12 @@ function LoginForm({ navigation }) {
       <View style={{ flex: 0.05 }}></View>
       <View style={styles.inputBox}>
         <Text style={styles.inputText}>패스워드</Text>
-        <TextInput placeholder="패스워드" style={styles.input}></TextInput>
+        <TextInput placeholder="패스워드" style={styles.input} secureTextEntry={true}></TextInput>
       </View>
       <View style={{ flex: 0.05 }}></View>
       <ButtonComponent title="로그인" onPress={login}></ButtonComponent>
       <ButtonComponent title="회원가입" onPress={register}></ButtonComponent>
-      <ButtonComponent title="result" onPress={result}></ButtonComponent>
+      {/* <ButtonComponent title="result" onPress={result}></ButtonComponent> */}
     </View>
   );
 }
