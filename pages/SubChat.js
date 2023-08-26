@@ -24,7 +24,7 @@ function SubChat({ navigation }) {
   const initMessage = [
     "당뇨병 에방방법 알려줘",
     "당뇨병 개선방법 알려줘",
-    "오늘 먹을거에 대해 알려줘",
+    "오늘 먹은 것에 대해 알려줘",
   ];
   const handleSendMessage = async () => {
     if (inputMessage.trim() === "") return;
@@ -43,10 +43,10 @@ function SubChat({ navigation }) {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
-            Authorization: "Bearer " + process.env.EXPO_PUBLIC_GPT_KEY,
+            Authorization: "Bearer " + process.env.EXPO_PUBLIC_GPT_KEY_SUB,
           },
           body: JSON.stringify({
-            model: "gpt-3.5-turbo",
+            model: "ft:gpt-3.5-turbo-0613:personal::7rVGqKG7",
             messages: newMessages, // 수정된 메시지 배열 전송
             temperature: 1,
             max_tokens: 512,
