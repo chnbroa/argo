@@ -34,7 +34,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "center",
-    // borderWidth: 0.7,
+    borderWidth: 0.5,
     shadowColor: "#000",
     shadowOffset: {
       width: 0,
@@ -44,7 +44,7 @@ const styles = StyleSheet.create({
     shadowRadius: 3.84,
     elevation: 5,
     borderRadius: 8,
-    backgroundColor: theme.buttonColor,
+    // backgroundColor: theme.buttonColor,
   },
 });
 

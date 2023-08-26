@@ -18,7 +18,7 @@ import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { Octicons } from "@expo/vector-icons";
 import { SafeAreaView } from "react-native";
 import { theme } from "../assets/colors";
-
+import { btntheme } from "../assets/buttonstyle";
 function MainForm({ navigation }) {
   const [userProfile, setUserProfile] = useState({
     name: "",
@@ -429,33 +429,43 @@ function MainForm({ navigation }) {
                   onPress={(item, index) => console.log("item", item)}
                   data={chartData}
                   yAxisLabelTexts={[" ", "50", "100"]}
-                  // 상단 표기
-                  // renderTooltip={(item, index) => {
-                  //   return (
-                  //     <View
-                  //       style={{
-                  //         marginBottom: 20,
-                  //         marginLeft: -6,
-                  //         backgroundColor: '#ffcefe',
-                  //         paddingHorizontal: 6,
-                  //         paddingVertical: 4,
-                  //         borderRadius: 4,
-                  //       }}>
-                  //       <Text>{item.value}</Text>
-                  //     </View>
-                  //   );
+                // 상단 표기
+                // renderTooltip={(item, index) => {
+                //   return (
+                //     <View
+                //       style={{
+                //         marginBottom: 20,
+                //         marginLeft: -6,
+                //         backgroundColor: '#ffcefe',
+                //         paddingHorizontal: 6,
+                //         paddingVertical: 4,
+                //         borderRadius: 4,
+                //       }}>
+                //       <Text>{item.value}</Text>
+                //     </View>
+                //   );
 
-                  // }}
+                // }}
                 />
               </View>
             </View>
 
-            <ButtonComponent
-              title="누적 영양 성분 확인"
-              onPress={() => {
-                navigation.navigate("Chart");
-              }}
-            ></ButtonComponent>
+
+            <TouchableOpacity
+              style={btntheme.boderBtn}
+              onPress={() => navigation.navigate("Chart")}
+            >
+              <View>
+                <Text style={{}}>
+                  섭취 후 누적 영양소
+                </Text>
+              </View>
+            </TouchableOpacity>
+
+
+
+
+
           </View>
 
           <View style={styles.section}>
