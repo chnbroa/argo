@@ -16,13 +16,10 @@ import { getData, saveData } from "../modules/storagy-service";
 import { BarChart } from "react-native-gifted-charts";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { Octicons } from "@expo/vector-icons";
-import { SafeAreaView } from 'react-native';
-import { theme } from '../assets/colors';
-
+import { SafeAreaView } from "react-native";
+import { theme } from "../assets/colors";
 
 function MainForm({ navigation }) {
-
-
   const [userProfile, setUserProfile] = useState({
     name: "",
     age: 26,
@@ -187,7 +184,9 @@ function MainForm({ navigation }) {
     Object.keys(savedNutrition).forEach((nutrient) => {
       if (dailyRecommendedNutrition[nutrient]) {
         // console.log(nutrient + "<<<< item");
-        const percentage = (savedNutrition[nutrient] / dailyRecommendedNutrition[nutrient]) * 100;
+        const percentage =
+          (savedNutrition[nutrient] / dailyRecommendedNutrition[nutrient]) *
+          100;
         nutritionPercentages[nutrient] = Math.round(percentage * 10) / 10;
         // console.log(nutritionPercentages[nutrient] + "<<< 결과");
       }
@@ -331,19 +330,17 @@ function MainForm({ navigation }) {
   );
 
   return (
-    //가운데만 마춰서 
-    <SafeAreaView style={{ flex: 1, alignItems: 'center' }}>
+    //가운데만 마춰서
+    <SafeAreaView style={{ flex: 1, alignItems: "center" }}>
       <ScrollView style={styles.container}>
-        <View style={{}}>
+        <View style={{ alignItems: "center" }}>
           <View style={styles.header}>
-            <Text style={styles.headerText}>Hello,
+            <Text style={styles.headerText}>
+              Hello,
               <Text style={{ fontSize: 26 }}>{userProfile.name}!</Text>!
             </Text>
             <Text style={styles.headerText}>{welcome}</Text>
           </View>
-
-
-
 
           <View style={styles.searchbox}>
             <View style={styles.section}>
@@ -366,7 +363,11 @@ function MainForm({ navigation }) {
                 style={styles.camerabtn}
                 onPress={() => cameraRoute("foodcnn")}
               >
-                <MaterialCommunityIcons name="food-turkey" size={50} color="#ca6702" />
+                <MaterialCommunityIcons
+                  name="food-turkey"
+                  size={50}
+                  color="#ca6702"
+                />
                 <Text style={styles.cameratitle}>음식사진</Text>
               </TouchableOpacity>
               <TouchableOpacity
@@ -377,9 +378,7 @@ function MainForm({ navigation }) {
                 <Text style={styles.cameratitle}>제품사진</Text>
               </TouchableOpacity>
             </View>
-
           </View>
-
 
           <View style={{}}>
             <View style={styles.section}>
@@ -388,20 +387,28 @@ function MainForm({ navigation }) {
             </View>
 
             <View style={styles.foodbox}>
-              <ScrollView style={styles.foodList} showsVerticalScrollIndicator={false}>
+              <ScrollView
+                style={styles.foodList}
+                showsVerticalScrollIndicator={false}
+              >
                 <View style={styles.scrollViewContent}>
                   {foods.map((food, index) => (
                     <TouchableOpacity key={index} style={styles.foodSlide}>
-                      <Text style={styles.foodName}> {food.name.length > 9 ? `${food.name.slice(0, 9)}...` : food.name}</Text>
-                      <Text style={styles.foodKcal}>{Math.round(food.nutrition.kcal * 10) / 10} kcal</Text>
+                      <Text style={styles.foodName}>
+                        {" "}
+                        {food.name.length > 9
+                          ? `${food.name.slice(0, 9)}...`
+                          : food.name}
+                      </Text>
+                      <Text style={styles.foodKcal}>
+                        {Math.round(food.nutrition.kcal * 10) / 10} kcal
+                      </Text>
                     </TouchableOpacity>
                   ))}
                 </View>
               </ScrollView>
             </View>
           </View>
-
-
 
           <View style={styles.section}>
             <Text style={styles.sectionTitle}>일일 영양성분</Text>
@@ -424,26 +431,25 @@ function MainForm({ navigation }) {
                 data={chartData}
                 yAxisLabelTexts={[" ", "50", "100"]}
                 initialSpacing={30}
-              // 상단 표기
-              // renderTooltip={(item, index) => {
-              //   return (
-              //     <View
-              //       style={{
-              //         marginBottom: 20,
-              //         marginLeft: -6,
-              //         backgroundColor: '#ffcefe',
-              //         paddingHorizontal: 6,
-              //         paddingVertical: 4,
-              //         borderRadius: 4,
-              //       }}>
-              //       <Text>{item.value}</Text>
-              //     </View>
-              //   );
+                // 상단 표기
+                // renderTooltip={(item, index) => {
+                //   return (
+                //     <View
+                //       style={{
+                //         marginBottom: 20,
+                //         marginLeft: -6,
+                //         backgroundColor: '#ffcefe',
+                //         paddingHorizontal: 6,
+                //         paddingVertical: 4,
+                //         borderRadius: 4,
+                //       }}>
+                //       <Text>{item.value}</Text>
+                //     </View>
+                //   );
 
-              // }}
+                // }}
               />
             </View>
-
 
             <ButtonComponent
               title="누적 영양 성분 확인"
@@ -464,25 +470,21 @@ function MainForm({ navigation }) {
             ></ButtonComponent>
           </View>
         </View>
-
       </ScrollView>
-    </SafeAreaView >
-
-
-
+    </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
+    width: "100%",
     flex: 1,
-    paddingHorizontal: 20,
     paddingTop: 10,
   },
   header: {
     marginBottom: 20,
     justifyContent: "flex-start",
-    width: "100%"
+    width: "100%",
   },
   headerText: {
     fontSize: 20,
@@ -490,6 +492,7 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
   },
   section: {
+    width: "90%",
     marginTop: 10,
     marginBottom: 10,
   },
@@ -503,8 +506,6 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "space-around",
     marginBottom: 10,
-
-
   },
   camerabtn: {
     width: 100,
@@ -513,13 +514,13 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     justifyContent: "center",
     alignItems: "center",
-    fontFamily: 'Arial',
+    fontFamily: "Arial",
     fontWeight: "bold",
     // borderColor: theme.grey,
   },
   searchbox: {
     backgroundColor: "#f4f3ee",
-    width: '100%',
+    width: "90%",
     height: 200,
     shadowColor: "#000",
     shadowOffset: {
@@ -547,7 +548,7 @@ const styles = StyleSheet.create({
   },
   foodbox: {
     backgroundColor: "#f4f3ee",
-    width: 335,
+    width: "90%",
     height: 185,
     shadowColor: "#000",
     shadowOffset: {
@@ -571,8 +572,7 @@ const styles = StyleSheet.create({
     marginRight: 100,
     marginLeft: 100,
     borderWidth: 0.5,
-    borderColor: theme.grey
-
+    borderColor: theme.grey,
   },
   foodName: {
     fontSize: 18,
@@ -595,7 +595,6 @@ const styles = StyleSheet.create({
     elevation: 5,
     borderRadius: 8,
   },
-
 });
 
 export default MainForm;
