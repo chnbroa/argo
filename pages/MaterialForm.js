@@ -49,6 +49,7 @@ const styles = {
     fontSize: 30,
     fontWeight: 'bold',
     marginBottom: 20,
+    fontFamily: "BMHANNAPro",
   },
   materialContainer: {
     marginTop: 10,
@@ -68,6 +69,7 @@ const styles = {
   },
   materialItemText: {
     fontSize: 20,
+    fontFamily: "BMHANNAPro",
   },
 };
 
