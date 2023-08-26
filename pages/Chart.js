@@ -4,7 +4,7 @@ import ButtonComponent from "../components/ButtonComponent";
 import { getData, saveData } from "../modules/storagy-service";
 import { BarChart } from "react-native-gifted-charts";
 import { PieChart } from "react-native-gifted-charts";
-
+import { theme } from "../assets/colors"
 
 function Chart({ navigation }) {
 
@@ -147,26 +147,33 @@ function Chart({ navigation }) {
 
           value: data.calcium > 100 ? 100 : data.calcium,
           label: '칼슘',
-          frontColor: data.cholesterol > 100 ? theme.chartRed : "#8ECDFB",
+          frontColor: data.calcium > 100 ? theme.chartRed : "#8ECDFB",
           topLabelComponent: () => (
             <Text style={{ fontSize: 12 }}>{data.calcium}%</Text>
           )
 
         },
         {
-          value: data.magnesium, label: '마그네슘', frontColor: '#ACE883',
+
+          value: data.magnesium > 100 ? 100 : data.magnesium,
+          label: '마그네슘',
+          frontColor: data.magnesium > 100 ? theme.chartRed : "#ACE883",
           topLabelComponent: () => (
             <Text style={{ fontSize: 12 }}>{data.magnesium}%</Text>
           )
         },
         {
-          value: data.Iron, label: '철분', frontColor: '#ADC8FF',
+          value: data.Iron > 100 ? 100 : data.Iron,
+          label: '철분',
+          frontColor: data.Iron > 100 ? theme.chartRed : "#ADC8FF",
           topLabelComponent: () => (
             <Text style={{ fontSize: 12 }}>{data.Iron}%</Text>
           )
         },
         {
-          value: data.Potassium, label: '칼륨', frontColor: '#FF7B5D',
+          value: data.Potassium > 100 ? 100 : data.Potassium,
+          label: '칼륨',
+          frontColor: data.Potassium > 100 ? theme.chartRed : "#FF7B5D",
           topLabelComponent: () => (
             <Text style={{ fontSize: 12 }}>{data.Potassium}%</Text>
           )
@@ -228,7 +235,7 @@ function Chart({ navigation }) {
             horizontal
             intactTopLabel
             isAnimated
-            barWidth={40}
+            barWidth={45}
             noOfSections={2}
             maxValue={100}
             width={360}
