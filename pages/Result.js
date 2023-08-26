@@ -14,7 +14,7 @@ import { getData, saveData } from "../modules/storagy-service";
 import { FontAwesome5 } from "@expo/vector-icons";
 import { BarChart } from "react-native-gifted-charts";
 import { useRoute } from "@react-navigation/native";
-
+import { theme } from "../assets/colors";
 //product 설정
 // const product = useRoute().params.responseData;
 // const product = productJson;

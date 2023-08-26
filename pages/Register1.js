@@ -36,12 +36,12 @@ function Register1({ navigation }) {
         <View style={{ flex: 0.05 }}></View>
         <View style={styles.inputBox}>
           <Text style={styles.inputText}>패스워드</Text>
-          <TextInput placeholder="패스워드" style={styles.input}></TextInput>
+          <TextInput placeholder="패스워드" style={styles.input} secureTextEntry={true}></TextInput>
         </View>
         <View style={{ flex: 0.05 }}></View>
         <View style={styles.inputBox}>
           <Text style={styles.inputText}>패스워드 확인</Text>
-          <TextInput placeholder="패스워드" style={styles.input}></TextInput>
+          <TextInput placeholder="패스워드" style={styles.input} secureTextEntry={true}></TextInput>
         </View>
       </View>
       <View style={{ flex: 2 }}>
