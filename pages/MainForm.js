@@ -414,41 +414,42 @@ function MainForm({ navigation }) {
             <Text style={styles.sectionTitle}>일일 영양성분</Text>
             <Text>누적 영양성분 확인</Text>
           </View>
-          <View style={{}}>
+          <View style={{ width: "90%" }}>
             <View style={styles.chart}>
-              <BarChart
-                isAnimated
-                barWidth={45}
-                noOfSections={2}
-                maxValue={100}
-                barBorderRadius={4}
-                frontColor="lightgray"
-                xAxisThickness={0}
-                yAxisThickness={0}
-                yAxisTextStyle={{ color: "gray" }}
-                // height={200}
-                onPress={(item, index) => console.log("item", item)}
-                data={chartData}
-                yAxisLabelTexts={[" ", "50", "100"]}
-                initialSpacing={30}
-                // 상단 표기
-                // renderTooltip={(item, index) => {
-                //   return (
-                //     <View
-                //       style={{
-                //         marginBottom: 20,
-                //         marginLeft: -6,
-                //         backgroundColor: '#ffcefe',
-                //         paddingHorizontal: 6,
-                //         paddingVertical: 4,
-                //         borderRadius: 4,
-                //       }}>
-                //       <Text>{item.value}</Text>
-                //     </View>
-                //   );
+              <View style={{ marginRight: 10 }}>
+                <BarChart
+                  isAnimated
+                  barWidth={45}
+                  noOfSections={2}
+                  maxValue={100}
+                  barBorderRadius={4}
+                  frontColor="lightgray"
+                  xAxisThickness={0}
+                  yAxisThickness={0}
+                  yAxisTextStyle={{ color: "gray" }}
+                  // height={200}
+                  onPress={(item, index) => console.log("item", item)}
+                  data={chartData}
+                  yAxisLabelTexts={[" ", "50", "100"]}
+                  // 상단 표기
+                  // renderTooltip={(item, index) => {
+                  //   return (
+                  //     <View
+                  //       style={{
+                  //         marginBottom: 20,
+                  //         marginLeft: -6,
+                  //         backgroundColor: '#ffcefe',
+                  //         paddingHorizontal: 6,
+                  //         paddingVertical: 4,
+                  //         borderRadius: 4,
+                  //       }}>
+                  //       <Text>{item.value}</Text>
+                  //     </View>
+                  //   );
 
-                // }}
-              />
+                  // }}
+                />
+              </View>
             </View>
 
             <ButtonComponent
@@ -583,7 +584,7 @@ const styles = StyleSheet.create({
   },
   chart: {
     backgroundColor: "#f4f3ee",
-    width: 335,
+    width: "100%",
     height: 280,
     shadowColor: "#000",
     shadowOffset: {
@@ -594,6 +595,7 @@ const styles = StyleSheet.create({
     shadowRadius: 3.84,
     elevation: 5,
     borderRadius: 8,
+    alignItems: "center",
   },
 });
 
