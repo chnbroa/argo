@@ -20,4 +20,11 @@ export const btntheme = StyleSheet.create({
     borderRadius: 8,
     backgroundColor: theme.dbButton,
   }
+  , buttonText: {
+    width: "100%",
+    color: "black",
+    fontSize: 15,
+    fontWeight: "400",
+    textAlign: "center",
+  },
 });

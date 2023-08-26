@@ -456,8 +456,8 @@ function MainForm({ navigation }) {
               onPress={() => navigation.navigate("Chart")}
             >
               <View>
-                <Text style={{}}>
-                  섭취 후 누적 영양소
+                <Text style={btntheme.buttonText}>
+                  누적 영양소
                 </Text>
               </View>
             </TouchableOpacity>
@@ -468,15 +468,38 @@ function MainForm({ navigation }) {
 
           </View>
 
+
+
           <View style={styles.section}>
             <Text style={styles.sectionTitle}>오늘의 레시피</Text>
             <Text>인공지능 챗봇으로 레시피제작</Text>
-            <ButtonComponent
-              title="챗봇"
-              onPress={() => {
-                navigation.navigate("Chat");
-              }}
-            ></ButtonComponent>
+            <View style={{ flexDirection: "row", justifyContent: "space-around", width: "100%", marginTop: 10 }}>
+
+              <TouchableOpacity
+                style={[btntheme.boderBtn, { width: "45%" }]}
+                onPress={() => navigation.navigate("MainChat")}
+              >
+                <View>
+                  <Text style={btntheme.buttonText}>
+                    메인챗봇
+                  </Text>
+                </View>
+              </TouchableOpacity>
+
+              {/* [styles.bottomButton, { backgroundColor: "#f79c9b" }] */}
+              <TouchableOpacity
+                style={[btntheme.boderBtn, { width: "45%" }]}
+                onPress={() => navigation.navigate("SubChat")}
+              >
+                <View>
+                  <Text style={btntheme.buttonText}>
+                    서브챗봇
+                  </Text>
+                </View>
+              </TouchableOpacity>
+
+            </View>
+
           </View>
         </View>
       </ScrollView>
@@ -524,7 +547,7 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     justifyContent: "center",
     alignItems: "center",
-    fontFamily: "Arial",
+
     fontWeight: "bold",
     // borderColor: theme.grey,
   },

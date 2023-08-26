@@ -9,6 +9,8 @@ import Register2 from "./pages/Register2";
 import Register3 from "./pages/Register3";
 import Register4 from "./pages/Register4";
 import MainForm from "./pages/MainForm";
+import MainChat from "./pages/MainChat";
+import SubChat from "./pages/SubChat";
 
 import CameraForm from "./pages/CameraForm";
 import Result from "./pages/Result";
@@ -25,7 +27,7 @@ export default function App() {
 
   if (isLoaded) {
     return (
-      <NavigationContainer>
+      <NavigationContainer >
         <StatusBar style="black" />
         <Stack.Navigator initialRouteName="LoginForm">
           <Stack.Screen
@@ -94,6 +96,17 @@ export default function App() {
             options={{ headerShown: false }}
             component={Chart}
           />
+          <Stack.Screen
+            name="MainChat"
+            options={{ headerShown: false }}
+            component={MainChat}
+          />
+          <Stack.Screen
+            name="SubChat"
+            options={{ headerShown: false }}
+            component={SubChat}
+          />
+
         </Stack.Navigator>
       </NavigationContainer>
     );
@@ -102,4 +115,6 @@ export default function App() {
   }
 }
 
-const styles = StyleSheet.create();
+const styles = StyleSheet.create(
+
+);
