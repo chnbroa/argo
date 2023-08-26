@@ -83,59 +83,75 @@ function Chart({ navigation }) {
       ];
 
       const newChartData = [
-        // {
-        //   value: data.kcal, label: '에너지', frontColor: '#4ABFF4',
-        //   topLabelComponent: () => (
-        //     <Text style={{ fontSize: 12 }}>{data.kcal}%</Text>
-        //   )
-        // },
+
         {
-          value: data.glucide, label: '탄수화물', frontColor: '#FFC6A9',
+          value: data.glucide > 100 ? 100 : data.glucide,
+          label: "탄수화물",
+          frontColor: data.glucide > 100 ? theme.chartRed : "#FFC6A9",
           topLabelComponent: () => (
             <Text style={{ fontSize: 12 }}>{data.glucide}%</Text>
-          )
+          ),
         },
         {
-          value: data.protein, label: '단백질', frontColor: '#FFF3AE',
+          value: data.protein > 100 ? 100 : data.protein,
+          label: '단백질',
+          frontColor: data.protein > 100 ? theme.chartRed : "#FFF3AE",
           topLabelComponent: () => (
             <Text style={{ fontSize: 12 }}>{data.protein}%</Text>
           )
         },
         {
-          value: data.fat, label: '지방', frontColor: '#B4E2FD',
+          value: data.fat > 100 ? 100 : data.fat,
+          label: '지방',
+          frontColor: data.fat > 100 ? theme.chartRed : "#B4E2FD",
           topLabelComponent: () => (
             <Text style={{ fontSize: 12 }}>{data.fat}%</Text>
           )
         },
         {
-          value: data.sugar, label: '당류', frontColor: '#D2F7AF',
+          value: data.sugar > 100 ? 100 : data.sugar,
+          label: '당류',
+          frontColor: data.sugar > 100 ? theme.chartRed : "#D2F7AF",
           topLabelComponent: () => (
             <Text style={{ fontSize: 12 }}>{data.sugar}%</Text>
           )
         },
         {
-          value: data.Natrium, label: '나트륨', frontColor: '#ADC8FF',
+          value: data.Natrium > 100 ? 100 : data.Natrium,
+          label: '나트륨',
+          frontColor: data.Natrium > 100 ? theme.chartRed : "#ADC8FF",
           topLabelComponent: () => (
             <Text style={{ fontSize: 12 }}>{data.Natrium}%</Text>
           )
         },
         {
-          value: data.cholesterol, label: '클레스테롤', frontColor: '#FFA07E',
+
+          value: data.cholesterol > 100 ? 100 : data.cholesterol,
+          label: '클레스테롤',
+          frontColor: data.cholesterol > 100 ? theme.chartRed : "#FFA07E",
           topLabelComponent: () => (
             <Text style={{ fontSize: 12 }}>{data.cholesterol}%</Text>
           )
+
         },
         {
-          value: data.dietaryfiber, label: '식이섬유', frontColor: '#FFEB85',
+
+          value: data.dietaryfiber > 100 ? 100 : data.dietaryfiber,
+          label: '식이섬유',
+          frontColor: data.cholesterol > 100 ? theme.chartRed : "#FFEB85",
           topLabelComponent: () => (
             <Text style={{ fontSize: 12 }}>{data.dietaryfiber}%</Text>
           )
         },
         {
-          value: data.calcium, label: '칼슘', frontColor: '#8ECDFB',
+
+          value: data.calcium > 100 ? 100 : data.calcium,
+          label: '칼슘',
+          frontColor: data.cholesterol > 100 ? theme.chartRed : "#8ECDFB",
           topLabelComponent: () => (
             <Text style={{ fontSize: 12 }}>{data.calcium}%</Text>
           )
+
         },
         {
           value: data.magnesium, label: '마그네슘', frontColor: '#ACE883',
@@ -167,7 +183,7 @@ function Chart({ navigation }) {
     <View
       style={{
         paddingVertical: 50,
-        backgroundColor: '#CECECE',
+        backgroundColor: '#ffffff',
         flex: 1,
       }}>
       <View

@@ -3,7 +3,6 @@ import { View, Text, TouchableOpacity, Alert, ScrollView } from 'react-native';
 import { useRoute } from '@react-navigation/native';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 
-
 const MaterialForm = () => {
   const route = useRoute();
   const { name, material } = route.params;

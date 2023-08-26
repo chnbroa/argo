@@ -16,7 +16,13 @@ import { getData, saveData } from "../modules/storagy-service";
 import { BarChart } from "react-native-gifted-charts";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { Octicons } from "@expo/vector-icons";
+import { SafeAreaView } from 'react-native';
+import { theme } from '../assets/colors';
+
+
 function MainForm({ navigation }) {
+
+
   const [userProfile, setUserProfile] = useState({
     name: "",
     age: 26,
@@ -263,33 +269,33 @@ function MainForm({ navigation }) {
             setDbPercentNutrition(data);
             const newChartData = [
               {
-                value: data.kcal,
+                value: data.kcal > 100 ? 100 : data.kcal,
                 label: "에너지",
-                frontColor: "#FFA07E",
+                frontColor: data.kcal > 100 ? theme.chartRed : "#FFA07E",
                 topLabelComponent: () => (
                   <Text style={{ fontSize: 12 }}>{data.kcal}%</Text>
                 ),
               },
               {
-                value: data.glucide,
+                value: data.glucide > 100 ? 100 : data.glucide,
                 label: "탄수화물",
-                frontColor: "#FFE367",
+                frontColor: data.glucide > 100 ? theme.chartRed : "#FFE367",
                 topLabelComponent: () => (
                   <Text style={{ fontSize: 12 }}>{data.glucide}%</Text>
                 ),
               },
               {
-                value: data.protein,
+                value: data.protein > 100 ? 100 : data.protein,
                 label: "단백질",
-                frontColor: "#72B9F8",
+                frontColor: data.protein > 100 ? theme.chartRed : "#72B9F8",
                 topLabelComponent: () => (
                   <Text style={{ fontSize: 12 }}>{data.protein}%</Text>
                 ),
               },
               {
-                value: data.fat,
+                value: data.fat > 100 ? 100 : data.fat,
                 label: "지방",
-                frontColor: "#86D260",
+                frontColor: data.fat > 100 ? theme.chartRed : "#86D260",
                 topLabelComponent: () => (
                   <Text style={{ fontSize: 12 }}>{data.fat}%</Text>
                 ),
@@ -318,7 +324,7 @@ function MainForm({ navigation }) {
               (key) => data[key] === maxValue
             );
             setWelcome(
-              nutritionTranslator[maxKey] + " 섭취가 많아요, 주의해주세요"
+              nutritionTranslator[maxKey] + " 섭취가 많아요, 주의해주세요!"
             );
           }
         });
@@ -327,81 +333,88 @@ function MainForm({ navigation }) {
   );
 
   return (
-    <ScrollView style={styles.container}>
-      <View style={styles.header}>
-        <Text style={styles.headerText}>Hello, {userProfile.name}!</Text>
-        <Text style={styles.headerText}>{welcome}</Text>
-      </View>
-      {console.log(foods.kcal)}
-      <View style={styles.section}>
-        <Text style={styles.sectionTitle}>검색하기</Text>
-        <Text>사진을 통한간편한 인식</Text>
-      </View>
+    <SafeAreaView style={{ flex: 1 }}>
+      <ScrollView style={styles.container}>
+        <View style={{}}>
+          <View style={styles.header}>
+            <Text style={styles.headerText}>Hello,
+              <Text style={{ fontSize: 26 }}>{userProfile.name}!</Text>!
+            </Text>
+            <Text style={styles.headerText}>{welcome}</Text>
+          </View>
+          <View style={styles.section}>
+            <Text style={styles.sectionTitle}>검색하기</Text>
+            <Text>사진을 통한간편한 인식</Text>
+          </View>
 
-      <View style={styles.cameraButtons}>
-        <TouchableOpacity
-          style={styles.camerabtn}
-          onPress={() => cameraRoute("ocr")}
-        >
-          <MaterialCommunityIcons
-            name="file-document-outline"
-            size={32}
-            color="black"
-          />
-          <Text style={styles.cameratitle}>성분표</Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={styles.camerabtn}
-          onPress={() => cameraRoute("foodcnn")}
-        >
-          <MaterialCommunityIcons name="food-turkey" size={34} color="black" />
-          <Text style={styles.cameratitle}>음식사진</Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={styles.camerabtn}
-          onPress={() => cameraRoute("stockcnn")}
-        >
-          <Octicons name="package" size={30} color="black" />
-          <Text style={styles.cameratitle}>제품사진</Text>
-        </TouchableOpacity>
-      </View>
-
-      <View style={styles.section}>
-        <Text style={styles.sectionTitle}>오늘 먹은 음식</Text>
-        <Text>오늘 먹은 음식 한번에 보기</Text>
-      </View>
-
-      <ScrollView style={styles.foodList} showsVerticalScrollIndicator={false}>
-        <View style={styles.scrollViewContent}>
-          {foods.map((food, index) => (
-            <TouchableOpacity key={index} style={styles.foodSlide}>
-              <Text style={styles.foodName}>{food.name}</Text>
-              <Text style={styles.foodKcal}>{food.nutrition.kcal} kcal</Text>
+          <View style={styles.cameraButtons}>
+            <TouchableOpacity
+              style={styles.camerabtn}
+              onPress={() => cameraRoute("ocr")}
+            >
+              <MaterialCommunityIcons
+                name="file-document-outline"
+                size={50}
+                color="#22577a"
+              />
+              <Text style={styles.cameratitle}>성분표</Text>
             </TouchableOpacity>
-          ))}
-        </View>
-      </ScrollView>
+            <TouchableOpacity
+              style={styles.camerabtn}
+              onPress={() => cameraRoute("foodcnn")}
+            >
+              <MaterialCommunityIcons name="food-turkey" size={50} color="#ca6702" />
+              <Text style={styles.cameratitle}>음식사진</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={styles.camerabtn}
+              onPress={() => cameraRoute("stockcnn")}
+            >
+              <Octicons name="package" size={50} color="#ae2012" />
+              <Text style={styles.cameratitle}>제품사진</Text>
+            </TouchableOpacity>
+          </View>
 
-      <View style={styles.section}>
-        <Text style={styles.sectionTitle}>일일 영양성분</Text>
-        <Text>누적 영양성분 확인</Text>
-        <View style={{ alignItems: "center" }}>
-          <View style={styles.chart}>
-            <BarChart
-              isAnimated
-              barWidth={40}
-              noOfSections={2}
-              maxValue={100}
-              barBorderRadius={4}
-              frontColor="lightgray"
-              xAxisThickness={0}
-              yAxisThickness={0}
-              yAxisTextStyle={{ color: "gray" }}
-              // height={200}
-              onPress={(item, index) => console.log("item", item)}
-              data={chartData}
-              yAxisLabelTexts={[" ", "50", "100"]}
-              initialSpacing={30}
+          <View style={styles.section}>
+            <Text style={styles.sectionTitle}>오늘 먹은 음식</Text>
+            <Text>오늘 먹은 음식 한번에 보기</Text>
+          </View>
+
+          <View style={styles.foodbox}>
+            <ScrollView style={styles.foodList} showsVerticalScrollIndicator={false}>
+              <View style={styles.scrollViewContent}>
+                {foods.map((food, index) => (
+                  <TouchableOpacity key={index} style={styles.foodSlide}>
+                    <Text style={styles.foodName}> {food.name.length > 9 ? `${food.name.slice(0, 9)}...` : food.name}</Text>
+                    <Text style={styles.foodKcal}>{food.nutrition.kcal} kcal</Text>
+                  </TouchableOpacity>
+                ))}
+              </View>
+            </ScrollView>
+          </View>
+
+
+          <View style={styles.section}>
+            <Text style={styles.sectionTitle}>일일 영양성분</Text>
+            <Text>누적 영양성분 확인</Text>
+          </View>
+          <View style={{}}>
+            <View style={styles.chart}>
+              <BarChart
+                isAnimated
+                barWidth={45}
+                noOfSections={2}
+                maxValue={100}
+                barBorderRadius={4}
+                frontColor="lightgray"
+                xAxisThickness={0}
+                yAxisThickness={0}
+                yAxisTextStyle={{ color: "gray" }}
+                // height={200}
+                onPress={(item, index) => console.log("item", item)}
+                data={chartData}
+                yAxisLabelTexts={[" ", "50", "100"]}
+                initialSpacing={30}
               // 상단 표기
               // renderTooltip={(item, index) => {
               //   return (
@@ -419,29 +432,36 @@ function MainForm({ navigation }) {
               //   );
 
               // }}
-            />
+              />
+            </View>
+
+
+            <ButtonComponent
+              title="누적 영양 성분 확인"
+              onPress={() => {
+                navigation.navigate("Chart");
+              }}
+              style={{}}
+            ></ButtonComponent>
+          </View>
+
+          <View style={styles.section}>
+            <Text style={styles.sectionTitle}>오늘의 레시피</Text>
+            <Text>인공지능 챗봇으로 레시피제작</Text>
+            <ButtonComponent
+              title="챗봇"
+              onPress={() => {
+                navigation.navigate("Chat");
+              }}
+            ></ButtonComponent>
           </View>
         </View>
 
-        <ButtonComponent
-          title="누적 영양 성분 확인"
-          onPress={() => {
-            navigation.navigate("Chart");
-          }}
-        ></ButtonComponent>
-      </View>
+      </ScrollView>
+    </SafeAreaView >
 
-      <View style={styles.section}>
-        <Text style={styles.sectionTitle}>오늘의 레시피</Text>
-        <Text>인공지능 챗봇으로 레시피제작</Text>
-        <ButtonComponent
-          title="챗봇"
-          onPress={() => {
-            navigation.navigate("Chat");
-          }}
-        ></ButtonComponent>
-      </View>
-    </ScrollView>
+
+
   );
 }
 
@@ -449,14 +469,17 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     paddingHorizontal: 20,
-    paddingTop: 50,
+    paddingTop: 10,
   },
   header: {
     marginBottom: 20,
+    justifyContent: "flex-start",
+    width: "100%"
   },
   headerText: {
     fontSize: 20,
     marginBottom: 10,
+    fontWeight: "bold",
   },
   section: {
     marginTop: 10,
@@ -472,35 +495,74 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "space-around",
     marginBottom: 10,
+    backgroundColor: "#f4f3ee",
+    width: 335,
+    height: 120,
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    elevation: 5,
+    borderRadius: 8,
   },
   camerabtn: {
     width: 100,
     height: 100,
-    backgroundColor: "#CECECE",
-    borderRadius: 5,
+    // borderWidth: 0.5,
+    borderRadius: 20,
     justifyContent: "center",
     alignItems: "center",
+    fontFamily: 'Arial',
+    fontWeight: "bold",
+    // borderColor: theme.grey,
+
+
   },
   cameratitle: {
     marginTop: 8,
     fontSize: 16,
     textAlign: "center",
+    fontFamily: "BMHANNAPro",
   },
   foodList: {
-    height: 155,
+    height: 170,
+    marginVertical: 14,
   },
   scrollViewContent: {
+    opacity: 0.8,
     alignItems: "center",
   },
+  foodbox: {
+    backgroundColor: "#f4f3ee",
+    width: 335,
+    height: 185,
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    elevation: 5,
+    borderRadius: 8,
+  },
   foodSlide: {
-    width: "80%",
-    backgroundColor: "#CECECE",
-    borderRadius: 10,
+    width: "90%",
+    backgroundColor: "#f4f3ee",
+    borderRadius: 15,
     marginVertical: 5,
     padding: 10,
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
+    marginRight: 100,
+    marginLeft: 100,
+    borderWidth: 0.5,
+    borderColor: theme.grey
+
   },
   foodName: {
     fontSize: 18,
@@ -510,7 +572,18 @@ const styles = StyleSheet.create({
     fontSize: 16,
   },
   chart: {
-    marginBottom: 50,
+    backgroundColor: "#f4f3ee",
+    width: 335,
+    height: 280,
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    elevation: 5,
+    borderRadius: 8,
   },
 });
 

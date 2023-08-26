@@ -312,23 +312,23 @@ const Result = ({ navigation }) => {
               data={ChartData}
               yAxisLabelTexts={[" ", "50", "100"]}
               initialSpacing={20}
-              // 상단 표기
-              // renderTooltip={(item, index) => {
-              //   return (
-              //     <View
-              //       style={{
-              //         marginBottom: 20,
-              //         marginLeft: -6,
-              //         backgroundColor: '#ffcefe',
-              //         paddingHorizontal: 6,
-              //         paddingVertical: 4,
-              //         borderRadius: 4,
-              //       }}>
-              //       <Text>{item.value}</Text>
-              //     </View>
-              //   );
+            // 상단 표기
+            // renderTooltip={(item, index) => {
+            //   return (
+            //     <View
+            //       style={{
+            //         marginBottom: 20,
+            //         marginLeft: -6,
+            //         backgroundColor: '#ffcefe',
+            //         paddingHorizontal: 6,
+            //         paddingVertical: 4,
+            //         borderRadius: 4,
+            //       }}>
+            //       <Text>{item.value}</Text>
+            //     </View>
+            //   );
 
-              // }}
+            // }}
             />
           </View>
 
