@@ -187,9 +187,7 @@ function MainForm({ navigation }) {
     Object.keys(savedNutrition).forEach((nutrient) => {
       if (dailyRecommendedNutrition[nutrient]) {
         // console.log(nutrient + "<<<< item");
-        const percentage =
-          (savedNutrition[nutrient] / dailyRecommendedNutrition[nutrient]) *
-          100;
+        const percentage = (savedNutrition[nutrient] / dailyRecommendedNutrition[nutrient]) * 100;
         nutritionPercentages[nutrient] = Math.round(percentage * 10) / 10;
         // console.log(nutritionPercentages[nutrient] + "<<< 결과");
       }
@@ -333,7 +331,8 @@ function MainForm({ navigation }) {
   );
 
   return (
-    <SafeAreaView style={{ flex: 1 }}>
+    //가운데만 마춰서 
+    <SafeAreaView style={{ flex: 1, alignItems: 'center' }}>
       <ScrollView style={styles.container}>
         <View style={{}}>
           <View style={styles.header}>
@@ -342,56 +341,66 @@ function MainForm({ navigation }) {
             </Text>
             <Text style={styles.headerText}>{welcome}</Text>
           </View>
-          <View style={styles.section}>
-            <Text style={styles.sectionTitle}>검색하기</Text>
-            <Text>사진을 통한간편한 인식</Text>
+
+
+
+
+          <View style={styles.searchbox}>
+            <View style={styles.section}>
+              <Text style={styles.sectionTitle}>검색하기</Text>
+              <Text>사진을 통한간편한 인식</Text>
+            </View>
+            <View style={styles.cameraButtons}>
+              <TouchableOpacity
+                style={styles.camerabtn}
+                onPress={() => cameraRoute("ocr")}
+              >
+                <MaterialCommunityIcons
+                  name="file-document-outline"
+                  size={50}
+                  color="#22577a"
+                />
+                <Text style={styles.cameratitle}>성분표</Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                style={styles.camerabtn}
+                onPress={() => cameraRoute("foodcnn")}
+              >
+                <MaterialCommunityIcons name="food-turkey" size={50} color="#ca6702" />
+                <Text style={styles.cameratitle}>음식사진</Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                style={styles.camerabtn}
+                onPress={() => cameraRoute("stockcnn")}
+              >
+                <Octicons name="package" size={50} color="#ae2012" />
+                <Text style={styles.cameratitle}>제품사진</Text>
+              </TouchableOpacity>
+            </View>
+
           </View>
 
-          <View style={styles.cameraButtons}>
-            <TouchableOpacity
-              style={styles.camerabtn}
-              onPress={() => cameraRoute("ocr")}
-            >
-              <MaterialCommunityIcons
-                name="file-document-outline"
-                size={50}
-                color="#22577a"
-              />
-              <Text style={styles.cameratitle}>성분표</Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-              style={styles.camerabtn}
-              onPress={() => cameraRoute("foodcnn")}
-            >
-              <MaterialCommunityIcons name="food-turkey" size={50} color="#ca6702" />
-              <Text style={styles.cameratitle}>음식사진</Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-              style={styles.camerabtn}
-              onPress={() => cameraRoute("stockcnn")}
-            >
-              <Octicons name="package" size={50} color="#ae2012" />
-              <Text style={styles.cameratitle}>제품사진</Text>
-            </TouchableOpacity>
+
+          <View style={{}}>
+            <View style={styles.section}>
+              <Text style={styles.sectionTitle}>오늘 먹은 음식</Text>
+              <Text>오늘 먹은 음식 한번에 보기</Text>
+            </View>
+
+            <View style={styles.foodbox}>
+              <ScrollView style={styles.foodList} showsVerticalScrollIndicator={false}>
+                <View style={styles.scrollViewContent}>
+                  {foods.map((food, index) => (
+                    <TouchableOpacity key={index} style={styles.foodSlide}>
+                      <Text style={styles.foodName}> {food.name.length > 9 ? `${food.name.slice(0, 9)}...` : food.name}</Text>
+                      <Text style={styles.foodKcal}>{Math.round(food.nutrition.kcal * 10) / 10} kcal</Text>
+                    </TouchableOpacity>
+                  ))}
+                </View>
+              </ScrollView>
+            </View>
           </View>
 
-          <View style={styles.section}>
-            <Text style={styles.sectionTitle}>오늘 먹은 음식</Text>
-            <Text>오늘 먹은 음식 한번에 보기</Text>
-          </View>
-
-          <View style={styles.foodbox}>
-            <ScrollView style={styles.foodList} showsVerticalScrollIndicator={false}>
-              <View style={styles.scrollViewContent}>
-                {foods.map((food, index) => (
-                  <TouchableOpacity key={index} style={styles.foodSlide}>
-                    <Text style={styles.foodName}> {food.name.length > 9 ? `${food.name.slice(0, 9)}...` : food.name}</Text>
-                    <Text style={styles.foodKcal}>{food.nutrition.kcal} kcal</Text>
-                  </TouchableOpacity>
-                ))}
-              </View>
-            </ScrollView>
-          </View>
 
 
           <View style={styles.section}>
@@ -441,7 +450,6 @@ function MainForm({ navigation }) {
               onPress={() => {
                 navigation.navigate("Chart");
               }}
-              style={{}}
             ></ButtonComponent>
           </View>
 
@@ -495,18 +503,8 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "space-around",
     marginBottom: 10,
-    backgroundColor: "#f4f3ee",
-    width: 335,
-    height: 120,
-    shadowColor: "#000",
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.25,
-    shadowRadius: 3.84,
-    elevation: 5,
-    borderRadius: 8,
+
+
   },
   camerabtn: {
     width: 100,
@@ -518,8 +516,20 @@ const styles = StyleSheet.create({
     fontFamily: 'Arial',
     fontWeight: "bold",
     // borderColor: theme.grey,
-
-
+  },
+  searchbox: {
+    backgroundColor: "#f4f3ee",
+    width: '100%',
+    height: 200,
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    elevation: 9,
+    borderRadius: 8,
   },
   cameratitle: {
     marginTop: 8,
@@ -585,6 +595,7 @@ const styles = StyleSheet.create({
     elevation: 5,
     borderRadius: 8,
   },
+
 });
 
 export default MainForm;

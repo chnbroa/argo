@@ -3,7 +3,7 @@ import { theme } from "../assets/colors";
 
 function ButtonComponent({ title, onPress }) {
   return (
-    <TouchableOpacity onPress={onPress} style={styles.button}>
+    <TouchableOpacity onPress={onPress} style={styles.boderBtn}>
       <Text style={styles.buttonText}>{title}</Text>
     </TouchableOpacity>
   );
@@ -28,6 +28,16 @@ const styles = StyleSheet.create({
     fontWeight: "400",
     textAlign: "center",
   },
+  boderBtn: {
+    marginVertical: 10,
+    paddingVertical: 15,
+    borderRadius: 15,
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
+    borderWidth: 0.7,
+    // backgroundColor: 'theme.buttonColor',
+  }
 });
 
 export default ButtonComponent;

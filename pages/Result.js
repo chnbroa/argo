@@ -66,101 +66,100 @@ const Result = ({ navigation }) => {
     percentNutrition(product.nutrition).then((data) => {
       setResultNutrition(data);
       const newChartData = [
+
         {
-          value: data.kcal,
-          label: "에너지",
-          frontColor: "#FF7B5D",
-          topLabelComponent: () => (
-            <Text style={{ fontSize: 12 }}>{data.kcal}%</Text>
-          ),
-        },
-        {
-          value: data.glucide,
+          value: data.glucide > 100 ? 100 : data.glucide,
           label: "탄수화물",
-          frontColor: "#FFE367",
+          frontColor: data.glucide > 100 ? theme.chartRed : "#FFC6A9",
           topLabelComponent: () => (
             <Text style={{ fontSize: 12 }}>{data.glucide}%</Text>
           ),
         },
         {
-          value: data.protein,
-          label: "단백질",
-          frontColor: "#72B9F8",
+          value: data.protein > 100 ? 100 : data.protein,
+          label: '단백질',
+          frontColor: data.protein > 100 ? theme.chartRed : "#FFF3AE",
           topLabelComponent: () => (
             <Text style={{ fontSize: 12 }}>{data.protein}%</Text>
-          ),
+          )
         },
         {
-          value: data.fat,
-          label: "지방",
-          frontColor: "#86D260",
+          value: data.fat > 100 ? 100 : data.fat,
+          label: '지방',
+          frontColor: data.fat > 100 ? theme.chartRed : "#B4E2FD",
           topLabelComponent: () => (
             <Text style={{ fontSize: 12 }}>{data.fat}%</Text>
-          ),
+          )
         },
         {
-          value: data.sugar,
-          label: "당류",
-          frontColor: "#6690FF",
+          value: data.sugar > 100 ? 100 : data.sugar,
+          label: '당류',
+          frontColor: data.sugar > 100 ? theme.chartRed : "#D2F7AF",
           topLabelComponent: () => (
             <Text style={{ fontSize: 12 }}>{data.sugar}%</Text>
-          ),
+          )
         },
         {
-          value: data.Natrium,
-          label: "나트륨",
-          frontColor: "#FF3E28",
+          value: data.Natrium > 100 ? 100 : data.Natrium,
+          label: '나트륨',
+          frontColor: data.Natrium > 100 ? theme.chartRed : "#ADC8FF",
           topLabelComponent: () => (
             <Text style={{ fontSize: 12 }}>{data.Natrium}%</Text>
-          ),
+          )
         },
         {
-          value: data.cholesterol,
-          label: "클레스테롤",
-          frontColor: "#FFD635",
+
+          value: data.cholesterol > 100 ? 100 : data.cholesterol,
+          label: '클레스테롤',
+          frontColor: data.cholesterol > 100 ? theme.chartRed : "#FFA07E",
           topLabelComponent: () => (
             <Text style={{ fontSize: 12 }}>{data.cholesterol}%</Text>
-          ),
+          )
+
         },
         {
-          value: data.dietaryfiber,
-          label: "식이섬유",
-          frontColor: "#4499F4",
+
+          value: data.dietaryfiber > 100 ? 100 : data.dietaryfiber,
+          label: '식이섬유',
+          frontColor: data.cholesterol > 100 ? theme.chartRed : "#FFEB85",
           topLabelComponent: () => (
             <Text style={{ fontSize: 12 }}>{data.dietaryfiber}%</Text>
-          ),
+          )
         },
         {
-          value: data.calcium,
-          label: "칼슘",
-          frontColor: "#55B532",
+
+          value: data.calcium > 100 ? 100 : data.calcium,
+          label: '칼슘',
+          frontColor: data.calcium > 100 ? theme.chartRed : "#8ECDFB",
           topLabelComponent: () => (
             <Text style={{ fontSize: 12 }}>{data.calcium}%</Text>
-          ),
+          )
+
         },
         {
-          value: data.magnesium,
-          label: "마그네슘",
-          frontColor: "#3366FF",
+
+          value: data.magnesium > 100 ? 100 : data.magnesium,
+          label: '마그네슘',
+          frontColor: data.magnesium > 100 ? theme.chartRed : "#ACE883",
           topLabelComponent: () => (
             <Text style={{ fontSize: 12 }}>{data.magnesium}%</Text>
-          ),
+          )
         },
         {
-          value: data.Iron,
-          label: "철분",
-          frontColor: "#DB211D",
+          value: data.Iron > 100 ? 100 : data.Iron,
+          label: '철분',
+          frontColor: data.Iron > 100 ? theme.chartRed : "#ADC8FF",
           topLabelComponent: () => (
             <Text style={{ fontSize: 12 }}>{data.Iron}%</Text>
-          ),
+          )
         },
         {
-          value: data.Potassium,
-          label: "칼륨",
-          frontColor: "#DBB226",
+          value: data.Potassium > 100 ? 100 : data.Potassium,
+          label: '칼륨',
+          frontColor: data.Potassium > 100 ? theme.chartRed : "#FF7B5D",
           topLabelComponent: () => (
             <Text style={{ fontSize: 12 }}>{data.Potassium}%</Text>
-          ),
+          )
         },
       ];
 
