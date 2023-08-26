@@ -218,7 +218,7 @@ const Result = ({ navigation }) => {
   };
 
   return (
-    <View style={{ flex: 1, alignItems: "center" }}>
+    <View style={{ flex: 1, alignItems: "center", fontFamily: "BMHANNAPro" }}>
       <View style={{ flex: 1 }}></View>
       <View style={styles.header}>
         <Text style={styles.headerText}>{product.name}</Text>
@@ -243,10 +243,10 @@ const Result = ({ navigation }) => {
                   {product.allergy.map((item, index) => (
                     <View key={index} style={styles.tableItem}>
                       {product.userallergy.includes(item) && (
-                        <Text style={{ color: "red" }}>{item}</Text>
+                        <Text style={{ color: "red", fontFamily: "BMHANNAPro", }}>{item}</Text>
                       )}
                       {!product.userallergy.includes(item) && (
-                        <Text>{item}</Text>
+                        <Text style={{ fontFamily: "BMHANNAPro", }}>{item}</Text>
                       )}
                     </View>
                   ))}
@@ -265,7 +265,7 @@ const Result = ({ navigation }) => {
                 <View style={styles.tableItems}>
                   {product.hate.map((item, index) => (
                     <View key={index} style={styles.tableItem}>
-                      <Text>{item}</Text>
+                      <Text style={{ fontFamily: "BMHANNAPro", }}>{item}</Text>
                     </View>
                   ))}
                 </View>
@@ -310,23 +310,23 @@ const Result = ({ navigation }) => {
               data={ChartData}
               yAxisLabelTexts={[" ", "50", "100"]}
               initialSpacing={20}
-              // 상단 표기
-              // renderTooltip={(item, index) => {
-              //   return (
-              //     <View
-              //       style={{
-              //         marginBottom: 20,
-              //         marginLeft: -6,
-              //         backgroundColor: '#ffcefe',
-              //         paddingHorizontal: 6,
-              //         paddingVertical: 4,
-              //         borderRadius: 4,
-              //       }}>
-              //       <Text>{item.value}</Text>
-              //     </View>
-              //   );
+            // 상단 표기
+            // renderTooltip={(item, index) => {
+            //   return (
+            //     <View
+            //       style={{
+            //         marginBottom: 20,
+            //         marginLeft: -6,
+            //         backgroundColor: '#ffcefe',
+            //         paddingHorizontal: 6,
+            //         paddingVertical: 4,
+            //         borderRadius: 4,
+            //       }}>
+            //       <Text>{item.value}</Text>
+            //     </View>
+            //   );
 
-              // }}
+            // }}
             />
           </View>
 
@@ -375,12 +375,14 @@ const styles = StyleSheet.create({
   headerText: {
     fontSize: 35,
     fontWeight: "bold",
+    fontFamily: "BMHANNAPro",
   },
-  gptText: { fontSize: 18, fontWeight: "600" },
+  gptText: { fontSize: 18, fontWeight: "600", fontFamily: "BMHANNAPro", },
   sectionTitle: {
     fontSize: 18,
     fontWeight: "bold",
     marginBottom: 5,
+    fontFamily: "BMHANNAPro",
   },
   section: {
     marginVertical: 5,
@@ -405,6 +407,7 @@ const styles = StyleSheet.create({
   iconText: {
     fontSize: 16,
     fontWeight: "bold",
+    fontFamily: "BMHANNAPro",
   },
   tableItems: {
     marginTop: 10,
@@ -423,6 +426,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
     textAlign: "center",
     fontWeight: "bold",
+    fontFamily: "BMHANNAPro",
   },
   nutritionSection: {
     marginTop: 10,
@@ -443,6 +447,7 @@ const styles = StyleSheet.create({
   bottomButtonText: {
     fontSize: 18,
     textAlign: "center",
+    fontFamily: "BMHANNAPro",
   },
   nutritionButton: {
     backgroundColor: "#CECECE",

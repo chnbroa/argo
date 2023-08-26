@@ -12,6 +12,7 @@ import {
 import { Camera } from "expo-camera";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import ButtonComponent from "../components/ButtonComponent";
+
 import { getData, saveData } from "../modules/storagy-service";
 import { BarChart } from "react-native-gifted-charts";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
@@ -19,6 +20,7 @@ import { Octicons } from "@expo/vector-icons";
 import { SafeAreaView } from "react-native";
 import { theme } from "../assets/colors";
 import { btntheme } from "../assets/buttonstyle";
+
 function MainForm({ navigation }) {
   const [userProfile, setUserProfile] = useState({
     name: "",
@@ -346,7 +348,7 @@ function MainForm({ navigation }) {
           <View style={styles.searchbox}>
             <View style={styles.section}>
               <Text style={styles.sectionTitle}>검색하기</Text>
-              <Text>사진을 통한간편한 인식</Text>
+              <Text style={{ fontFamily: "BMHANNAPro" }}>사진을 통한간편한 인식</Text>
             </View>
             <View style={styles.cameraButtons}>
               <TouchableOpacity
@@ -384,7 +386,7 @@ function MainForm({ navigation }) {
           <View style={styles.foodbox}>
             <View style={styles.section}>
               <Text style={styles.sectionTitle}>오늘 먹은 음식</Text>
-              <Text>오늘 먹은 음식 한번에 보기</Text>
+              <Text style={{ fontFamily: "BMHANNAPro" }}>오늘 먹은 음식 한번에 보기</Text>
             </View>
             <ScrollView
               style={styles.foodList}
@@ -412,7 +414,7 @@ function MainForm({ navigation }) {
             <View style={styles.chart}>
               <View style={styles.section}>
                 <Text style={styles.sectionTitle}>일일 영양성분</Text>
-                <Text>누적 영양성분 확인</Text>
+                <Text style={{ fontFamily: "BMHANNAPro" }}>누적 영양성분 확인</Text>
               </View>
               <View style={{ marginRight: 10 }}>
                 <BarChart
@@ -503,7 +505,7 @@ function MainForm({ navigation }) {
           </View>
         </View>
       </ScrollView>
-    </SafeAreaView>
+    </SafeAreaView >
   );
 }
 
@@ -512,17 +514,20 @@ const styles = StyleSheet.create({
     width: "100%",
     flex: 1,
     paddingTop: 10,
+
   },
   header: {
     marginBottom: 20,
     justifyContent: "center",
     width: "85%",
     height: 100,
+
   },
   headerText: {
     fontSize: 20,
     marginBottom: 10,
     fontWeight: "bold",
+    fontFamily: "BMHANNAPro",
   },
   section: {
     width: "90%",
@@ -533,6 +538,7 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: "bold",
     marginBottom: 5,
+    fontFamily: "BMHANNAPro",
   },
   cameraButtons: {
     flexDirection: "row",
@@ -547,7 +553,7 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     justifyContent: "center",
     alignItems: "center",
-
+    fontFamily: "BMHANNAPro",
     fontWeight: "bold",
     // borderColor: theme.grey,
   },
@@ -569,7 +575,7 @@ const styles = StyleSheet.create({
     marginTop: 8,
     fontSize: 16,
     textAlign: "center",
-    fontFamily: "BMHANNAPro",
+    fontFamily: "BMHANNAPro"
   },
   foodList: {
     height: 170,
@@ -611,9 +617,11 @@ const styles = StyleSheet.create({
   foodName: {
     fontSize: 18,
     fontWeight: "bold",
+    fontFamily: "BMHANNAPro",
   },
   foodKcal: {
     fontSize: 16,
+    fontFamily: "BMHANNAPro"
   },
   chart: {
     backgroundColor: "#f4f3ee",

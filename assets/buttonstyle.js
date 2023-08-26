@@ -21,6 +21,7 @@ export const btntheme = StyleSheet.create({
     backgroundColor: theme.dbButton,
   }
   , buttonText: {
+    fontFamily: "BMHANNAPro",
     width: "100%",
     color: "black",
     fontSize: 15,

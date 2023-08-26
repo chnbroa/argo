@@ -50,13 +50,13 @@ function Chart({ navigation }) {
               marginBottom: 10
             }}>
             {renderDot('#8ECDFB')}
-            <Text style={{ color: 'black', fontWeight: 'bold' }}>소비 칼로리 : {dbPercentNutrition.kcal}%</Text>
+            <Text style={{ color: 'black', fontWeight: 'bold', fontFamily: "BMHANNAPro" }}>소비 칼로리 : {dbPercentNutrition.kcal}%</Text>
           </View>
 
           <View
             style={{ flexDirection: 'row', alignItems: 'center', width: 150 }}>
             {renderDot('#FFA07E')}
-            <Text style={{ color: 'black', fontWeight: 'bold' }}>남은 칼로리:  {Math.round((100 - dbPercentNutrition.kcal) * 10) / 10}%</Text>
+            <Text style={{ color: 'black', fontWeight: 'bold', fontFamily: "BMHANNAPro" }}>남은 칼로리:  {Math.round((100 - dbPercentNutrition.kcal) * 10) / 10}%</Text>
           </View>
 
 
@@ -201,7 +201,7 @@ function Chart({ navigation }) {
           borderRadius: 20,
           backgroundColor: '#ffffff',
         }}>
-        <Text style={{ color: 'black', fontSize: 20, fontWeight: 'bold' }}>
+        <Text style={{ color: 'black', fontSize: 20, fontWeight: 'bold', fontFamily: "BMHANNAPro" }}>
           누적 영양 성분
         </Text>
         <View style={{ padding: 20, alignItems: 'center' }}>
