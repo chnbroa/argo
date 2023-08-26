@@ -100,12 +100,13 @@ const styles = StyleSheet.create({
   mainText: {
     marginLeft: 10,
     fontSize: 30,
+    fontFamily: "BMHANNAPro",
     fontWeight: "400",
   },
   inputBox: {
     width: "80%",
   },
-  inputText: { fontSize: 15, marginLeft: 15 },
+  inputText: { fontFamily: "BMHANNAPro", fontSize: 15, marginLeft: 15 },
   input: {
     flexDirection: "row",
     backgroundColor: "white",
@@ -114,5 +115,6 @@ const styles = StyleSheet.create({
     borderRadius: 15,
     marginTop: 10,
     fontSize: 15,
+    fontFamily: "BMHANNAPro",
   },
 });

@@ -15,10 +15,8 @@ import SubChat from "./pages/SubChat";
 import CameraForm from "./pages/CameraForm";
 import Result from "./pages/Result";
 import MaterialForm from "./pages/MaterialForm";
-import Chat from "./pages/Chat";
 import Chart from "./pages/Chart";
 import useCachedResources from "./pages/useCachedResources";
-
 
 const Stack = createNativeStackNavigator();
 
@@ -27,7 +25,7 @@ export default function App() {
 
   if (isLoaded) {
     return (
-      <NavigationContainer >
+      <NavigationContainer>
         <StatusBar style="black" />
         <Stack.Navigator initialRouteName="LoginForm">
           <Stack.Screen
@@ -86,27 +84,20 @@ export default function App() {
           />
 
           <Stack.Screen
-            name="Chat"
-            options={{ headerShown: true, title: "인공지능" }}
-            component={Chat}
-          />
-
-          <Stack.Screen
             name="Chart"
             options={{ headerShown: false }}
             component={Chart}
           />
           <Stack.Screen
             name="MainChat"
-            options={{ headerShown: false }}
+            options={{ headerShown: true, title: "내 손안에 영양사" }}
             component={MainChat}
           />
           <Stack.Screen
             name="SubChat"
-            options={{ headerShown: false }}
+            options={{ headerShown: true, title: "내 손안에 의사" }}
             component={SubChat}
           />
-
         </Stack.Navigator>
       </NavigationContainer>
     );
@@ -115,6 +106,4 @@ export default function App() {
   }
 }
 
-const styles = StyleSheet.create(
-
-);
+const styles = StyleSheet.create();

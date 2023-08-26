@@ -90,7 +90,7 @@ function Register4({ navigation }) {
             <View key={index} style={styles.inputContainer}>
               <TextInput
                 style={styles.input}
-                placeholder={`Input #${index + 1}`}
+                placeholder={`혐오식품 ${index + 1}`}
                 value={field.value}
                 onChangeText={(text) => handleInputChange(text, index)}
               />
@@ -122,13 +122,14 @@ const styles = StyleSheet.create({
   mainText: {
     marginLeft: 10,
     fontSize: 30,
+    fontFamily: "BMHANNAPro",
     fontWeight: "400",
   },
   inputBox: {
     width: "80%",
     flex: 8,
   },
-  inputText: { fontSize: 15, marginLeft: 15 },
+  inputText: { fontFamily: "BMHANNAPro", fontSize: 15, marginLeft: 15 },
   input: {
     flexDirection: "row",
     backgroundColor: "white",
@@ -137,5 +138,6 @@ const styles = StyleSheet.create({
     borderRadius: 15,
     marginTop: 10,
     fontSize: 15,
+    fontFamily: "BMHANNAPro",
   },
 });

@@ -132,6 +132,7 @@ const styles = StyleSheet.create({
   mainText: {
     marginLeft: 10,
     fontSize: 30,
+    fontFamily: "BMHANNAPro",
     fontWeight: "400",
   },
   checkboxRow: {
@@ -142,10 +143,11 @@ const styles = StyleSheet.create({
   check: {
     flex: 1,
     fontSize: 50,
+    fontFamily: "BMHANNAPro",
     width: "100%",
   },
   inputBox: {
     width: "80%",
   },
-  inputText: { fontSize: 20, marginLeft: 15 },
+  inputText: { fontFamily: "BMHANNAPro", fontSize: 20, marginLeft: 15 },
 });

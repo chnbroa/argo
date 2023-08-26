@@ -1,12 +1,7 @@
-
 import { StyleSheet, Text, TextInput, View, Image } from "react-native";
 import ButtonComponent from "../components/ButtonComponent";
 
-
-
-
 function Register1({ navigation }) {
-
   const info = {
     name: "",
     age: 0,
@@ -59,6 +54,7 @@ function Register1({ navigation }) {
 export default Register1;
 const styles = StyleSheet.create({
   mainTitle: {
+    fontFamily: "BMHANNAPro",
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
@@ -66,14 +62,15 @@ const styles = StyleSheet.create({
     flex: 2,
   },
   mainText: {
+    fontFamily: "BMHANNAPro",
     marginLeft: 10,
     fontSize: 30,
-    fontWeight: "400",
+    fontWeight: "200",
   },
   inputBox: {
     width: "80%",
   },
-  inputText: { fontSize: 15, marginLeft: 15 },
+  inputText: { fontFamily: "BMHANNAPro", fontSize: 15, marginLeft: 15 },
   input: {
     flexDirection: "row",
     backgroundColor: "white",
@@ -82,5 +79,6 @@ const styles = StyleSheet.create({
     borderRadius: 15,
     marginTop: 10,
     fontSize: 15,
+    fontFamily: "BMHANNAPro",
   },
 });

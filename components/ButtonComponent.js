@@ -25,6 +25,7 @@ const styles = StyleSheet.create({
     width: "80%",
     color: "black",
     fontSize: 15,
+    fontFamily: "BMHANNAPro",
     fontWeight: "400",
     textAlign: "center",
   },

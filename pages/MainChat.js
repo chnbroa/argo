@@ -207,6 +207,7 @@ const styles = StyleSheet.create({
   mainText: {
     marginLeft: 10,
     fontSize: 30,
+    fontFamily: "BMHANNAPro",
     fontWeight: "400",
   },
   inputBox: {
@@ -218,13 +219,14 @@ const styles = StyleSheet.create({
     borderRadius: 15,
     backgroundColor: "white",
   },
-  inputText: { fontSize: 15, marginLeft: 15 },
+  inputText: { fontFamily: "BMHANNAPro", fontSize: 15, marginLeft: 15 },
   input: {
     flex: 6,
     flexDirection: "row",
     paddingVertical: 2,
     paddingHorizontal: 20,
     fontSize: 15,
+    fontFamily: "BMHANNAPro",
   },
   send: {
     flex: 1,
@@ -250,6 +252,7 @@ const styles = StyleSheet.create({
   },
   initMessage: {
     fontSize: 15,
+    fontFamily: "BMHANNAPro",
   },
   chatBox: {
     backgroundColor: "white",
@@ -265,7 +268,7 @@ const styles = StyleSheet.create({
     backgroundColor: "lightblue",
     alignSelf: "flex-end",
   },
-  botHead: { marginHorizontal: 5, fontSize: 16 },
+  botHead: { marginHorizontal: 5, fontSize: 16, fontFamily: "BMHANNAPro" },
   botMessage: {
     backgroundColor: "lightgray",
     alignSelf: "flex-start",
@@ -280,5 +283,6 @@ const styles = StyleSheet.create({
   },
   messageText: {
     fontSize: 16,
+    fontFamily: "BMHANNAPro",
   },
 });
