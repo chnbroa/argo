@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, TextInput } from "react-native";
+import { StyleSheet, Text, View, TextInput, Image } from "react-native";
 import ButtonComponent from "../components/ButtonComponent";
 
 function LoginForm({ navigation }) {
@@ -71,6 +71,12 @@ function LoginForm({ navigation }) {
 
   return (
     <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
+      <View style={{ marginBottom: 30 }}>
+        <Image
+          source={require("../assets/logo.png")}
+          style={{ width: 150, height: 150 }}
+        ></Image>
+      </View>
       <View style={styles.inputBox}>
         <Text style={styles.inputText}>아이디</Text>
         <TextInput placeholder="아이디" style={styles.input}></TextInput>
