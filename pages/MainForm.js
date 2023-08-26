@@ -222,13 +222,13 @@ function MainForm({ navigation }) {
           })
           .then((data) => {
             //저장
-            // saveData("userProfile", data);
+            saveData("userProfile", data);
             setUserProfile(data);
           })
           .catch((error) => {
             console.error("Error fetching user data:", error);
           });
-        saveData("userProfile", userProfile);
+        // saveData("userProfile", userProfile);
         // getData("userProfile").then(data => setUserProfile(data));
 
         //todayfood

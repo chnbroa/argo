@@ -22,12 +22,9 @@ function SubChat({ navigation }) {
   const [inputMessage, setInputMessage] = useState("");
   const [init, setInit] = useState(true);
   const initMessage = [
-    "뭐 먹을지 고민 중이야",
-    "오늘 좀 많이 먹었나?",
-    "안녕?",
-    "안녕?",
-    "안녕?",
-    "안녕?",
+    "당뇨병 에방방법 알려줘",
+    "당뇨병 개선방법 알려줘",
+    "오늘 먹을거에 대해 알려줘",
   ];
   const handleSendMessage = async () => {
     if (inputMessage.trim() === "") return;

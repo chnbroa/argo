@@ -49,7 +49,7 @@ function MainChat({ navigation }) {
             Authorization: "Bearer " + process.env.EXPO_PUBLIC_GPT_KEY,
           },
           body: JSON.stringify({
-            model: "gpt-3.5-turbo",
+            model: "gpt-4",
             messages: newMessages, // 수정된 메시지 배열 전송
             temperature: 1,
             max_tokens: 512,
@@ -91,19 +91,25 @@ function MainChat({ navigation }) {
       };
       setMessages([
         {
-          content: `If the user tells me the food I ate today, calories, nutrients, and the standard of daily video intake, I need to recommend the next food I will eat accordingly. Also, please recommend a diet according to the current time
-          The five conditions must be determined comprehensively. [Except for allergies and foods you don't like,If the nutritional intake standard is exceeded, low-nutritive food is recommended if the nutrient content is insufficient, high-nutritive food is recommended, and all nutrients are comprehensively determined]
-          First, I'll tell you the standard of video intake per day [{"kcal": 1500.0, "protein": 55.0, "fat": 54.0, "glucide": 324.0, "sugar": 100.0, "dietaryfiber": 25.0, "calcium": 700.0, "Iron": 12.0, "magnesium": 315, "caffeine": 0, "Potassium": 3500.0, "Natrium": 2000.0, "vitamin": 0.0, "cholesterol": 300.0, "fatty": 0.0, "transfat": 0}]
-          Then I'll tell you what the user ate today. ${info.foods} And the total calories and nutrients that I ate today are
-          ${info.nutrition} It's ${info.time} now Allergy is${info.allergy}, food I hate is${info.hate}
-          From now on, only when the user asks about the diet, "Only list with the diet and reason and recommend 3 or 4 of them" and "Unconditionally print it within 200 characters." Print out in Korean`,
           role: "system",
+          content: `You're now a diet chatbot
+          Nutritional intake criteria: {"kcal": 1500.0, "protein": 55.0, "fat": 54.0, "glucide": 324.0, "sugar": 100.0, "dietaryfiber": 25.0, "calcium": 700.0, "Iron": 12.0, "magnesium": 315, "caffeine": 0, "Potassium": 3500.0, "Natrium": 2000.0, "vitamin": 0.0, "cholesterol": 300.0, "fatty": 0.0, "transfat": 0},
+          Food that the user ate: ${info.foods}, Allergy:${info.allergy} , hate foods: ${info.hate} ,Total Calories and Nutritional Ingredients: ${info.nutrition},the present time: ${info.time}
+          You have to make a comprehensive list including all conditions. The conditions are[1.unconditionally Never put food that contains the word ${info.foods},${info.allergy},${info.hate} on the list,2.If you exceed the nutritional intake standard, I recommend foods with less nutrients,3.If there is a lack of nutrients compared to the nutrition standards, I recommend foods with a lot of nutrients,4.Recommend foods that users will like based on the food they eat, but do not recommend foods that they eat,5.Comprehensively judge all nutrients ,6.Output diet according to current time ,7.Do not print any other text, just print the list] 
+          If any of the above conditions are not observed, the user's life is in danger. Please judge it accurately
+          Excluded foods should be excluded from the following output format
+          Print out up to 200 characters
+          Do not print any other text, just print the list and reason
+          Do not include exclusions in the list
+          When you ask about the menu, please print out three to four menus
+          Print out in Korean`,
         },
       ]);
     };
+
     fetchData();
   }, []);
-
+  console.log(messages);
   useEffect(() => {
     handleSendMessage();
   }, [init]);
