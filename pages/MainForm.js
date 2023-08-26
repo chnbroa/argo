@@ -336,8 +336,9 @@ function MainForm({ navigation }) {
         <View style={{ alignItems: "center" }}>
           <View style={styles.header}>
             <Text style={styles.headerText}>
-              Hello,
-              <Text style={{ fontSize: 26 }}>{userProfile.name}!</Text>!
+              <Text style={{ fontSize: 26 }}>
+                {userProfile.name}님 안녕하세요.
+              </Text>
             </Text>
             <Text style={styles.headerText}>{welcome}</Text>
           </View>
@@ -380,13 +381,12 @@ function MainForm({ navigation }) {
             </View>
           </View>
 
-          <View style={{}}>
-            <View style={styles.section}>
-              <Text style={styles.sectionTitle}>오늘 먹은 음식</Text>
-              <Text>오늘 먹은 음식 한번에 보기</Text>
-            </View>
-
+          <View style={{ marginTop: 20 }}>
             <View style={styles.foodbox}>
+              <View style={styles.section}>
+                <Text style={styles.sectionTitle}>오늘 먹은 음식</Text>
+                <Text>오늘 먹은 음식 한번에 보기</Text>
+              </View>
               <ScrollView
                 style={styles.foodList}
                 showsVerticalScrollIndicator={false}
@@ -410,12 +410,12 @@ function MainForm({ navigation }) {
             </View>
           </View>
 
-          <View style={styles.section}>
-            <Text style={styles.sectionTitle}>일일 영양성분</Text>
-            <Text>누적 영양성분 확인</Text>
-          </View>
-          <View style={{ width: "90%" }}>
+          <View style={{ width: "90%", marginTop: 20 }}>
             <View style={styles.chart}>
+              <View style={styles.section}>
+                <Text style={styles.sectionTitle}>일일 영양성분</Text>
+                <Text>누적 영양성분 확인</Text>
+              </View>
               <View style={{ marginRight: 10 }}>
                 <BarChart
                   isAnimated
@@ -484,8 +484,9 @@ const styles = StyleSheet.create({
   },
   header: {
     marginBottom: 20,
-    justifyContent: "flex-start",
-    width: "100%",
+    justifyContent: "center",
+    width: "85%",
+    height: 100,
   },
   headerText: {
     fontSize: 20,
@@ -494,8 +495,8 @@ const styles = StyleSheet.create({
   },
   section: {
     width: "90%",
-    marginTop: 10,
-    marginBottom: 10,
+    marginVertical: 15,
+    marginHorizontal: 15,
   },
   sectionTitle: {
     fontSize: 18,
@@ -550,7 +551,7 @@ const styles = StyleSheet.create({
   foodbox: {
     backgroundColor: "#f4f3ee",
     width: "90%",
-    height: 185,
+    height: 250,
     shadowColor: "#000",
     shadowOffset: {
       width: 0,
@@ -585,7 +586,7 @@ const styles = StyleSheet.create({
   chart: {
     backgroundColor: "#f4f3ee",
     width: "100%",
-    height: 280,
+    height: 370,
     shadowColor: "#000",
     shadowOffset: {
       width: 0,
