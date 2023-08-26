@@ -242,7 +242,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "center",
-    backgroundColor: theme.buttonColor,
+    backgroundColor: theme.dbButton,
     paddingVertical: 10,
     paddingHorizontal: 15,
     borderRadius: 15,
