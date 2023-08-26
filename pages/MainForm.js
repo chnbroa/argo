@@ -381,33 +381,31 @@ function MainForm({ navigation }) {
             </View>
           </View>
 
-          <View style={{ marginTop: 20 }}>
-            <View style={styles.foodbox}>
-              <View style={styles.section}>
-                <Text style={styles.sectionTitle}>오늘 먹은 음식</Text>
-                <Text>오늘 먹은 음식 한번에 보기</Text>
-              </View>
-              <ScrollView
-                style={styles.foodList}
-                showsVerticalScrollIndicator={false}
-              >
-                <View style={styles.scrollViewContent}>
-                  {foods.map((food, index) => (
-                    <TouchableOpacity key={index} style={styles.foodSlide}>
-                      <Text style={styles.foodName}>
-                        {" "}
-                        {food.name.length > 9
-                          ? `${food.name.slice(0, 9)}...`
-                          : food.name}
-                      </Text>
-                      <Text style={styles.foodKcal}>
-                        {Math.round(food.nutrition.kcal * 10) / 10} kcal
-                      </Text>
-                    </TouchableOpacity>
-                  ))}
-                </View>
-              </ScrollView>
+          <View style={styles.foodbox}>
+            <View style={styles.section}>
+              <Text style={styles.sectionTitle}>오늘 먹은 음식</Text>
+              <Text>오늘 먹은 음식 한번에 보기</Text>
             </View>
+            <ScrollView
+              style={styles.foodList}
+              showsVerticalScrollIndicator={false}
+            >
+              <View style={styles.scrollViewContent}>
+                {foods.map((food, index) => (
+                  <TouchableOpacity key={index} style={styles.foodSlide}>
+                    <Text style={styles.foodName}>
+                      {" "}
+                      {food.name.length > 9
+                        ? `${food.name.slice(0, 9)}...`
+                        : food.name}
+                    </Text>
+                    <Text style={styles.foodKcal}>
+                      {Math.round(food.nutrition.kcal * 10) / 10} kcal
+                    </Text>
+                  </TouchableOpacity>
+                ))}
+              </View>
+            </ScrollView>
           </View>
 
           <View style={{ width: "90%", marginTop: 20 }}>
@@ -549,6 +547,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   foodbox: {
+    marginTop: 20,
     backgroundColor: "#f4f3ee",
     width: "90%",
     height: 250,
