@@ -12,7 +12,6 @@ import {
 import { Camera } from "expo-camera";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import ButtonComponent from "../components/ButtonComponent";
-
 import { getData, saveData } from "../modules/storagy-service";
 import { BarChart } from "react-native-gifted-charts";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
@@ -20,7 +19,6 @@ import { Octicons } from "@expo/vector-icons";
 import { SafeAreaView } from "react-native";
 import { theme } from "../assets/colors";
 import { btntheme } from "../assets/buttonstyle";
-
 function MainForm({ navigation }) {
   const [userProfile, setUserProfile] = useState({
     name: "",
@@ -348,7 +346,7 @@ function MainForm({ navigation }) {
           <View style={styles.searchbox}>
             <View style={styles.section}>
               <Text style={styles.sectionTitle}>검색하기</Text>
-              <Text style={{ fontFamily: "BMHANNAPro" }}>사진을 통한간편한 인식</Text>
+              <Text>사진을 통한간편한 인식</Text>
             </View>
             <View style={styles.cameraButtons}>
               <TouchableOpacity
@@ -386,7 +384,7 @@ function MainForm({ navigation }) {
           <View style={styles.foodbox}>
             <View style={styles.section}>
               <Text style={styles.sectionTitle}>오늘 먹은 음식</Text>
-              <Text style={{ fontFamily: "BMHANNAPro" }}>오늘 먹은 음식 한번에 보기</Text>
+              <Text>오늘 먹은 음식 한번에 보기</Text>
             </View>
             <ScrollView
               style={styles.foodList}
@@ -414,7 +412,7 @@ function MainForm({ navigation }) {
             <View style={styles.chart}>
               <View style={styles.section}>
                 <Text style={styles.sectionTitle}>일일 영양성분</Text>
-                <Text style={{ fontFamily: "BMHANNAPro" }}>누적 영양성분 확인</Text>
+                <Text>누적 영양성분 확인</Text>
               </View>
               <View style={{ marginRight: 10 }}>
                 <BarChart
@@ -431,60 +429,54 @@ function MainForm({ navigation }) {
                   onPress={(item, index) => console.log("item", item)}
                   data={chartData}
                   yAxisLabelTexts={[" ", "50", "100"]}
-                // 상단 표기
-                // renderTooltip={(item, index) => {
-                //   return (
-                //     <View
-                //       style={{
-                //         marginBottom: 20,
-                //         marginLeft: -6,
-                //         backgroundColor: '#ffcefe',
-                //         paddingHorizontal: 6,
-                //         paddingVertical: 4,
-                //         borderRadius: 4,
-                //       }}>
-                //       <Text>{item.value}</Text>
-                //     </View>
-                //   );
+                  // 상단 표기
+                  // renderTooltip={(item, index) => {
+                  //   return (
+                  //     <View
+                  //       style={{
+                  //         marginBottom: 20,
+                  //         marginLeft: -6,
+                  //         backgroundColor: '#ffcefe',
+                  //         paddingHorizontal: 6,
+                  //         paddingVertical: 4,
+                  //         borderRadius: 4,
+                  //       }}>
+                  //       <Text>{item.value}</Text>
+                  //     </View>
+                  //   );
 
-                // }}
+                  // }}
                 />
               </View>
             </View>
-
 
             <TouchableOpacity
               style={btntheme.boderBtn}
               onPress={() => navigation.navigate("Chart")}
             >
               <View>
-                <Text style={btntheme.buttonText}>
-                  누적 영양소
-                </Text>
+                <Text style={btntheme.buttonText}>누적 영양소</Text>
               </View>
             </TouchableOpacity>
-
-
-
-
-
           </View>
 
-
-
           <View style={styles.section}>
-            <Text style={styles.sectionTitle}>오늘의 레시피</Text>
-            <Text>인공지능 챗봇으로 레시피제작</Text>
-            <View style={{ flexDirection: "row", justifyContent: "space-around", width: "100%", marginTop: 10 }}>
-
+            <Text style={styles.sectionTitle}>인공지능 챗봇 솔루션</Text>
+            <Text>전문가 특화 챗봇 솔루션 상담</Text>
+            <View
+              style={{
+                flexDirection: "row",
+                justifyContent: "space-around",
+                width: "100%",
+                marginTop: 10,
+              }}
+            >
               <TouchableOpacity
                 style={[btntheme.boderBtn, { width: "45%" }]}
                 onPress={() => navigation.navigate("MainChat")}
               >
                 <View>
-                  <Text style={btntheme.buttonText}>
-                    메인챗봇
-                  </Text>
+                  <Text style={btntheme.buttonText}>영양사 챗봇과 상담</Text>
                 </View>
               </TouchableOpacity>
 
@@ -494,18 +486,14 @@ function MainForm({ navigation }) {
                 onPress={() => navigation.navigate("SubChat")}
               >
                 <View>
-                  <Text style={btntheme.buttonText}>
-                    서브챗봇
-                  </Text>
+                  <Text style={btntheme.buttonText}>의사 챗봇과 상담</Text>
                 </View>
               </TouchableOpacity>
-
             </View>
-
           </View>
         </View>
       </ScrollView>
-    </SafeAreaView >
+    </SafeAreaView>
   );
 }
 
@@ -514,20 +502,18 @@ const styles = StyleSheet.create({
     width: "100%",
     flex: 1,
     paddingTop: 10,
-
+    fontFamily: "BMHANNAPro",
   },
   header: {
     marginBottom: 20,
     justifyContent: "center",
     width: "85%",
     height: 100,
-
   },
   headerText: {
     fontSize: 20,
     marginBottom: 10,
     fontWeight: "bold",
-    fontFamily: "BMHANNAPro",
   },
   section: {
     width: "90%",
@@ -538,7 +524,6 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: "bold",
     marginBottom: 5,
-    fontFamily: "BMHANNAPro",
   },
   cameraButtons: {
     flexDirection: "row",
@@ -553,7 +538,7 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     justifyContent: "center",
     alignItems: "center",
-    fontFamily: "BMHANNAPro",
+
     fontWeight: "bold",
     // borderColor: theme.grey,
   },
@@ -575,7 +560,7 @@ const styles = StyleSheet.create({
     marginTop: 8,
     fontSize: 16,
     textAlign: "center",
-    fontFamily: "BMHANNAPro"
+    fontFamily: "BMHANNAPro",
   },
   foodList: {
     height: 170,
@@ -617,11 +602,9 @@ const styles = StyleSheet.create({
   foodName: {
     fontSize: 18,
     fontWeight: "bold",
-    fontFamily: "BMHANNAPro",
   },
   foodKcal: {
     fontSize: 16,
-    fontFamily: "BMHANNAPro"
   },
   chart: {
     backgroundColor: "#f4f3ee",
